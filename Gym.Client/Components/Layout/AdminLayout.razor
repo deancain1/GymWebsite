@@ -1,0 +1,133 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
+@inject CustomAuthStateProvider AuthStateProvider
+
+@if (isAdmin)
+{
+    <MudThemeProvider />
+    <MudPopoverProvider />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+    <MudLayout>
+
+        <MudAppBar Elevation="4" Class="bg-dark text-white ">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" />
+            <MudText Typo="Typo.subtitle2" Style="color: white; font-weight: bold;">
+                Power Gym
+            </MudText>
+            <MudSpacer />
+            <div class=" d-flex gap-3">
+                <MudButton Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@OpenScannerDialog">
+                    Scan QR
+                </MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Warning" Size="Size.Small" OnClick="@Logout">
+                    Logout
+                </MudButton>
+            </div>
+        </MudAppBar>
+
+        <MudDrawer @bind-Open="_drawerOpen" Elevation="2" Class=" bg-[#661F1F] text-white">
+            <div class="p-4 border-b border-white/20">
+                <div class="flex items-center gap-2 mb-1">
+                    <MudIcon Icon="@Icons.Material.Filled.FitnessCenter" />
+                    <MudText Typo="Typo.h6" Class="font-bold">
+                        Welcome
+                    </MudText>
+                </div>
+                <MudText Typo="Typo.subtitle2" Class="text-white">
+                    @fullName
+                </MudText>
+            </div>
+            <MudNavMenu>
+                <MudNavLink Href="/adminhome"
+                            Match="NavLinkMatch.All"
+                            Class="flex items-center gap-3 px-4 py-2 rounded-lg text-white"
+                            ActiveClass="!text-white">
+                    <MudIcon Icon="@Icons.Material.Filled.Dashboard" Class="text-white" />
+                    <span class="font-medium">Dashboard</span>
+                </MudNavLink>
+
+
+                <MudNavLink Href="/memberships"
+                            Match="NavLinkMatch.Prefix"
+                            Class="flex items-center gap-3 px-4 py-2 rounded-lg text-white"
+                            ActiveClass="!text-white">
+                    <MudIcon Icon="@Icons.Material.Filled.FitnessCenter" Class="text-white" />
+                    <span class="font-medium">Track Membership</span>
+                </MudNavLink>
+
+
+                <MudNavLink Href="/attendance"
+                            Match="NavLinkMatch.Prefix"
+                            Class="flex items-center gap-3 px-4 py-2 rounded-lg text-white"
+                            ActiveClass="!text-white">
+                    <MudIcon Icon="@Icons.Material.Filled.Schedule" Class="text-whites" />
+                    <span class="font-medium">Attendance History</span>
+                </MudNavLink>
+
+                <MudNavGroup Title="Manage Users"
+                             Expanded="true"
+                             Icon="@Icons.Material.Filled.People"
+                             Class="text-white font-semibold px-2 py-1 mt-4">
+
+                    <MudNavLink Href="/users"
+                                Match="NavLinkMatch.Prefix"
+                                Class="flex items-center gap-3 px-4 py-2 rounded-lg text-white"
+                                ActiveClass="!text-white">
+                        <MudIcon Icon="@Icons.Material.Filled.Person" Class="text-white" />
+                        <span class="font-medium">Users</span>
+                    </MudNavLink>
+
+                    <MudNavLink Href="/admins"
+                                Match="NavLinkMatch.Prefix"
+                                Class="flex items-center gap-3 px-4 py-2 rounded-lg text-white"
+                                ActiveClass="!text-white">
+                        <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" Class="text-white" />
+                        <span class="font-medium">Admins</span>
+                    </MudNavLink>
+
+                </MudNavGroup>
+            </MudNavMenu>
+        </MudDrawer>
+        <MudMainContent>
+            @Body
+        </MudMainContent>
+
+    </MudLayout>
+}
+else
+{
+    <MudText> YOU ARE NOT AUTHORIZED</MudText>
+}
+
+@code {
+    [Inject] IDialogService DialogService { get; set; }
+
+
+    bool _drawerOpen = true;
+    private bool _initialized;
+    private string? fullName;
+    void DrawerToggle() => _drawerOpen = !_drawerOpen;
+    private bool isAdmin;
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        fullName = user.FindFirst("FullName")?.Value ?? "Admin";
+        isAdmin = user.IsInRole("Admin");
+    }
+    private async Task Logout()
+    {
+        await LocalStorage.RemoveItemAsync("authToken");
+        await LocalStorage.RemoveItemAsync("userRole");
+        Navigation.NavigateTo("/", true);
+    }
+    
+    private async Task OpenScannerDialog()
+    {
+        var options = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
+        await DialogService.ShowAsync<ScannerDialog>("QR Scanner", options);
+    }
+    
+}

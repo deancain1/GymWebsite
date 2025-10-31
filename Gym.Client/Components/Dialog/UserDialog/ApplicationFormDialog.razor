@@ -1,0 +1,44 @@
+﻿@using System.Security.Claims
+@inherits ApplicationFormBase
+
+<MudDialog>
+    <DialogContent>
+        <h3 class="text-xl font-bold mb-4 text-center">Apply for Membership</h3>
+
+
+        <MudTextField Variant="Variant.Outlined" Label="Full Name" @bind-Value="member.FullName" FullWidth="true" Class="mb-3" />
+        <MudTextField Variant="Variant.Outlined" Label="Email" @bind-Value="member.Email" FullWidth="true" Class="mb-3" />
+        <MudTextField Variant="Variant.Outlined" Label="Phone" @bind-Value="member.PhoneNumber" FullWidth="true" Class="mb-3" />
+        <MudTextField Variant="Variant.Outlined" Label="Address" @bind-Value="member.Address" FullWidth="true" Class="mb-3" />
+
+
+        <MudSelect Label="Membership Type" @bind-Value="member.Plan" Variant="Variant.Outlined" FullWidth="true" Class="mb-3">
+            <MudSelectItem Value=@("Standard")>Standard</MudSelectItem>
+            <MudSelectItem Value=@("Premium")>Premium</MudSelectItem>
+            <MudSelectItem Value=@("VIP")>VIP</MudSelectItem>
+            <MudSelectItem Value=@("Student")>Student</MudSelectItem>
+        </MudSelect>
+
+
+        <MudSelect Label="Duration (Months)" @bind-Value="member.DurationMonths" Variant="Variant.Outlined" FullWidth="true" Class="mb-3">
+            <MudSelectItem Value="1">1 Month</MudSelectItem>
+            <MudSelectItem Value="3">3 Months</MudSelectItem>
+            <MudSelectItem Value="6">6 Months</MudSelectItem>
+            <MudSelectItem Value="12">12 Months</MudSelectItem>
+        </MudSelect>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton StartIcon="@Icons.Material.Filled.Close"
+                   OnClick="Cancel">
+            Cancel
+        </MudButton>
+        <MudButton Color="Color.Warning"
+                   StartIcon="@Icons.Material.Filled.Check"
+                   Variant="Variant.Filled"
+                   OnClick="CreateMembership">
+            Submit
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+}

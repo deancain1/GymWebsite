@@ -1,0 +1,136 @@
+﻿@page "/adminhome"
+@layout AdminLayout
+@inherits AdminHomeBase
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4 mx-3">
+
+    <MudPaper Elevation="3"
+              Style="background-color: slateblue; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Class="flex items-center justify-center py-4 rounded-2xl">
+        <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
+                    border-4 border-[#66BB6A] shadow-[0_8px_20px_rgba(102,187,106,0.6)]">
+            <MudIcon Icon="@Icons.Material.Filled.Group" Size=Size.Large Style="color:green;" />
+            <MudText Typo="Typo.h5" Class="font-bold mt-2 text-dark">@TotalUsers</MudText>
+            <MudText Typo="Typo.subtitle2" Class="text-dark">Total Users</MudText>
+        </div>
+    </MudPaper>
+
+    <MudPaper Elevation="3"
+              Style="background-color: lightgreen; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Class="flex items-center justify-center py-4 rounded-2xl">
+        <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
+                    border-4 border-[#FFC107] shadow-[0_8px_20px_rgba(255,193,7,0.6)]">
+            <MudIcon Icon="@Icons.Material.Filled.CardMembership" Size=Size.Large Style="color:#FFEB3B;" />
+            <MudText Typo="Typo.h5" Class="font-bold mt-2 text-dark">@TotalMemberships</MudText>
+            <MudText Typo="Typo.subtitle2" Class="text-dark">Total Memberships</MudText>
+        </div>
+    </MudPaper>
+
+
+    <MudPaper Elevation="3"
+              Style="background-color: gold; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Class="flex items-center justify-center py-4 rounded-2xl">
+        <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
+                    border-4 border-[#7986CB] shadow-[0_8px_20px_rgba(92,107,192,0.6)]">
+            <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" Size=Size.Large Style="color:slateblue;" />
+            <MudText Typo="Typo.h5" Class="font-bold mt-2 text-dark">@TotalAdmins</MudText>
+            <MudText Typo="Typo.subtitle2" Class="text-dark">Total Admins</MudText>
+        </div>
+    </MudPaper>
+
+  
+    <MudPaper Elevation="3"
+              Style="background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Class="flex items-center justify-center py-4 rounded-2xl">
+        <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
+                    border-4 border-[darkred] shadow-[0_8px_20px_rgba(144,164,174,0.6)]">
+            <MudIcon Icon="@Icons.Material.Filled.EventAvailable" Size=Size.Large Style="color:black;" />
+            <MudText Typo="Typo.h5" Class="font-bold mt-2 text-dark">@Attendees</MudText>
+            <MudText Typo="Typo.subtitle2" Class="text-dark">Attendees Today</MudText>
+        </div>
+    </MudPaper>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mx-5">
+    <MudPaper Style="background-color:ghostwhite" Class="mt-6 p-4" Elevation="2">
+        <MudText Typo="Typo.h6" Class="flex justify-content-center gap-2 text-gray-800">
+            <MudIcon Class="mt-1" Icon="@Icons.Material.Filled.BarChart" Color="Color.Primary" />
+            Membership Chart
+        </MudText>
+        @if (_barSeries != null && _xAxisLabels.Length > 0)
+        {
+            <MudChart ChartType="ChartType.Bar"
+                      ChartSeries="@_barSeries"
+                      @bind-SelectedIndex="_index"
+                      XAxisLabels="@_xAxisLabels"
+                      Width="100%"
+                      Height="400"
+                      AxisChartOptions="_axisChartOptions">
+            </MudChart>
+        }
+        else
+        {
+            <div class="flex justify-center py-8">
+                <MudProgressCircular Indeterminate="true" Color="Color.Primary" />
+            </div>
+        }
+      <MudPaper>
+            <MudText Typo="Typo.h6" Class="flex justify-content-center mt-2 text-dark" >
+                Attendance Today
+                <MudIcon Class="mt-1" Icon="@Icons.Material.Filled.EventAvailable" Color="Color.Primary" />
+            </MudText>
+        <MudDataGrid T="AttendanceLogDTO" Items="@attendees" SortMode="@_sortMode">
+            <Columns>
+                <PropertyColumn Property="m => m.FullName" Title="Full Name" />
+                <PropertyColumn Property="m => m.ScanTime" Title="ScanTime" />  
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="AttendanceLogDTO" />
+            </PagerContent>
+        </MudDataGrid>
+        </MudPaper>
+    </MudPaper>
+
+
+    <MudPaper Class="mt-6 flex flex-col items-center py-5 gap-2 " Style="background-color:ghostwhite">
+
+        <MudText Typo="Typo.h6" Class="mt-2 text-dark">
+            <MudIcon Class="mb-1"  Icon="@Icons.Material.Filled.PieChart" Color="Color.Primary" />
+            Memberships Plan Distribution</MudText>
+        <MudChart ChartType="ChartType.Pie"
+                  InputData="@data"
+                  InputLabels="@labels"
+                  Width="300px"
+                  Height="300px" />
+
+       
+        <MudPaper Class="p-4" Elevation="3" Style="width: 100%; max-width: 600px;">
+            <MudText Typo="Typo.subtitle2" Class="mb-2 text-center font-bold">
+                Calendar - @CurrentMonth.ToString("MMMM yyyy")
+            </MudText>
+
+            <MudGrid Gutter="GutterSize.Small">
+               
+                @foreach (var day in DayNames)
+                {
+                    <MudItem xs="1">
+                        <MudText Typo="Typo.subtitle2" Class="text-center font-weight-bold">@day</MudText>
+                    </MudItem>
+                }
+
+            
+                @foreach (var date in CalendarDates)
+                {
+                    <MudItem xs="1">
+                        <MudPaper Class="p-2 text-center cursor-pointer"
+                                  Style="@GetDateStyle(date)"
+                                  Elevation="1">
+                            @date.Day
+                        </MudPaper>
+                    </MudItem>
+                }
+            </MudGrid>
+        </MudPaper>
+    </MudPaper>
+</div>
+
