@@ -1,4 +1,5 @@
 ﻿using Gym.Application.Commands.Attendance;
+using Gym.Application.DTOs;
 using Gym.Application.Queries.Attendance;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,12 @@ namespace Gym.WebApi.Controllers
             if (result == "Membership not found" || result == "Membership Expired")
                 return BadRequest(result);
 
+            return Ok(result);
+        }
+        [HttpGet("get-all-attendance")]
+        public async Task<ActionResult<List<AttendanceLogDTO>>> GetAllAttendance()
+        {
+            var result = await _mediator.Send(new GetAllAttendanceQuery());
             return Ok(result);
         }
         [HttpGet("today")]

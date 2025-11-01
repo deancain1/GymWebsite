@@ -13,11 +13,17 @@ namespace Gym.Client.Services
             _http = http;
           
         }
+        public async Task<List<AttendanceLogDTO>> GetAllAttendanceAsync()
+        {
+            return await _http.GetFromJsonAsync<List<AttendanceLogDTO>>("api/Attendance/get-all-attendance") ?? new();
+        }
+
         public async Task<List<AttendanceLogDTO>> GetCurrentAttendanceAsync()
         {  
             var response = await _http.GetFromJsonAsync<List<AttendanceLogDTO>>("api/Attendance/today")
                             ?? new List<AttendanceLogDTO>();
             return response;
         }
+
     }
 }

@@ -1,0 +1,45 @@
+﻿@page "/attendanceAdmin"
+@layout AdminLayout
+@inherits AttendanceBase
+
+<div>
+    <MudPaper Class="d-flex flex-wrap  align-center flex-grow-1 gap-4 py-3 px-5" Elevation="1">
+        <MudText Typo="Typo.h6"><strong> Attendance History</strong></MudText>
+
+        <MudItem xs="12" sm="6" md="1" lg="3">
+            <MudTextField T="string"
+                          Label="Search"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          Class="w-100" />
+        </MudItem>
+        <MudItem xs="12" sm="6" md="2" lg="3">
+            <MudDatePicker Label="Filter by Date"
+                           @bind-Date="selectedDate"
+                           DateFormat="MM/dd/yyyy"
+                           Variant="Variant.Outlined"
+                           Class="w-100"
+                           PickerVariant="PickerVariant.Inline" />
+
+        </MudItem>
+    </MudPaper>
+
+    <MudDataGrid T="AttendanceLogDTO"
+                  Items="@filteredAttendances"
+                 Class="mt-4">
+
+        <Columns>
+            <SelectColumn T="AttendanceLogDTO" />
+
+            <PropertyColumn Property="a => a.MemberID" Title="Member ID" />
+            <PropertyColumn Property="a => a.UserID" Title="User ID" />
+            <PropertyColumn Property="a => a.FullName" Title="Full Name" />
+            <PropertyColumn Property="a => a.FormattedScanTime" Title="Scan" />
+        </Columns>
+
+        <PagerContent>
+            <MudDataGridPager T="AttendanceLogDTO" />
+        </PagerContent>
+    </MudDataGrid>
+</div>

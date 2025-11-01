@@ -11,7 +11,7 @@
     <MudSnackbarProvider />
     <MudLayout>
 
-        <MudAppBar Elevation="4" Class="bg-dark text-white ">
+        <MudAppBar Elevation="4" Class="bg-[#661F1F] text-white ">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" />
             <MudText Typo="Typo.subtitle2" Style="color: white; font-weight: bold;">
                 Power Gym
@@ -27,7 +27,7 @@
             </div>
         </MudAppBar>
 
-        <MudDrawer @bind-Open="_drawerOpen" Elevation="2" Class=" bg-[#661F1F] text-white">
+        <MudDrawer @bind-Open="_drawerOpen" Elevation="2" Class=" bg-[#1A1919] text-white">
             <div class="p-4 border-b border-white/20">
                 <div class="flex items-center gap-2 mb-1">
                     <MudIcon Icon="@Icons.Material.Filled.FitnessCenter" />
@@ -58,7 +58,7 @@
                 </MudNavLink>
 
 
-                <MudNavLink Href="/attendance"
+                <MudNavLink Href="/attendanceAdmin"
                             Match="NavLinkMatch.Prefix"
                             Class="flex items-center gap-3 px-4 py-2 rounded-lg text-white"
                             ActiveClass="!text-white">

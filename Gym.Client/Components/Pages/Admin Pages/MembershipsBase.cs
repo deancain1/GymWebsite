@@ -1,12 +1,16 @@
 ﻿using Gym.Client.DTOs;
 using Gym.Client.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
+using static System.Net.WebRequestMethods;
 
 namespace Gym.Client.Components.Pages.Admin_Pages
 {
     public class MembershipsBase : ComponentBase
     {
+        [Inject] protected IJSRuntime JS { get; set; } = default!;
+        [Inject] protected HttpClient Http { get; set; } = default!;
         [Inject] protected IMembershipService _membershipService { get; set; } = default!;
         [Inject] protected ISnackbar Snackbar { get; set; } = default!;
 
@@ -53,6 +57,20 @@ namespace Gym.Client.Components.Pages.Admin_Pages
 
             await LoadMembers();
             selectedMembers.Clear();
+        }
+        protected async Task GenerateSelectedPdfsAsync()
+        {
+            foreach (var member in selectedMembers)
+            {
+                await JS.InvokeVoidAsync("generatePdf",
+                    member.FullName,
+                    member.Email,
+                    member.PhoneNumber,
+                    member.Status,
+                    member.AppliedDate.ToString("dd/MM/yyyy"),
+                    member.QRCode
+                );
+            }
         }
     }
 }
