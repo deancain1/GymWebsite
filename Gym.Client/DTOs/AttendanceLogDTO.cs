@@ -8,6 +8,6 @@
         public string UserID { get; set; }
         public DateTime ScanTime { get; set; }
         public string Status { get; set; }
-        public string FormattedScanTime => ScanTime.ToString("MM/dd/yyyy hh:mm tt");
+    
     }
 }

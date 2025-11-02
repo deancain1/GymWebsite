@@ -23,10 +23,10 @@ namespace Gym.Application.Commands.Attendance
             if (membership == null)
                 return "Membership not found";
 
-            if (membership.ExpirationDate < DateTime.UtcNow)
+            if (membership.ExpirationDate < DateTime.Now)
                 return "Membership Expired";
 
-            var today = DateTime.UtcNow.Date;
+            var today = DateTime.Now.Date;
             /*
             var alreadyScanned = await _attendanceRepository.HasScannedTodayAsync(membership.MemberID, today);
             if (alreadyScanned)
@@ -37,7 +37,7 @@ namespace Gym.Application.Commands.Attendance
                 MemberID = membership.MemberID,
                 UserId = membership.UserId,
                 FullName = membership.FullName,
-                ScanTime = DateTime.UtcNow,
+                ScanTime = DateTime.Now,
                 Status = "Valid"
             };
 

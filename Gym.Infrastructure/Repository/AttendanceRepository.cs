@@ -32,7 +32,7 @@ namespace Gym.Infrastructure.Repository
 
         public async Task<List<AttendanceLog>> GetCurrentAttendanceAsync()
         {
-            var today = DateTime.UtcNow.Date;
+            var today = DateTime.Now.Date;
             return await _context.Attendance
             .Where(a => a.ScanTime >= today)
             .ToListAsync();

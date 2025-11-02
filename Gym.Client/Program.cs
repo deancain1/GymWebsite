@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("https://192.168.100.118:7120");
+builder.WebHost.UseUrls("https://192.168.100.29:7120");
 builder.Services.AddMudServices();
 builder.Services.AddRazorPages();
 builder.Services.AddBlazoredLocalStorage();

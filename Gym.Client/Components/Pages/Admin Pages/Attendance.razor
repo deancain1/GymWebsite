@@ -27,15 +27,15 @@
 
     <MudDataGrid T="AttendanceLogDTO"
                   Items="@filteredAttendances"
-                 Class="mt-4">
+                  Class="mt-4">
 
         <Columns>
-            <SelectColumn T="AttendanceLogDTO" />
+          
 
             <PropertyColumn Property="a => a.MemberID" Title="Member ID" />
             <PropertyColumn Property="a => a.UserID" Title="User ID" />
             <PropertyColumn Property="a => a.FullName" Title="Full Name" />
-            <PropertyColumn Property="a => a.FormattedScanTime" Title="Scan" />
+            <PropertyColumn Property="a => a.ScanTime" Title="Scan" />
         </Columns>
 
         <PagerContent>

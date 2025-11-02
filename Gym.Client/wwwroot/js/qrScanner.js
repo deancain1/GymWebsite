@@ -7,6 +7,31 @@ window.qrScanner = {
             return;
         }
 
+        const scannerElement = document.getElementById(scannerId);
+        if (!scannerElement) {
+            console.error(`Element with id '${scannerId}' not found.`);
+            return;
+        }
+
+        // Make container ready for overlay
+        scannerElement.style.position = "relative";
+        scannerElement.style.overflow = "hidden";
+
+        // === Simple center frame ===
+        const frame = document.createElement("div");
+        frame.style.position = "absolute";
+        frame.style.top = "50%";
+        frame.style.left = "50%";
+        frame.style.width = "250px";
+        frame.style.height = "250px";
+        frame.style.transform = "translate(-50%, -50%)";
+        frame.style.border = "3px solid #00ff00"; // plain green border
+        frame.style.pointerEvents = "none";
+        frame.style.zIndex = "10";
+
+        scannerElement.appendChild(frame);
+
+        // === Initialize QR Scanner ===
         html5QrCode = new Html5Qrcode(scannerId);
 
         let isCooldown = false;
@@ -15,14 +40,17 @@ window.qrScanner = {
             Html5Qrcode.getCameras()
                 .then(devices => {
                     if (devices && devices.length) {
-                        // Prefer back camera if available
+                        // Prefer back camera
                         const cameraId =
                             devices.find(d => d.label.toLowerCase().includes("back"))?.id ||
                             devices[0].id;
 
                         html5QrCode.start(
                             cameraId,
-                            { fps: 10, qrbox: { width: 500, height: 500 } },
+                            {
+                                fps: 10,
+                                qrbox: { width: 250, height: 250 }, // same as frame
+                            },
                             async decodedText => {
                                 if (isCooldown) return;
                                 isCooldown = true;
@@ -35,12 +63,11 @@ window.qrScanner = {
                                     console.error("Error invoking Blazor method:", err);
                                 }
 
-                                // Cooldown for 3 seconds to prevent duplicate scans
-                                setTimeout(() => isCooldown = false, 3000);
+                                // 3s cooldown to prevent duplicates
+                                setTimeout(() => (isCooldown = false), 3000);
                             },
                             errorMessage => {
-                                // Optional: handle scan errors
-                                // console.warn(`QR scan error: ${errorMessage}`);
+                                // Optional: handle errors quietly
                             }
                         ).catch(err => {
                             console.error("Failed to start camera:", err);
