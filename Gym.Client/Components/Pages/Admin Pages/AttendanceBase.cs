@@ -10,6 +10,8 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         public List<AttendanceLogDTO> Attendances { get; set; } = new();
         public string searchText { get; set; } = "";
         public DateTime? selectedDate { get; set; } = null;
+        public TimeSpan? selectedTime { get; set; } = null;
+
         protected override async Task OnInitializedAsync()
         {
             await LoadAttendance();
@@ -19,14 +21,23 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             Attendances = await _attendanceService.GetAllAttendanceAsync();
         }
         protected List<AttendanceLogDTO> filteredAttendances => Attendances
-      .Where(a =>
-          (string.IsNullOrWhiteSpace(searchText) |
-           a.FullName.Contains(searchText, StringComparison.OrdinalIgnoreCase)) &&
+        .Where(a =>
+            (string.IsNullOrWhiteSpace(searchText) ||
+             a.FullName.Contains(searchText, StringComparison.OrdinalIgnoreCase))
 
-          (!selectedDate.HasValue ||
-           a.ScanTime.Date == selectedDate.Value.Date)
-      )
-      .ToList();
+            &&
+
+            (!selectedDate.HasValue ||
+             a.ScanTime.Date == selectedDate.Value.Date)
+
+            &&
+
+            (!selectedTime.HasValue ||
+                (a.ScanTime.Hour == selectedTime.Value.Hours &&
+                 a.ScanTime.ToString("tt") == DateTime.Today.Add(selectedTime.Value).ToString("tt"))
+            )
+        )
+        .ToList();
 
     }
 }

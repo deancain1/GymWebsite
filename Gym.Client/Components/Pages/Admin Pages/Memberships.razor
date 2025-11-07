@@ -3,7 +3,7 @@
 @inherits MembershipsBase
 
 
-<div>
+<div class="mx-5 mt-3">
     <MudPaper Class="d-flex flex-wrap  align-center px-5 flex-grow-1 gap-4 py-3" Elevation="1">
         <MudText Typo="Typo.h6"><strong> Memberships List</strong></MudText>
         <MudItem xs="12" sm="6" md="1" lg="3">
@@ -57,10 +57,7 @@
             <PropertyColumn Property="m => m.FullName" Title="Full Name"  />
             <PropertyColumn Property="m => m.Email" Title="Email" />
             <PropertyColumn Property="m => m.PhoneNumber" Title="Phone Number" />
-            <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date"
-                            CellClass="text-nowrap"
-                            TextAlign="Align.Left"
-                            Format="dd/MM/yyyy" />
+            <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date" CellClass="text-nowrap" Format="dd/MM/yyyy" />
             <PropertyColumn Property="a => a.Status" Title="Status" />
 
             <TemplateColumn Title="QR Code">

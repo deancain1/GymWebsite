@@ -18,6 +18,13 @@ namespace Gym.Client.Services
             return await _http.GetFromJsonAsync<List<AttendanceLogDTO>>("api/Attendance/get-all-attendance") ?? new();
         }
 
+        public async Task<List<AttendanceLogDTO>> GetAttendanceByTokenAsync()
+        {
+            var response = await _http.GetFromJsonAsync<List<AttendanceLogDTO>>("api/Attendance/my-attendance")
+                           ?? new List<AttendanceLogDTO>();
+            return response;
+        }
+
         public async Task<List<AttendanceLogDTO>> GetCurrentAttendanceAsync()
         {  
             var response = await _http.GetFromJsonAsync<List<AttendanceLogDTO>>("api/Attendance/today")

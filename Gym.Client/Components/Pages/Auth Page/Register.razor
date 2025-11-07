@@ -1,0 +1,95 @@
+﻿@page "/register"
+@layout AuthLayout
+@inherits AuthBase
+
+<section class="bg-gradient-to-r from-[#661F1F] via-[#2B1F1F] to-[#000000] w-full h-full min-h-screen flex items-center justify-center">
+    <div class="w-full bg-white max-w-5xl h-[700px] flex rounded-2xl shadow-2xl lg:flex-row overflow-hidden">
+
+      
+        <div class="hidden lg:flex w-1/2 h-full">
+            <img class="h-full w-full object-cover" src="/images/gym1.jpg" alt="Gym Register" />
+        </div>
+
+       
+        <div class="w-full lg:w-1/2 px-8 mt-5 overflow-y-auto">
+            <div class="flex gap-2">
+                <MudIcon Icon="@Icons.Material.Filled.PersonAdd"
+                         Color="Color.Dark"
+                         Size="Size.Large" />
+                <h1 class=" text-2xl text-dark">Create Account</h1>
+            </div>
+
+
+            <div class="mt-6 space-y-4">
+
+                <MudTextField Label="Full Name"
+                              @bind-Value="user.FullName"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Person" />
+
+                <MudTextField Label="Email"
+                              @bind-Value="user.Email"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Email" />
+
+                <MudTextField Label="Phone Number"
+                              @bind-Value="user.PhoneNumber"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Phone" />
+
+                <MudDatePicker Label="Date of Birth"
+                               @bind-Date="user.DateOfBirth"
+                               DateFormat="MM/dd/yyyy"
+                               MaxDate="@DateTime.Today"
+                               Required="true"
+                               HelperText="Select your birth date"
+                               Adornment="Adornment.Start"
+                               AdornmentIcon="@Icons.Material.Filled.CalendarToday" />
+
+                <MudSelect Label="Gender"
+                           @bind-Value="user.Gender"
+                           Variant="Variant.Outlined"
+                           FullWidth="true"
+                           Adornment="Adornment.Start"
+                           AdornmentIcon="@Icons.Material.Filled.Male">
+                    <MudSelectItem Value=@("Male")>Male</MudSelectItem>
+                    <MudSelectItem Value=@("Female")>Female</MudSelectItem>
+                </MudSelect>
+
+                <MudTextField Label="Address"
+                              @bind-Value="user.Address"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.LocationOn" />
+
+                <MudTextField Label="Password"
+                              @bind-Value="user.Password"
+                              InputType="InputType.Password"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Lock" />
+                <MudTextField T="string" @bind-Value="user.Role" Style="display:none;" />
+            </div>
+
+
+            <div class="mt-8 flex justify-center">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Warning"
+                           OnClick="HandleRegister"
+                           FullWidth="true"
+                           Size="Size.Large">
+                    Register
+                </MudButton>
+            </div>
+
+        </div>
+    </div>
+</section>

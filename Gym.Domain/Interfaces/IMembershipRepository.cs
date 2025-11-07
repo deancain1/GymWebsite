@@ -19,6 +19,7 @@ namespace Gym.Domain.Interfaces
         Task<Dictionary<string, int>> GetMembershipsPerMonthAsync();
         Task<Dictionary<string, int>> GetExpiredMembershipsPerMonthAsync();
         Task<Dictionary<string, int>> GetMembershipPlanCountsAsync();
+        Task<Memberships?> GetQrCodeByUserIdAsync(string userId);
 
     }
 }

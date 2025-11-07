@@ -24,7 +24,8 @@ namespace Gym.Application.Queries.Attendance
                 AttendanceID = attendance.AttendanceID,
                 FullName = attendance.FullName,
                 MemberID = attendance.MemberID,
-                UserID = attendance.UserId,
+                UserId
+                = attendance.UserId,
                 ScanTime = attendance.ScanTime
             }).ToList();
         }

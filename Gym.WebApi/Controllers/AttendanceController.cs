@@ -2,6 +2,7 @@
 using Gym.Application.DTOs;
 using Gym.Application.Queries.Attendance;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,6 +47,13 @@ namespace Gym.WebApi.Controllers
         {
             var result = await _mediator.Send(new GetCurrentAttendanceQuery());
             return Ok(result);
+        }
+        [Authorize(Roles = "User")]
+        [HttpGet("my-attendance")]
+        public async Task<IActionResult> GetMyAttendance()
+        {
+            var attendances = await _mediator.Send(new GetAttendanceByIDQuery());
+            return Ok(attendances);
         }
     }
 }

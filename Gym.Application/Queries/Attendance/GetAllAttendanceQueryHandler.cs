@@ -23,7 +23,7 @@ namespace Gym.Application.Queries.Attendance
             {
                 MemberID = attendance.MemberID,
                 FullName = attendance.FullName,
-                UserID = attendance.UserId,
+                UserId = attendance.UserId,
                 ScanTime = attendance.ScanTime,
             }).ToList();
         }

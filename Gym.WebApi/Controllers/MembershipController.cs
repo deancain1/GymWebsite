@@ -68,5 +68,15 @@ namespace Gym.WebApi.Controllers
             var result = await _mediator.Send(new GetCountMembersipTypeQuery());
             return Ok(result);
         }
+        [HttpGet("user-qrcode")]
+        public async Task<ActionResult<MembershipDTO>> GetCurrentUserQrCode()
+        {
+            var qrCodeDto = await _mediator.Send(new GetCurrentUserQrCodeQuery());
+               if (qrCodeDto == null)
+                return NotFound("Membership or QR code not found.");
+
+                return Ok(qrCodeDto);
+            }
+        }
     }
-}
+

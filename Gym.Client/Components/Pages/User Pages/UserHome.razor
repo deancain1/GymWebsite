@@ -1,0 +1,98 @@
+﻿@page "/userhome"
+@layout UserLayout
+@inherits UserHomeBase
+
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 px-4 lg:px-12">
+
+ 
+    <MudPaper Class="flex flex-col items-center p-6 gap-6 shadow rounded-xl bg-white" Elevation="3">
+
+        <MudPaper Class="flex flex-col  lg:flex-row justify-between items-center w-full p-6 gap-6" Elevation="1">
+            <MudPaper Class="flex flex-col justify-center items-center w-full py-7 gap-4 bg-gray-50">
+           
+                <div style=" height: 120px; width: 120px; display: flex; align-items: center; justify-content: center;">
+                    @if (!string.IsNullOrEmpty(profileImagePreview))
+                    {
+                        <MudAvatar Style="height: 100px; width: 100px;">
+                            <MudImage src="@profileImagePreview"
+                                      Width="100"
+                                      Height="100"
+                                      Elevation="25"
+                                      Class="rounded-lg" />
+                        </MudAvatar>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.AccountCircle"
+                                 Style="font-size: 100px; color: #9ca3af;" />
+                    }
+                </div>
+
+                <MudButton Color="Color.Primary" Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.Edit"
+                           OnClick="OpenEditDialog">
+                    Edit Profile
+                </MudButton>
+            </MudPaper>
+            @if (!string.IsNullOrEmpty(userQrCode))
+            {
+                <div class="flex justify-center items-center w-full">
+                    <MudPaper Class="p-4 flex justify-center rounded-md shadow-md bg-gray-50" Elevation="0">
+                        <img src="@userQrCode" alt="My QR Code" class="w-48 h-48" />
+                    </MudPaper>
+                </div>
+            }
+
+        </MudPaper>
+        <MudText Typo="Typo.h5" Class="font-bold text-center">Profile Information</MudText>
+        <MudPaper Class="flex flex-col gap-4 w-full p-4 rounded-md shadow-sm bg-gray-50" Elevation="0">
+
+            <MudTextField Label="Full Name" @bind-Value="user.FullName" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+            <MudTextField Label="Phone Number" @bind-Value="user.PhoneNumber" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Phone" />
+            <MudDatePicker Label="Date of Birth" @bind-Date="user.DateOfBirth" ReadOnly="true" DateFormat="MM/dd/yyyy" MaxDate="@DateTime.Today"
+                           Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.CalendarToday" />
+            <MudTextField Label="Gender" @bind-Value="user.Gender" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Wc" />
+            <MudTextField Label="Address" @bind-Value="user.Address" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Home" />
+        </MudPaper>
+    </MudPaper>
+
+   
+    <MudPaper Class="flex flex-col p-6 gap-4 shadow rounded-xl bg-white" Elevation="3">
+        <MudText Typo="Typo.h6" Class="font-bold text-center">Attendance History</MudText>
+
+        <MudDataGrid T="AttendanceLogDTO" Items="@Attendances" Class="mt-4 rounded-lg shadow-sm">
+            <Columns>
+                <PropertyColumn Property="x => x.MemberID" Title="Member ID" Sortable="false">
+                    <CellTemplate>
+                        <MudIcon Icon="@Icons.Material.Filled.Badge" Style="color:maroon;" Size="Size.Small" />
+                        <MudChip Variant="Variant.Text" Color="Color.Error" Size="Size.Small">@context.Item.MemberID</MudChip>
+                    </CellTemplate>
+                </PropertyColumn>
+                <PropertyColumn Property="x => x.UserID" Title="User ID" Sortable="false">
+                    <CellTemplate>
+                        <MudIcon Icon="@Icons.Material.Filled.Person" Style="color: #c9aa04;" Size="Size.Small" />
+                        <MudChip Variant="Variant.Text" Color="Color.Primary" Size="Size.Small">@context.Item.UserID</MudChip>
+                    </CellTemplate>
+                </PropertyColumn>
+                <PropertyColumn Property="x => x.FullName" Title="Full Name" Sortable="false">
+                    <CellTemplate>
+                        <MudIcon Icon="@Icons.Material.Filled.AccountCircle" Style="color: maroon;" Size="Size.Small" />
+                        <MudChip Variant="Variant.Text" Color="Color.Success" Size="Size.Small">@context.Item.FullName</MudChip>
+                    </CellTemplate>
+                </PropertyColumn>
+                <PropertyColumn Property="x => x.ScanTime" Title="Scan Time" Sortable="false">
+                    <CellTemplate>
+                        <MudIcon Icon="@Icons.Material.Filled.AccessTime" Style="color: #c9aa04;" Size="Size.Small" />
+                        <MudChip Variant="Variant.Outlined" Color="Color.Info" Size="Size.Small">@context.Item.ScanTime.ToString("g")</MudChip>
+                    </CellTemplate>
+                </PropertyColumn>
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="AttendanceLogDTO" />
+            </PagerContent>
+        </MudDataGrid>
+    </MudPaper>
+
+</div>
+

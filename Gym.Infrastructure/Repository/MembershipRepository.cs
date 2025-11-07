@@ -99,5 +99,11 @@ namespace Gym.Infrastructure.Repository
 
             return counts;
         }
+
+        public async Task<Memberships?> GetQrCodeByUserIdAsync(string userId)
+        {
+            return await _context.Memberships
+                   .FirstOrDefaultAsync(m => m.UserId == userId);
+        }
     }
 }

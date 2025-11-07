@@ -1,0 +1,47 @@
+﻿@inherits EditProfileDialogBase
+<MudDialog Class="w-full">
+    <DialogContent>
+        <MudPaper Class="p-4 flex flex-col gap-3">
+
+            <MudText Typo="Typo.h6" Class="font-bold text-center">Edit Profile</MudText>
+
+            <div class="flex flex-col items-center">
+                @if (ProfilePreview != null)
+                {
+                    <MudAvatar Style="height:100px;width:100px;">
+                        <MudImage src="@ProfilePreview" Width="100" Height="100" Class="rounded-lg" />
+                    </MudAvatar>
+                }
+                else
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.AccountCircle" Style="font-size: 100px; color: #9ca3af;" />
+                }
+
+                <MudFileUpload T="IBrowserFile" OnFilesChanged="HandleProfilePicUpload">
+                    <ActivatorContent>
+                        <MudButton Color="Color.Primary" StartIcon="@Icons.Material.Filled.Edit">
+                            Change Profile
+                        </MudButton>
+                    </ActivatorContent>
+                </MudFileUpload>
+            </div>
+
+            <MudTextField Label="Full Name" @bind-Value="user.FullName" />
+            <MudTextField Label="Phone Number" @bind-Value="user.PhoneNumber" />
+            <MudDatePicker Label="Date of Birth" @bind-Date="user.DateOfBirth" DateFormat="MM/dd/yyyy" />
+
+            <MudSelect @bind-Value="user.Gender" Label="Gender">
+                <MudSelectItem Value=@("Male")>Male</MudSelectItem>
+                <MudSelectItem Value=@("Female")>Female</MudSelectItem>
+            </MudSelect>
+
+            <MudTextField Label="Address" @bind-Value="user.Address" />
+
+        </MudPaper>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+        <MudButton Color="Color.Error" OnClick="Cancel">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>

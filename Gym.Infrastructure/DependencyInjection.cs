@@ -17,6 +17,9 @@ namespace Gym.Infrastructure
             services.AddScoped<IAttendanceRepository, AttendanceRepository>();
             services.AddScoped<IQRCodeService, QrCodeService>();
             services.AddHostedService<MembershipExpirationService>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
 
             return services;
         }

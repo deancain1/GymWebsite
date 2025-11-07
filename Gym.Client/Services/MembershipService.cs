@@ -68,5 +68,9 @@ namespace Gym.Client.Services
             return response;
         }
 
+        public async Task<MembershipDTO?> GetQrCodeByTokenAsync()
+        {
+            return await _http.GetFromJsonAsync<MembershipDTO>("api/Membership/user-qrcode");
+        }
     }
 }

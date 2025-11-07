@@ -12,6 +12,7 @@ namespace Gym.Client.Interfaces
         Task<List<MembershipsPerMonthDTO>> GetMonthlyMembershipsAsync();
         Task<List<MembershipsPerMonthDTO>> GetMonthlyExpiredAsync();
         Task<List<MembershipPlanDTO>> GetPlanCountsAsync();
+        Task<MembershipDTO?> GetQrCodeByTokenAsync();
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Gym.Application.DTOs;
-using Gym.Domain.Entities;
+using Gym.Application.Interfaces;
+using Gym.Domain.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,26 +12,31 @@ namespace Gym.Application.Queries.Users
 {
     public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, UserDTO>
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-
-        public GetCurrentUserQueryHandler(UserManager<ApplicationUser> userManager)
+        private readonly IUserRepository _userRepository;
+        private readonly ICurrentUserService _currentUser;
+        public GetCurrentUserQueryHandler(IUserRepository userRepository, ICurrentUserService currentUser)
         {
-            _userManager = userManager;
+            _userRepository = userRepository;
+            _currentUser = currentUser;
         }
-
         public async Task<UserDTO> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId);
-            if (user == null) return null;
-
-            var roles = await _userManager.GetRolesAsync(user);
-
+            var userId = _currentUser.UserId;
+            if (userId == null)
+                throw new UnauthorizedAccessException("User is not authenticated");
+            var u = await _userRepository.GetCurrentUserByTokenAsync(userId);
+            if (u == null)
+                throw new Exception("User not found");
             return new UserDTO
             {
-                UserId = user.Id,
-                FullName = user.FullName,
-                Email = user.Email,
-                Roles = roles.ToArray()
+                UserId = u.Id,
+                FullName = u.FullName,
+                PhoneNumber = u.PhoneNumber,
+                Email = u.Email,
+                Gender = u.Gender,
+                DateOfBirth = u.DateOfBirth,
+                Address = u.Address,
+                ProfilePicture = u.ProfilePicture,
             };
         }
     }

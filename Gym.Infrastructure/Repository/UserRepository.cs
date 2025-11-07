@@ -1,4 +1,5 @@
-﻿using Gym.Domain.Interfaces;
+﻿using Gym.Domain.Entities;
+using Gym.Domain.Interfaces;
 using Gym.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,21 @@ namespace Gym.Infrastructure.Repository
             _context = context;
             _roleManager = roleManager;
         }
+        public async Task<ApplicationUser?> GetByIdAsync(string id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+        public async Task UpdateUserAsync(ApplicationUser user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+   
+        public async Task DeleteUserAsync(ApplicationUser user)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task<int> GetTotalAdminsAsync()
         {
@@ -38,5 +54,10 @@ namespace Gym.Infrastructure.Repository
             return count;
         }
 
+        public async Task<ApplicationUser?> GetCurrentUserByTokenAsync(string userId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+        }
     }
 }

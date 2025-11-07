@@ -48,5 +48,13 @@ namespace Gym.Infrastructure.Repository
             return await _context.Attendance
                 .AnyAsync(a => a.MemberID == memberId && a.ScanTime.Date == today);
         }
+
+        public async Task<List<AttendanceLog>> GetAttendanceByUserIdAsync(string userId)
+        {
+           return await _context.Attendance
+                .Where(a => a.UserId == userId)
+                .OrderByDescending(a => a.ScanTime)
+                .ToListAsync();
+        }
     }
 }

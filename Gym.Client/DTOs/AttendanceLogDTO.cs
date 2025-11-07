@@ -8,6 +8,9 @@
         public string UserID { get; set; }
         public DateTime ScanTime { get; set; }
         public string Status { get; set; }
-    
+      
+
+
+
     }
 }

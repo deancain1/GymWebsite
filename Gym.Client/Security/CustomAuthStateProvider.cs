@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using Gym.Client.Interfaces;
 using Gym.Client.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
@@ -9,10 +10,11 @@ namespace Gym.Client.Security
     public class CustomAuthStateProvider : AuthenticationStateProvider
     {
         private readonly ILocalStorageService _localStorage;
-
+     
         public CustomAuthStateProvider(ILocalStorageService localStorage)
         {
             _localStorage = localStorage;
+        
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -22,6 +24,7 @@ namespace Gym.Client.Security
 
             if (string.IsNullOrWhiteSpace(token))
             {
+               
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             }
 
@@ -67,11 +70,18 @@ namespace Gym.Client.Security
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
 
-        public void NotifyUserLogout()
+        public async Task MarkUserAsLoggedOutAsync()
         {
-            var anonymous = new ClaimsPrincipal(new ClaimsIdentity());
-            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(anonymous)));
+            await _localStorage.RemoveItemAsync("authToken");
+            await _localStorage.RemoveItemAsync("userRole");
+
+            NotifyAuthenticationStateChanged(Task.FromResult(Anonymous()));
         }
+        private AuthenticationState Anonymous()
+        {
+            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+        }
+
     }
 }
 

@@ -6,5 +6,6 @@ namespace Gym.Client.Interfaces
     {
         Task<List<AttendanceLogDTO>> GetAllAttendanceAsync();
         Task<List<AttendanceLogDTO>> GetCurrentAttendanceAsync();
+        Task<List<AttendanceLogDTO>> GetAttendanceByTokenAsync();
     }
 }

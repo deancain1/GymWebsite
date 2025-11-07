@@ -1,16 +1,11 @@
 ﻿@page "/login"
-@using Gym.Client.DTOs
-@using System.Net.Http.Headers
-@layout LoginLayout
-@inject HttpClient Http
-@inject CustomAuthStateProvider AuthStateProvider
-@inject ILocalStorageService LocalStorage
-@inject NavigationManager Navigation
+@layout AuthLayout
+@inherits AuthBase
 
 <section class=" bg-gradient-to-r from-[#661F1F] via-[#2B1F1F] to-[#000000] w-full h-full min-h-screen flex items-center justify-center">
     <div class=" w-full bg-white max-w-5xl h-[700px] flex rounded-2xl shadow-2xl  lg:flex-row  overflow-hidden">
 
-        <!-- Form -->
+      
         <div class="w-full lg:w-1/2 px-8 py-20 justify-center">
             <h1 class="font-bold text-3xl text-warning text-center">Login</h1>
             <p class="text-sm mt-4 font-medium text-center text-black">If you are already a member, please log in</p>
@@ -49,7 +44,12 @@
             </div>
             <p class="mt-4 text-sm text-gray-600 text-center">
                 Don’t have an account?
-                <a href="/register" class="text-danger font-semibold hover:underline">Sign up</a>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Warning"
+                           Size="Size.Medium"
+                           Href="/register">
+                    Signup
+                </MudButton>
             </p>
 
             <div class="mt-10 grid grid-cols-3 items-center text-gray-500 gap-2">
@@ -71,56 +71,5 @@
 </section>
 
 @code {
-    private LoginRequestDTO loginModel = new();
-    [Parameter]
-    [SupplyParameterFromQuery]
-    public string? returnUrl { get; set; }
-
-
-    private async Task HandleLogin()
-    {
-        var response = await Http.PostAsJsonAsync("api/auth/login", loginModel);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            Console.WriteLine("Login failed");
-            return;
-        }
-
-        var result = await response.Content.ReadFromJsonAsync<AuthResponseDTO>();
-        if (result == null || string.IsNullOrEmpty(result.Token))
-        {
-            Console.WriteLine("Invalid login response");
-            return;
-        }
-
-        var token = result.Token;
-        var role = result.Role;
-
-        await LocalStorage.SetItemAsStringAsync("authToken", token);
-        await LocalStorage.SetItemAsStringAsync("userRole", role);
-
-        AuthStateProvider.NotifyUserAuthentication(token);
-        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-      
-        if (!string.IsNullOrEmpty(returnUrl))
-        {
-
-            Navigation.NavigateTo("/");
-        }
-        else if (role == "Admin")
-        {
-            Navigation.NavigateTo("/adminhome" , true);
-        }
-        else if (role == "User")
-        {
-            Navigation.NavigateTo("/userhome");
-        }
-        else
-        {
-            Navigation.NavigateTo("/");
-        }
-
-    }
+ 
 }

@@ -14,5 +14,6 @@ namespace Gym.Domain.Interfaces
         Task<List<AttendanceLog>> GetCurrentAttendanceAsync();
         Task<List<AttendanceLog>> GetAllAttendanceAsync();
         Task<bool> HasScannedTodayAsync(int memberId, DateTime today);
+        Task<List<AttendanceLog>> GetAttendanceByUserIdAsync(string userId);
     }
 }

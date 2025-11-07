@@ -1,0 +1,110 @@
+﻿@using Gym.Client.Components.Pages.Admin_Pages
+@inherits ManageUsersBase
+
+<MudDialog Class="mud-elevation-4 bg-gray-50">
+    <TitleContent>
+        <MudStack Row="true" Spacing="2">
+            <MudIcon Class="mt-1" Icon="@Icons.Material.Filled.PersonAdd" Color="Color.Primary" />
+            <MudText Typo="Typo.h6" Class="font-semibold">Add New User</MudText>
+        </MudStack>
+    </TitleContent>
+    <DialogContent>
+
+        <MudGrid Gutter="GutterSize.Small">
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="p-4 rounded-lg" Elevation="0">
+                    <MudTextField Label="Full Name"
+                                  @bind-Value="user.FullName"
+                                  For="@(() => user.FullName)"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Person" />
+                    <MudTextField Label="Phone Number"
+                                  @bind-Value="user.PhoneNumber"
+                                  For="@(() => user.PhoneNumber)"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Phone" />
+                    <MudDatePicker Label="Date of Birth"
+                                   @bind-Date="user.DateOfBirth"
+                                   DateFormat="MM/dd/yyyy"
+                                   MaxDate="@DateTime.Today"
+                                   Required="true"
+                                   HelperText="Select your birth date"
+                                   Adornment="Adornment.Start"
+                                   AdornmentIcon="@Icons.Material.Filled.CalendarToday" />
+                    <MudTextField Label="Address"
+                                  @bind-Value="user.Address"
+                                  For="@(() => user.Address)"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Home" />
+                    <MudRadioGroup T="string" @bind-Value="user.Gender" Row="true">
+                        <MudRadio Value=@("Male") Color="Color.Tertiary" Size="Size.Medium">
+                            <MudIcon Icon="@Icons.Material.Filled.Male" Class="mr-1" /> Male
+                        </MudRadio>
+                        <MudRadio Value=@("Female") Color="Color.Secondary" Size="Size.Medium">
+                            <MudIcon Icon="@Icons.Material.Filled.Female" Class="mr-1" /> Female
+                        </MudRadio>
+                    </MudRadioGroup>
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="p-4 rounded-lg" Elevation="0">
+                    <MudPaper Class=" d-flex flex-column justify-center align-center" Elevation="0">
+                        <div style=" height: 120px; width: 120px; display: flex; align-items: center; justify-content: center;">
+                            @if (!string.IsNullOrEmpty(profileImagePreview))
+                            {
+                                <MudAvatar Style="height: 100px; width: 100px;">
+                                    <MudImage src="@profileImagePreview"
+                                              Width="100"
+                                              Height="100"
+                                              Elevation="25"
+                                              Class="rounded-lg" />
+                                </MudAvatar>
+                            }
+                            else
+                            {
+                                <MudIcon Icon="@Icons.Material.Filled.AccountCircle"
+                                         Style="font-size: 100px; color: #9ca3af;" />
+                            }
+                        </div>
+
+                        <MudFileUpload T="IBrowserFile" OnFilesChanged="HandleProfilePicUpload" Class="mt-2">
+                            <ActivatorContent>
+                                <MudButton Variant="Variant.Filled"
+                                           Color="Color.Dark"
+                                           StartIcon="@Icons.Material.Filled.CloudUpload">
+                                    Browse
+                                </MudButton>
+                            </ActivatorContent>
+                        </MudFileUpload>
+                    </MudPaper>
+                    <MudTextField Label="Email"
+                                  @bind-Value="user.Email"
+                                  For="@(() => user.Email)"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Email" />
+                    <MudTextField Label="Password"
+                                  @bind-Value="user.Password"
+                                  For="@(() => user.Password)"
+                                  InputType="InputType.Password"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Lock" />
+                    <MudTextField T="string" @bind-Value="user.Role" Style="display:none;" />
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton ButtonType="ButtonType.Submit"
+                   OnClick="AddUser"
+                   Variant="Variant.Filled"
+                   Color="Color.Warning"
+                   Class="ml-auto">
+            <MudIcon Icon="@Icons.Material.Filled.PersonAdd" Class="mr-1" />
+            Register
+        </MudButton>
+    </DialogActions>
+</MudDialog>

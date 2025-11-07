@@ -8,5 +8,8 @@ using System.Threading.Tasks;
 
 namespace Gym.Application.Queries.Users
 {
-    public record GetCurrentUserQuery(string UserId) : IRequest<UserDTO>;
+    public class GetCurrentUserQuery : IRequest<UserDTO>
+    {
+
+    }
 }
