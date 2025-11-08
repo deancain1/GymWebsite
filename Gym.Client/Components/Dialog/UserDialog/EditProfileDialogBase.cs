@@ -54,7 +54,7 @@ namespace Gym.Client.Components.Dialog.UserDialog
 
         public async Task Save()
         {
-            var response = await _http.PutAsJsonAsync($"api/User/{user.UserId}", user);
+            var userInfo = await _userService.UpdateUserAsync(user);
             MudDialog.Close(DialogResult.Ok(user));
         }
         public void Cancel()
