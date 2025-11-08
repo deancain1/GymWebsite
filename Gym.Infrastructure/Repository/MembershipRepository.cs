@@ -1,5 +1,5 @@
-﻿using Gym.Domain.Entities;
-using Gym.Domain.Interfaces;
+﻿using Gym.Application.Interfaces;
+using Gym.Domain.Entities;
 using Gym.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gym.Infrastructure.Repository
 {
-    public class MembershipRepository : IMembershipRepository
+    public class MembershipRepository : IMembershipsRepository
     {
         private readonly AppDbContext _context;
         public MembershipRepository(AppDbContext context)

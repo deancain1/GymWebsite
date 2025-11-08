@@ -1,6 +1,5 @@
 ﻿using Gym.Application.Interfaces;
 using Gym.Domain.Entities;
-using Gym.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

@@ -1,5 +1,5 @@
 ﻿using Gym.Application.DTOs;
-using Gym.Domain.Interfaces;
+using Gym.Application.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,8 @@ namespace Gym.Application.Queries.Memberships
 {
     public class GetCountMembersipTypeQueryHandler : IRequestHandler<GetCountMembersipTypeQuery, List<MembershipPlanDTO>>
     {
-        private readonly IMembershipRepository _membershipRepository;
-        public GetCountMembersipTypeQueryHandler(IMembershipRepository membershipRepository)
+        private readonly IMembershipsRepository _membershipRepository;
+        public GetCountMembersipTypeQueryHandler(IMembershipsRepository membershipRepository)
         {
             _membershipRepository = membershipRepository;
         }

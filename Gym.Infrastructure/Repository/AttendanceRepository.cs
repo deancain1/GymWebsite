@@ -1,5 +1,5 @@
-﻿using Gym.Domain.Entities;
-using Gym.Domain.Interfaces;
+﻿using Gym.Application.Interfaces;
+using Gym.Domain.Entities;
 using Gym.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;

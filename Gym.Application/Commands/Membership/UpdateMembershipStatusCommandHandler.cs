@@ -1,4 +1,4 @@
-﻿using Gym.Domain.Interfaces;
+﻿using Gym.Application.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ namespace Gym.Application.Commands.Membership
 {
     public class UpdateMembershipStatusCommandHandler : IRequestHandler<UpdateMembershipStatusCommand>
     {
-        private readonly IMembershipRepository _membershipsRepository;
+        private readonly IMembershipsRepository _membershipsRepository;
         private readonly IQRCodeService _qRCodeService;
 
-        public UpdateMembershipStatusCommandHandler(IMembershipRepository membershipsRepository, IQRCodeService qRCodeService)
+        public UpdateMembershipStatusCommandHandler(IMembershipsRepository membershipsRepository, IQRCodeService qRCodeService)
         {
             _membershipsRepository = membershipsRepository;
             _qRCodeService = qRCodeService;

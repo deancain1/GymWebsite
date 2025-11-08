@@ -1,5 +1,5 @@
 ﻿using Gym.Application.DTOs;
-using Gym.Domain.Interfaces;
+using Gym.Application.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ namespace Gym.Application.Queries.Memberships
 {
     public class GetExpiredMembershipsQueryHandler : IRequestHandler<GetExpiredMembershipsQuery, List<MembershipsPerMonthDTO>>
     {
-        private readonly IMembershipRepository _membershipRepository;
+        private readonly IMembershipsRepository _membershipRepository;
 
-        public GetExpiredMembershipsQueryHandler(IMembershipRepository membershipRepository)
+        public GetExpiredMembershipsQueryHandler(IMembershipsRepository membershipRepository)
         {
             _membershipRepository = membershipRepository;
         }

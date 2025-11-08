@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gym.Domain.Interfaces
+namespace Gym.Application.Interfaces
 {
-    public interface  IMembershipRepository
+    public interface IMembershipsRepository
     {
         Task CreateMembershipAsync(Memberships memberships);
         Task<List<Memberships>> GetAllMembershipsAsync();

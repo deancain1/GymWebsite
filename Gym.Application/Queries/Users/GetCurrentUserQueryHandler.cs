@@ -1,6 +1,5 @@
 ﻿using Gym.Application.DTOs;
 using Gym.Application.Interfaces;
-using Gym.Domain.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;

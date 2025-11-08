@@ -1,5 +1,4 @@
 ﻿using Gym.Application.Interfaces;
-using Gym.Domain.Interfaces;
 using Gym.Infrastructure.Repository;
 using Gym.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +12,7 @@ namespace Gym.Infrastructure
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddScoped<IMembershipRepository, MembershipRepository>();
+            services.AddScoped<IMembershipsRepository, MembershipRepository>();
             services.AddScoped<IAttendanceRepository, AttendanceRepository>();
             services.AddScoped<IQRCodeService, QrCodeService>();
             services.AddHostedService<MembershipExpirationService>();

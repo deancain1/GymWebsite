@@ -1,4 +1,4 @@
-﻿using Gym.Domain.Interfaces;
+﻿using Gym.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -31,7 +31,7 @@ namespace Gym.Infrastructure.Services
                 {
                     using (var scope = _serviceProvider.CreateScope())
                     {
-                        var membershipRepo = scope.ServiceProvider.GetRequiredService<IMembershipRepository>();
+                        var membershipRepo = scope.ServiceProvider.GetRequiredService<IMembershipsRepository>();
                         var memberships = await membershipRepo.GetAllMembershipsAsync();
 
                         var now = DateTime.UtcNow;
@@ -52,7 +52,7 @@ namespace Gym.Infrastructure.Services
                     _logger.LogError(ex, "Error checking membership expirations.");
                 }
 
-                // Wait 1 hour before checking again (you can change this to daily)
+              
                 await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
             }
         }

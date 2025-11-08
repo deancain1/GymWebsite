@@ -1,6 +1,5 @@
 ﻿using Gym.Application.DTOs;
 using Gym.Application.Interfaces;
-using Gym.Domain.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,9 +11,9 @@ namespace Gym.Application.Queries.Memberships
 {
     public class GetCurrentUserQrCodeQueryHandler : IRequestHandler<GetCurrentUserQrCodeQuery, MembershipDTO>
     {
-        private readonly IMembershipRepository _membershipRepository;
+        private readonly IMembershipsRepository _membershipRepository;
         private readonly ICurrentUserService _currentUser;
-        public GetCurrentUserQrCodeQueryHandler(IMembershipRepository membershipRepository, ICurrentUserService currentUser)
+        public GetCurrentUserQrCodeQueryHandler(IMembershipsRepository membershipRepository, ICurrentUserService currentUser)
         {
             _membershipRepository = membershipRepository;
             _currentUser = currentUser;

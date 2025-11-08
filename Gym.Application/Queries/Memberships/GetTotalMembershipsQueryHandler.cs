@@ -1,4 +1,4 @@
-﻿using Gym.Domain.Interfaces;
+﻿using Gym.Application.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ namespace Gym.Application.Queries.Memberships
 {
     public class GetTotalMembershipsQueryHandler : IRequestHandler<GetTotalMembershipsQuery, int>
     {
-        private readonly IMembershipRepository _membershipRepository;
-        public GetTotalMembershipsQueryHandler(IMembershipRepository membershipRepository)
+        private readonly IMembershipsRepository _membershipRepository;
+        public GetTotalMembershipsQueryHandler(IMembershipsRepository membershipRepository)
         {
             _membershipRepository = membershipRepository;
         }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gym.Domain.Interfaces
+namespace Gym.Application.Interfaces
 {
-    public interface  IAttendanceRepository
+    public interface IAttendanceRepository
     {
         Task AddAttendanceLogAsync(AttendanceLog log);
         Task<Memberships?> GetMembershipByIdAsync(int membershipId);

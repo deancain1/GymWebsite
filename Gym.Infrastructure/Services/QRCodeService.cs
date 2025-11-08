@@ -1,4 +1,4 @@
-﻿using Gym.Domain.Interfaces;
+﻿using Gym.Application.Interfaces;
 using QRCoder;
 using System;
 using System.Collections.Generic;

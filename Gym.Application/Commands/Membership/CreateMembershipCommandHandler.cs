@@ -1,6 +1,6 @@
 ﻿using Gym.Application.DTOs;
+using Gym.Application.Interfaces;
 using Gym.Domain.Entities;
-using Gym.Domain.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,8 +12,8 @@ namespace Gym.Application.Commands.Membership
 {
     public class CreateMembershipCommandHandler : IRequestHandler<CreateMembershipCommand, MembershipDTO>
     {
-        private readonly IMembershipRepository _membership;
-        public CreateMembershipCommandHandler(IMembershipRepository membership)
+        private readonly IMembershipsRepository _membership;
+        public CreateMembershipCommandHandler(IMembershipsRepository membership)
         {
             _membership = membership;
         }

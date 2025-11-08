@@ -1,4 +1,5 @@
-﻿using Gym.Domain.Interfaces;
+﻿
+using Gym.Application.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;

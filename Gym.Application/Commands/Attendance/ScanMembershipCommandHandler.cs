@@ -1,5 +1,5 @@
-﻿using Gym.Domain.Entities;
-using Gym.Domain.Interfaces;
+﻿using Gym.Application.Interfaces;
+using Gym.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
