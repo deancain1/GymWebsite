@@ -15,7 +15,7 @@ namespace Gym.Infrastructure.Data
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
             optionsBuilder.UseSqlServer(
-               "Server=localhost;Database=GYMDb;Trusted_Connection=True;TrustServerCertificate=True;");
+               "Server=localhost;Database=;Trusted_Connection=True;TrustServerCertificate=True;");
 
             return new AppDbContext(optionsBuilder.Options);
         }
