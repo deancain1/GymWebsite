@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Gym.Application.Mappings;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Gym.Application
             var assembly = typeof(DependencyInjection).Assembly;
             services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
             services.AddValidatorsFromAssembly(assembly);
+            services.AddAutoMapper(typeof(MappingProfile));
+
             return services;
 
             ;

@@ -17,7 +17,7 @@ namespace Gym.Application.Commands.Users
         }
         public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.UserId);
+            var user = await _userRepository.GetUserByIdAsync(request.UserId);
             if (user == null)
                 throw new KeyNotFoundException($"User with {request.UserId}  not found.");
 

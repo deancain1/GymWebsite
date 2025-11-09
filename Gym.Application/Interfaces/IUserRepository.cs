@@ -9,7 +9,7 @@ namespace Gym.Application.Interfaces
 {
     public interface IUserRepository
     {
-        Task<ApplicationUser?> GetByIdAsync(string id);
+        Task<ApplicationUser?> GetUserByIdAsync(string id);
         Task UpdateUserAsync(ApplicationUser user);
         Task DeleteUserAsync(ApplicationUser user);
         Task<int> GetTotalUserAsync();

@@ -38,7 +38,7 @@ namespace Gym.Application.Commands.Membership
                 member.QRCode = _qRCodeService.GenerateQRCode(qrContent);
             }
 
-            await _membershipsRepository.UpdateStatusAsync(member);
+            await _membershipsRepository.UpdateMembershipStatusAsync(member);
         }
     }
 }

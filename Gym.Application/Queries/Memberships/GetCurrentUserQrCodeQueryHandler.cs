@@ -24,7 +24,7 @@ namespace Gym.Application.Queries.Memberships
             if (string.IsNullOrEmpty(userId))
                 throw new UnauthorizedAccessException("User is not authenticated");
 
-            var membership = await _membershipRepository.GetQrCodeByUserIdAsync(userId);
+            var membership = await _membershipRepository.GetQrCodeByTokenAsync(userId);
             if (membership == null)
                 throw new Exception("Membership not found for the current user.");
 

@@ -1,4 +1,5 @@
-﻿using Gym.Application.Interfaces;
+﻿using AutoMapper;
+using Gym.Application.Interfaces;
 using Gym.Domain.Entities;
 using MediatR;
 using System;
@@ -12,14 +13,18 @@ namespace Gym.Application.Commands.Attendance
     public class ScanMembershipCommandHandler : IRequestHandler<ScanMembershipCommand, string>
     {
         private readonly IAttendanceRepository _attendanceRepository;
-        public ScanMembershipCommandHandler(IAttendanceRepository attendanceRepository)
+        private readonly IMembershipsRepository _membershipsRepository;
+        private readonly IMapper _mapper;
+        public ScanMembershipCommandHandler(IAttendanceRepository attendanceRepository, IMembershipsRepository membershipsRepository, IMapper mapper)
         {
             _attendanceRepository = attendanceRepository;
+            _membershipsRepository = membershipsRepository;
+            _mapper = mapper;
         }
 
         public async Task<string> Handle(ScanMembershipCommand request, CancellationToken cancellationToken)
         {
-            var membership = await _attendanceRepository.GetMembershipByIdAsync(request.MemberID);
+            var membership = await _membershipsRepository.GetMemberByIDAsync(request.MemberID);
             if (membership == null)
                 return "Membership not found";
 
@@ -32,14 +37,7 @@ namespace Gym.Application.Commands.Attendance
             if (alreadyScanned)
                 return "Already scanned today";
             */
-            var log = new AttendanceLog
-            {
-                MemberID = membership.MemberID,
-                UserId = membership.UserId,
-                FullName = membership.FullName,
-                ScanTime = DateTime.Now,
-                Status = "Valid"
-            };
+            var log = _mapper.Map<AttendanceLog>(membership);
 
             await _attendanceRepository.AddAttendanceLogAsync(log);
 

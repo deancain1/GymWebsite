@@ -6,13 +6,15 @@ namespace Gym.Client.Interfaces
     {
         Task<bool> CreateMembershipAsync(MembershipDTO membershipDTO);
         Task<List<MembershipDTO>> GetAllMembershipsAsync();
-        Task<bool> UpdateMembershipStatusAsync(int memberId, string status);
+        Task<bool> UpdateMembershipStatusAsync(int memberId, string status); 
         Task<List<MembershipDTO>> GetUserMembershipsAsync();
         Task <int> GetTotalMembershipsAsync();
-        Task<List<MembershipsPerMonthDTO>> GetMonthlyMembershipsAsync();
-        Task<List<MembershipsPerMonthDTO>> GetMonthlyExpiredAsync();
-        Task<List<MembershipPlanDTO>> GetPlanCountsAsync();
+        Task<List<MembershipsPerMonthDTO>> GetMembershipsPerMonthAsync();
+        Task<List<MembershipsPerMonthDTO>> GetExpiredMembershipsPerMonthAsync();
+        Task<List<MembershipPlanDTO>> GetMembershipPlanCountsAsync();
         Task<MembershipDTO?> GetQrCodeByTokenAsync();
 
     }
 }
+
+

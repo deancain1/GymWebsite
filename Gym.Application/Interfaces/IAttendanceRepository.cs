@@ -10,10 +10,9 @@ namespace Gym.Application.Interfaces
     public interface IAttendanceRepository
     {
         Task AddAttendanceLogAsync(AttendanceLog log);
-        Task<Memberships?> GetMembershipByIdAsync(int membershipId);
         Task<List<AttendanceLog>> GetCurrentAttendanceAsync();
         Task<List<AttendanceLog>> GetAllAttendanceAsync();
         Task<bool> HasScannedTodayAsync(int memberId, DateTime today);
-        Task<List<AttendanceLog>> GetAttendanceByUserIdAsync(string userId);
+        Task<List<AttendanceLog>> GetAttendanceByTokenAsync(string userId);
     }
 }

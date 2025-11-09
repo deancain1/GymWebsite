@@ -1,4 +1,5 @@
-﻿using Gym.Application.DTOs;
+﻿using AutoMapper;
+using Gym.Application.DTOs;
 using Gym.Application.Interfaces;
 using MediatR;
 using System;
@@ -12,28 +13,18 @@ namespace Gym.Application.Queries.Users
     public class GetUserByIDQueryHandler : IRequestHandler<GetUserByIDQuery, UserDTO?>
     {
         private readonly IUserRepository _userRepository;
-        public GetUserByIDQueryHandler(IUserRepository userRepository)
+        private readonly IMapper _mapper;
+        public GetUserByIDQueryHandler(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
         public async Task<UserDTO?> Handle(GetUserByIDQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.UserId);
+            var user = await _userRepository.GetUserByIdAsync(request.UserId);
             if (user == null) return null;
-
-            return new UserDTO
-            {
-                UserId = user.Id,
-                FullName = user.FullName,
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email,
-                Gender = user.Gender,
-                DateOfBirth = user.DateOfBirth,
-                Address = user.Address,
-                Role = user.Role,
-                ProfilePicture = user.ProfilePicture,
-
-            };
+            return _mapper.Map<UserDTO>(user);
         }
     }
+
 }

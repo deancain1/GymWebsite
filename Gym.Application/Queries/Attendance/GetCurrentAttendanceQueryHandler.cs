@@ -1,4 +1,5 @@
-﻿using Gym.Application.DTOs;
+﻿using AutoMapper;
+using Gym.Application.DTOs;
 using Gym.Application.Interfaces;
 using MediatR;
 using System;
@@ -12,22 +13,16 @@ namespace Gym.Application.Queries.Attendance
     public class GetCurrentAttendanceQueryHandler : IRequestHandler<GetCurrentAttendanceQuery, List<AttendanceLogDTO>>
     {
         private readonly IAttendanceRepository _attendanceRepository;
-        public GetCurrentAttendanceQueryHandler(IAttendanceRepository attendanceRepository)
+        private readonly IMapper _mapper;
+        public GetCurrentAttendanceQueryHandler(IAttendanceRepository attendanceRepository, IMapper mapper)
         {
             _attendanceRepository = attendanceRepository;
+            _mapper = mapper;
         }
         public async Task<List<AttendanceLogDTO>> Handle(GetCurrentAttendanceQuery request, CancellationToken cancellationToken)
         {
             var attendance = await _attendanceRepository.GetCurrentAttendanceAsync();
-            return attendance.Select(attendance => new AttendanceLogDTO
-            {
-                AttendanceID = attendance.AttendanceID,
-                FullName = attendance.FullName,
-                MemberID = attendance.MemberID,
-                UserId
-                = attendance.UserId,
-                ScanTime = attendance.ScanTime
-            }).ToList();
+            return _mapper.Map<List<AttendanceLogDTO>>(attendance);
         }
     }
 }

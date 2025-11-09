@@ -16,3 +16,4 @@ namespace Gym.Client.Interfaces
         Task<UserDTO?> GetCurrentUserByTokenAsync();
     }
 }
+

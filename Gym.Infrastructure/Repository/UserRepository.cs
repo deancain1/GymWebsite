@@ -20,7 +20,7 @@ namespace Gym.Infrastructure.Repository
             _context = context;
             _roleManager = roleManager;
         }
-        public async Task<ApplicationUser?> GetByIdAsync(string id)
+        public async Task<ApplicationUser?> GetUserByIdAsync(string id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
@@ -59,5 +59,7 @@ namespace Gym.Infrastructure.Repository
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
         }
+
+      
     }
 }

@@ -1,4 +1,5 @@
-﻿using Gym.Application.DTOs;
+﻿using AutoMapper;
+using Gym.Application.DTOs;
 using Gym.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -13,10 +14,12 @@ namespace Gym.Application.Queries.Users
     public class GetUserByRoleQueryHandler : IRequestHandler<GetUserByRoleQuery, List<UserDTO>>
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMapper _mapper;
 
-        public GetUserByRoleQueryHandler(UserManager<ApplicationUser> userManager)
+        public GetUserByRoleQueryHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public async Task<List<UserDTO>> Handle(GetUserByRoleQuery request, CancellationToken cancellationToken)
@@ -27,20 +30,12 @@ namespace Gym.Application.Queries.Users
 
             foreach (var user in users)
             {
-                var roles = await _userManager.GetRolesAsync(user);
+                var userDTO = _mapper.Map<UserDTO>(user);
 
-                result.Add(new UserDTO
-                {
-                    UserId = user.Id,
-                    FullName = user.FullName,
-                    PhoneNumber = user.PhoneNumber,
-                    Email = user.Email,
-                    Gender = user.Gender,
-                    DateOfBirth = user.DateOfBirth,
-                    Address = user.Address,
-                    Role = user.Role,
-                    Roles = roles
-                });
+
+                userDTO.Roles = await _userManager.GetRolesAsync(user);
+
+                result.Add(userDTO);
             }
 
             return result;

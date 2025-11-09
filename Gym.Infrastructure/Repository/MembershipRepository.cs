@@ -33,24 +33,12 @@ namespace Gym.Infrastructure.Repository
             return await _context.Memberships.FindAsync(memberID);
         }
 
-        public async Task UpdateStatusAsync(Memberships member)
+      
+        public async Task UpdateMembershipStatusAsync(Memberships member)
         {
             _context.Memberships.Update(member);
             await _context.SaveChangesAsync();
         }
-        public async Task<List<Memberships>> GetMembershipsByUserIdAsync(string userId)
-        {
-            return await _context.Memberships
-                .Where(m => m.UserId == userId)
-                .ToListAsync();
-        }
-        public async Task<List<Memberships>> GetActiveMembershipsAsync()
-        {
-            return await _context.Memberships
-                .Where(m => m.Status != "Expired")
-                .ToListAsync();
-        }
-
         public async Task<int> GetTotalMembershipsAsync()
         {
             return await _context.Memberships
@@ -100,10 +88,12 @@ namespace Gym.Infrastructure.Repository
             return counts;
         }
 
-        public async Task<Memberships?> GetQrCodeByUserIdAsync(string userId)
+        public async Task<Memberships?> GetQrCodeByTokenAsync(string userId)
         {
             return await _context.Memberships
                    .FirstOrDefaultAsync(m => m.UserId == userId);
         }
+
+    
     }
 }

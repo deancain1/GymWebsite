@@ -1,4 +1,5 @@
 ﻿using Gym.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,12 @@ namespace Gym.Application.Interfaces
         Task CreateMembershipAsync(Memberships memberships);
         Task<List<Memberships>> GetAllMembershipsAsync();
         Task<Memberships?> GetMemberByIDAsync(int memberID);
-        Task UpdateStatusAsync(Memberships memberships);
-        Task<List<Memberships>> GetMembershipsByUserIdAsync(string userId);
-        Task<List<Memberships>> GetActiveMembershipsAsync();
+        Task UpdateMembershipStatusAsync(Memberships memberships);
         Task<int> GetTotalMembershipsAsync();
         Task<Dictionary<string, int>> GetMembershipsPerMonthAsync();
         Task<Dictionary<string, int>> GetExpiredMembershipsPerMonthAsync();
         Task<Dictionary<string, int>> GetMembershipPlanCountsAsync();
-        Task<Memberships?> GetQrCodeByUserIdAsync(string userId);
+        Task<Memberships?> GetQrCodeByTokenAsync(string userId);
 
     }
 }

@@ -48,8 +48,8 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             Attendees = attendees.Count(a => a.ScanTime.Date == DateTime.Today);
 
          
-            var monthlyCounts = await _membershipService.GetMonthlyMembershipsAsync();
-            var monthlyExpired = await _membershipService.GetMonthlyExpiredAsync();
+            var monthlyCounts = await _membershipService.GetMembershipsPerMonthAsync();
+            var monthlyExpired = await _membershipService.GetExpiredMembershipsPerMonthAsync();
 
             if (monthlyCounts is not null && monthlyExpired is not null)
             {
@@ -79,7 +79,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             }
 
 
-            var planCounts = await _membershipService.GetPlanCountsAsync();
+            var planCounts = await _membershipService.GetMembershipPlanCountsAsync();
             if (planCounts is not null && planCounts.Count > 0)
             {
                 labels = planCounts.Select(p => p.MembershipPlan).ToArray();

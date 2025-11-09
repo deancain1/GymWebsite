@@ -11,6 +11,6 @@ namespace Gym.Application.Queries.Users
     public class GetUserByIDQuery : IRequest<UserDTO?>
     {
         public string UserId { get; set; }
-       
+
     }
 }

@@ -41,7 +41,7 @@ namespace Gym.Infrastructure.Services
                             if (member.Status == "Accepted" && member.ExpirationDate <= now)
                             {
                                 member.Status = "Expired";
-                                await membershipRepo.UpdateStatusAsync(member);
+                                await membershipRepo.UpdateMembershipStatusAsync(member);
                                 _logger.LogInformation($"Membership {member.MemberID} has expired.");
                             }
                         }

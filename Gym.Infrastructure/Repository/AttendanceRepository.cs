@@ -38,18 +38,14 @@ namespace Gym.Infrastructure.Repository
             .ToListAsync();
         }
 
-        public async Task<Memberships?> GetMembershipByIdAsync(int membershipId)
-        {
-            return await _context.Memberships
-            .FirstOrDefaultAsync(m => m.MemberID == membershipId);
-        }
+        
         public async Task<bool> HasScannedTodayAsync(int memberId, DateTime today)
         {
             return await _context.Attendance
                 .AnyAsync(a => a.MemberID == memberId && a.ScanTime.Date == today);
         }
 
-        public async Task<List<AttendanceLog>> GetAttendanceByUserIdAsync(string userId)
+        public async Task<List<AttendanceLog>> GetAttendanceByTokenAsync(string userId)
         {
            return await _context.Attendance
                 .Where(a => a.UserId == userId)

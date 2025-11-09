@@ -46,7 +46,7 @@ namespace Gym.Client.Services
             var result = await _http.PutAsJsonAsync($"api/Membership/update-status/{memberId}", status);
             return result.IsSuccessStatusCode;
         }
-        public async Task<List<MembershipsPerMonthDTO>> GetMonthlyMembershipsAsync()
+        public async Task<List<MembershipsPerMonthDTO>> GetMembershipsPerMonthAsync()
         {
          
 
@@ -54,14 +54,14 @@ namespace Gym.Client.Services
             return response ?? new List<MembershipsPerMonthDTO>();
         }
 
-        public async Task<List<MembershipsPerMonthDTO>> GetMonthlyExpiredAsync()
+        public async Task<List<MembershipsPerMonthDTO>> GetExpiredMembershipsPerMonthAsync()
         {
            
 
             var response = await _http.GetFromJsonAsync<List<MembershipsPerMonthDTO>>("api/Membership/expired-memberships");
             return response ?? new List<MembershipsPerMonthDTO>();
         }
-        public async Task<List<MembershipPlanDTO>> GetPlanCountsAsync()
+        public async Task<List<MembershipPlanDTO>> GetMembershipPlanCountsAsync()
         {
             var response = await _http.GetFromJsonAsync<List<MembershipPlanDTO>>("api/Membership/plan-counts")
                             ?? new List<MembershipPlanDTO>();

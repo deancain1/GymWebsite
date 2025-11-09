@@ -18,7 +18,7 @@ namespace Gym.Application.Commands.Users
 
         public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var student = await _userRepository.GetByIdAsync(request.UserId) ?? throw new Exception("User NOT FOUND");
+            var student = await _userRepository.GetUserByIdAsync(request.UserId) ?? throw new Exception("User NOT FOUND");
             await _userRepository.DeleteUserAsync(student);
         }
     }
