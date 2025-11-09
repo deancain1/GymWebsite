@@ -20,14 +20,14 @@
                            Color="Color.Error"
                            Disabled="@(!_selectedAdmin.Any())"
                            StartIcon="@Icons.Material.Filled.Delete"
-                           OnClick="DeleteSelectedStudentsAsync">
+                           OnClick="DeleteSelectedAdminsAsync">
                     DELETE (@_selectedAdmin.Count)
                 </MudButton>
             </MudItem>
             <MudItem xs="12" sm="6" md="3" Class="mb-3">
                 <MudTextField T="string"
                               Label="Search"
-                              Variant="Variant.Outlined"
+                              Variant="Variant.Outlined" 
                               Adornment="Adornment.End"
                               AdornmentIcon="@Icons.Material.Filled.Search"
                               Class="w-100" />

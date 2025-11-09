@@ -121,7 +121,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             }
         }
 
-        protected async Task DeleteSelectedStudentsAsync()
+        protected async Task DeleteSelectedUsersAsync()
         {
             if (_selectedUser == null || !_selectedUser.Any())
                 return;

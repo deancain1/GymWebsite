@@ -42,42 +42,46 @@
                 Delete Member
             </MudButton>
         </MudItem>
+
+        <MudPaper Class="w-full">
+        <MudDataGrid T="MembershipDTO" Items="@members" SortMode="@_sortMode" MultiSelection="true" Dense="true"
+                     Striped="true"
+                     Hover="true"
+                    
+                     @bind-SelectedItems="selectedMembers">
+
+            <Columns>
+                <SelectColumn T="MembershipDTO" />
+
+
+                <PropertyColumn Property="m => m.FullName" Title="Full Name" />
+                <PropertyColumn Property="m => m.Email" Title="Email" />
+                <PropertyColumn Property="m => m.PhoneNumber" Title="Phone Number" />
+                <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date" CellClass="text-nowrap" Format="dd/MM/yyyy" />
+                <PropertyColumn Property="a => a.Status" Title="Status" />
+
+                <TemplateColumn Title="QR Code">
+                    <CellTemplate Context="context">
+                        @if (!string.IsNullOrEmpty(context.Item.QRCode))
+                        {
+                            <img src="data:image/png;base64,@context.Item.QRCode" alt="QR Code"
+                                 style="width:80px; height:80px;" />
+                        }
+                        else
+                        {
+                            <MudText Color="Color.Error" Typo="Typo.caption">No QR</MudText>
+                        }
+                    </CellTemplate>
+                </TemplateColumn>
+
+            </Columns>
+
+            <PagerContent>
+                <MudDataGridPager T="MembershipDTO" />
+            </PagerContent>
+        </MudDataGrid>
+        </MudPaper>
     </MudPaper>
 
-    <MudDataGrid T="MembershipDTO" Items="@members" SortMode="@_sortMode" MultiSelection="true" Dense="true"
-                 Striped="true"
-                 Hover="true"
-                 Class="mt-4"
-                 @bind-SelectedItems="selectedMembers">
-
-        <Columns>
-            <SelectColumn T="MembershipDTO" />
-
-            
-            <PropertyColumn Property="m => m.FullName" Title="Full Name"  />
-            <PropertyColumn Property="m => m.Email" Title="Email" />
-            <PropertyColumn Property="m => m.PhoneNumber" Title="Phone Number" />
-            <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date" CellClass="text-nowrap" Format="dd/MM/yyyy" />
-            <PropertyColumn Property="a => a.Status" Title="Status" />
-
-            <TemplateColumn Title="QR Code">
-                <CellTemplate Context="context">
-                    @if (!string.IsNullOrEmpty(context.Item.QRCode))
-                    {
-                        <img src="data:image/png;base64,@context.Item.QRCode" alt="QR Code"
-                             style="width:80px; height:80px;" />
-                    }
-                    else
-                    {
-                        <MudText Color="Color.Error" Typo="Typo.caption">No QR</MudText>
-                    }
-                </CellTemplate>
-            </TemplateColumn>
-
-        </Columns>
-
-        <PagerContent>
-            <MudDataGridPager T="MembershipDTO" />
-        </PagerContent>
-    </MudDataGrid>
+    
 </div>

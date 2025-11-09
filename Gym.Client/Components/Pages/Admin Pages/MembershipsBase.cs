@@ -1,5 +1,6 @@
 ﻿using Gym.Client.DTOs;
 using Gym.Client.Interfaces;
+using Gym.Client.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
@@ -72,5 +73,6 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 );
             }
         }
+      
     }
 }

@@ -122,7 +122,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             }
         }
     
-        protected async Task DeleteSelectedStudentsAsync()
+        protected async Task DeleteSelectedAdminsAsync()
         {
             if (_selectedAdmin == null || !_selectedAdmin.Any())
                 return;
