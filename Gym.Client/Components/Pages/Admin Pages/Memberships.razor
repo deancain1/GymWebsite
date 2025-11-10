@@ -17,7 +17,7 @@
 
         <MudItem xs="12" sm="6" md="3">
         <MudSelect @bind-Value="selectedStatus" Label="Select Status" Variant="Variant.Outlined">
-             <MudSelectItem Value="@("Pending")">Pending</MudSelectItem>
+            <MudSelectItem Value="@("Pending")">Pending</MudSelectItem>
             <MudSelectItem Value="@( "Accepted" )">Accepted</MudSelectItem>
             <MudSelectItem Value="@( "Rejected" )">Rejected</MudSelectItem>
              
@@ -26,25 +26,16 @@
         </MudItem>
 
        <MudItem xs="12" sm="6" md="3" Class="my-2 d-flex justify-center gap-2">
-        <MudButton Color="Color.Dark" Variant="Variant.Filled"
-                   Disabled="@(!selectedMembers.Any() || string.IsNullOrEmpty(selectedStatus))"
-                   OnClick="() => UpdateSelectedStatusAsync(selectedStatus)">
-            Apply Status
+        <MudButton Color="Color.Dark" Variant="Variant.Filled" Disabled="@(!selectedMembers.Any() || string.IsNullOrEmpty(selectedStatus))"
+                       OnClick="() => UpdateSelectedStatusAsync(selectedStatus)"> Apply Status
         </MudButton>
 
-            <MudButton Color="Color.Primary" Variant="Variant.Filled"
-                       Disabled="@(!selectedMembers.Any())"
-                       OnClick="GenerateSelectedPdfsAsync">
+            <MudButton Color="Color.Primary" Variant="Variant.Filled" Disabled="@(!selectedMembers.Any())" OnClick="GenerateSelectedPdfsAsync">
                 Generate Card
             </MudButton>
 
-            <MudButton Class="mb-3"
-                       Variant="Variant.Filled"
-                       Color="Color.Error"
-                       Disabled="@(!selectedMembers.Any())"
-                       StartIcon="@Icons.Material.Filled.Delete"
-                       OnClick="DeleteSelectedMembersAsync">
-                Delete Member  (@selectedMembers.Count)
+            <MudButton Variant="Variant.Filled" Color="Color.Error" Disabled="@(!selectedMembers.Any())" StartIcon="@Icons.Material.Filled.Delete"
+                       OnClick="DeleteSelectedMembersAsync"> Delete Member  (@selectedMembers.Count)
             </MudButton>
         </MudItem>
 
@@ -57,7 +48,6 @@
 
             <Columns>
                 <SelectColumn T="MembershipDTO" />
-
 
                 <PropertyColumn Property="m => m.FullName" Title="Full Name" />
                 <PropertyColumn Property="m => m.Email" Title="Email" />

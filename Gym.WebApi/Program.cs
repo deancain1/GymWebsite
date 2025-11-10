@@ -1,8 +1,10 @@
 using Gym.Application;
 using Gym.Application.Commands.Auth;
+using Gym.Application.Interfaces;
 using Gym.Domain.Entities;
 using Gym.Infrastructure;
 using Gym.Infrastructure.Data;
+using Gym.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -97,6 +99,11 @@ builder.Services.AddMediatR(cfg =>
 builder.Host.UseSerilog((context, configuration) =>
                configuration.ReadFrom.Configuration(context.Configuration));
 
+
+var apiKey = builder.Configuration["Brevo:ApiKey"];
+
+builder.Services.AddScoped<IEmailService>(provider =>
+    new EmailService(apiKey));
 
 
 builder.Services.AddControllers();

@@ -8,39 +8,26 @@
 
         <MudPaper Class="d-flex flex-wrap flex-row justify-content-between flex-grow-1 gap-4" Elevation="0">
             <MudItem xs="12" sm="6" md="5" Class="d-flex justify-start gap-2">
-                <MudButton Class="mb-3"
-                           @onclick="OpenDialogAsync"
-                           Variant="Variant.Filled"
-                           Color="Color.Warning"
+                <MudButton Class="mb-3" @onclick="OpenDialogAsync" Variant="Variant.Filled" Color="Color.Warning"
                            StartIcon="@Icons.Material.Filled.PersonAdd">
                     Add Admin
                 </MudButton>
-                <MudButton Class="mb-3"
-                           Variant="Variant.Filled"
-                           Color="Color.Error"
-                           Disabled="@(!_selectedAdmin.Any())"
-                           StartIcon="@Icons.Material.Filled.Delete"
+                <MudButton Class="mb-3" Variant="Variant.Filled" Color="Color.Error" Disabled="@(!_selectedAdmin.Any())" StartIcon="@Icons.Material.Filled.Delete"
                            OnClick="DeleteSelectedAdminsAsync">
                     DELETE (@_selectedAdmin.Count)
                 </MudButton>
             </MudItem>
             <MudItem xs="12" sm="6" md="3" Class="mb-3">
-                <MudTextField T="string"
-                              Label="Search"
-                              Variant="Variant.Outlined" 
-                              Adornment="Adornment.End"
-                              AdornmentIcon="@Icons.Material.Filled.Search"
-                              Class="w-100" />
+                <MudTextField T="string" Label="Search" Variant="Variant.Outlined" Adornment="Adornment.End"AdornmentIcon="@Icons.Material.Filled.Search" Class="w-100" />
             </MudItem>
         </MudPaper>
         <MudDataGrid T="UserDTO"
-                     Items="@students"
+                     Items="@admins"
                      SortMode="@_sortMode"
                      @bind-SelectedItems="_selectedAdmin"
                      MultiSelection="true"
                      Dense="true"
                      Striped="true"
-                     Hover="true"
                      Class="mt-4">
 
             <Columns>

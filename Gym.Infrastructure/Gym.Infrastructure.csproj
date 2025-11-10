@@ -19,6 +19,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
+    <PackageReference Include="sib_api_v3_sdk" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>

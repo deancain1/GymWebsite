@@ -8,14 +8,10 @@
         <MudText Typo="Typo.h6"><strong> Attendance History</strong></MudText>
 
         <MudItem xs="12" sm="6" md="1" lg="3">
-            <MudTextField T="string"
-                          Label="Search"
-                          Variant="Variant.Outlined"
-                          Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.Search"
-                          Class="w-100" />
+            <MudTextField T="string" Label="Search" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" Class="w-100" />
         </MudItem>
         <MudItem xs="12" sm="6" md="2" lg="3">
+
             <MudDatePicker Label="Filter by Date"
                            @bind-Date="selectedDate"
                            DateFormat="MM/dd/yyyy"

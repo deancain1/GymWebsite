@@ -16,13 +16,13 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         protected SortMode _sortMode = SortMode.Multiple;
 
         protected UserDTO user = new UserDTO();
-        protected List<UserDTO> students = new();
+        protected List<UserDTO> users = new();
         protected HashSet<UserDTO> _selectedUser = new();
         protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
         private async Task LoadUsers()
         {
-            students = await _userService.GetAccountsByRoleAsync("User");
+            users = await _userService.GetAccountsByRoleAsync("User");
             StateHasChanged();
         }
         protected override async Task OnInitializedAsync()
@@ -112,10 +112,10 @@ namespace Gym.Client.Components.Pages.Admin_Pages
 
             if (!result.Canceled && result.Data is UserDTO updateUser)
             {
-                var index = students.FindIndex(r => r.UserId == updateUser.UserId);
+                var index = users.FindIndex(r => r.UserId == updateUser.UserId);
                 if (index != -1)
                 {
-                    students[index] = updateUser;
+                    users[index] = updateUser;
                     StateHasChanged();
                 }
             }
