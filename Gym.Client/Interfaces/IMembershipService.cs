@@ -1,4 +1,5 @@
 ﻿using Gym.Client.DTOs;
+using static System.Net.WebRequestMethods;
 
 namespace Gym.Client.Interfaces
 {
@@ -13,6 +14,7 @@ namespace Gym.Client.Interfaces
         Task<List<MembershipsPerMonthDTO>> GetExpiredMembershipsPerMonthAsync();
         Task<List<MembershipPlanDTO>> GetMembershipPlanCountsAsync();
         Task<MembershipDTO?> GetQrCodeByTokenAsync();
+        Task<bool> DeleteMembershipsAsync(int MemberID);
 
     }
 }

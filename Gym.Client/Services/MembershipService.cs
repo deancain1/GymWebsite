@@ -72,5 +72,10 @@ namespace Gym.Client.Services
         {
             return await _http.GetFromJsonAsync<MembershipDTO>("api/Membership/user-qrcode");
         }
+        public async Task<bool> DeleteMembershipsAsync(int MemberID)
+        {
+            var response = await _http.DeleteAsync($"api/Membership/{MemberID}");
+            return response.IsSuccessStatusCode;
+        }
     }
 }

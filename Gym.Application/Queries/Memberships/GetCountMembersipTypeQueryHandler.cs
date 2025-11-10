@@ -20,9 +20,9 @@ namespace Gym.Application.Queries.Memberships
         {
           
 
-            var data = await _membershipRepository.GetMembershipPlanCountsAsync();
+            var membershipPlam = await _membershipRepository.GetMembershipPlanCountsAsync();
 
-            var result = data.Select(x => new MembershipPlanDTO
+            var result = membershipPlam.Select(x => new MembershipPlanDTO
             {
                 MembershipPlan = x.Key,
                 Count = x.Value

@@ -21,9 +21,9 @@ namespace Gym.Application.Queries.Memberships
 
         public async Task<List<MembershipsPerMonthDTO>> Handle(GetMembershipsPerMonthQuery request, CancellationToken cancellationToken)
         {
-            var data = await _membershipRepository.GetMembershipsPerMonthAsync();
+            var memmbers = await _membershipRepository.GetMembershipsPerMonthAsync();
 
-            var result = data.Select(x => new MembershipsPerMonthDTO
+            var result = memmbers.Select(x => new MembershipsPerMonthDTO
             {
                 Month = x.Key,
                 Count = x.Value

@@ -38,8 +38,13 @@
                 Generate Card
             </MudButton>
 
-            <MudButton Color="Color.Error" Variant="Variant.Filled">
-                Delete Member
+            <MudButton Class="mb-3"
+                       Variant="Variant.Filled"
+                       Color="Color.Error"
+                       Disabled="@(!selectedMembers.Any())"
+                       StartIcon="@Icons.Material.Filled.Delete"
+                       OnClick="DeleteSelectedMembersAsync">
+                Delete Member  (@selectedMembers.Count)
             </MudButton>
         </MudItem>
 

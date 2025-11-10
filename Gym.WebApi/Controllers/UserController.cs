@@ -59,21 +59,21 @@ namespace Gym.WebApi.Controllers
         [HttpGet("total-user")]
         public async Task<IActionResult> GetTotalUser()
         {
-            var totalUser = await _mediator.Send(new GetTotalUserQuery());
-            return Ok(totalUser);
+            var result = await _mediator.Send(new GetTotalUserQuery());
+            return Ok(result);
         }
         [HttpGet("total-admins")]
         public async Task<IActionResult> GetTotalAdmins()
         {
-            var totalAdmins = await _mediator.Send(new GetTotalAdminQuery());
-            return Ok(totalAdmins);
+            var result = await _mediator.Send(new GetTotalAdminQuery());
+            return Ok(result);
         }
         [Authorize(Roles = "User")]
         [HttpGet("user-info")]
         public async Task<IActionResult> GetCurrentUser()
         {
-            var userInfo = await _mediator.Send(new GetCurrentUserQuery());
-            return Ok(userInfo);
+            var result = await _mediator.Send(new GetCurrentUserQuery());
+            return Ok(result);
         }
     }
 }

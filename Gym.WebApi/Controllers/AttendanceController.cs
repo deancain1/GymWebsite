@@ -52,8 +52,8 @@ namespace Gym.WebApi.Controllers
         [HttpGet("my-attendance")]
         public async Task<IActionResult> GetMyAttendance()
         {
-            var attendances = await _mediator.Send(new GetAttendanceByIDQuery());
-            return Ok(attendances);
+            var result = await _mediator.Send(new GetAttendanceByIDQuery());
+            return Ok(result);
         }
     }
 }

@@ -20,9 +20,9 @@ namespace Gym.Application.Queries.Memberships
 
         public async Task<List<MembershipsPerMonthDTO>> Handle(GetExpiredMembershipsQuery request, CancellationToken cancellationToken)
         {
-            var data = await _membershipRepository.GetExpiredMembershipsPerMonthAsync();
+            var expiredMembers = await _membershipRepository.GetExpiredMembershipsPerMonthAsync();
 
-            var result = data.Select(x => new MembershipsPerMonthDTO
+            var result = expiredMembers.Select(x => new MembershipsPerMonthDTO
             {
                 Month = x.Key,
                 Count = x.Value

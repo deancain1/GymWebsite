@@ -94,6 +94,10 @@ namespace Gym.Infrastructure.Repository
                    .FirstOrDefaultAsync(m => m.UserId == userId);
         }
 
-    
+        public async Task DeleteMembershipsAsync(Memberships memberships)
+        {
+           _context.Memberships.Remove(memberships);
+            await _context.SaveChangesAsync();
+        }
     }
 }

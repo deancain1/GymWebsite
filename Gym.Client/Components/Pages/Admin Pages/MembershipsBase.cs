@@ -13,6 +13,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         [Inject] protected IJSRuntime JS { get; set; } = default!;
         [Inject] protected HttpClient Http { get; set; } = default!;
         [Inject] protected IMembershipService _membershipService { get; set; } = default!;
+        [Inject] protected IDialogService DialogService { get; set; } = default!;
         [Inject] protected ISnackbar Snackbar { get; set; } = default!;
 
         protected List<MembershipDTO> members = new();
@@ -73,6 +74,27 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 );
             }
         }
-      
+        protected async Task DeleteSelectedMembersAsync()
+        {
+            if (selectedMembers == null || !selectedMembers.Any())
+                return;
+
+            bool confirmed = (bool)await DialogService.ShowMessageBox(
+                "Confirm Delete",
+                $"Are you sure you want to delete {selectedMembers.Count} selected members(s)?",
+                yesText: "Yes", cancelText: "Cancel");
+
+            if (confirmed)
+            {
+                foreach (var student in selectedMembers)
+                {
+                    await _membershipService.DeleteMembershipsAsync(student.MemberID);
+                }
+
+                selectedMembers.Clear();
+                await LoadMembers();
+                Snackbar.Add("Selected user deleted successfully.", Severity.Success);
+            }
+        }
     }
 }

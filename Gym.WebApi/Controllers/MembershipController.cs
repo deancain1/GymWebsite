@@ -1,4 +1,5 @@
 ﻿using Gym.Application.Commands.Membership;
+using Gym.Application.Commands.Users;
 using Gym.Application.DTOs;
 using Gym.Application.Queries.Memberships;
 
@@ -20,7 +21,7 @@ namespace Gym.WebApi.Controllers
         }
         [Authorize(Roles = "User")]
         [HttpPost("create-membership")]
-    
+
         public async Task<IActionResult> CreateMembership([FromBody] CreateMembershipCommand cmd)
         {
             var result = await _mediator.Send(cmd);
@@ -71,12 +72,20 @@ namespace Gym.WebApi.Controllers
         [HttpGet("user-qrcode")]
         public async Task<ActionResult<MembershipDTO>> GetCurrentUserQrCode()
         {
-            var qrCodeDto = await _mediator.Send(new GetCurrentUserQrCodeQuery());
-               if (qrCodeDto == null)
+            var result = await _mediator.Send(new GetCurrentUserQrCodeQuery());
+            if (result == null)
                 return NotFound("Membership or QR code not found.");
 
-                return Ok(qrCodeDto);
-            }
+            return Ok(result);
+        }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMemberships(int id)
+        {
+            await _mediator.Send(new DeleteMembershipsCommand { MemberID = id });
+            return NoContent();
+
         }
     }
+}
 
