@@ -3,14 +3,9 @@
 @inject ILocalStorageService LocalStorage
 @layout HomePageLayout
 
-<header class="bg-bg-[#080808] shadow-md py-4 fixed w-full">
-    <nav class="hidden sm:flex justify-center gap-8">
-        <a href="#" class="text-white text-lg font-semibold px-4 py-2 rounded-full hover:bg-yellow-500  transition duration-300">Home</a>
-        <a href="#" class="text-white text-lg font-semibold px-4 py-2 rounded-full hover:bg-yellow-500   transition duration-300">About</a>
-        <a href="#" class="text-white text-lg font-semibold px-4 py-2 rounded-full hover:bg-yellow-500  transition duration-300">Services</a>
-        <a href="#" class="text-white text-lg font-semibold px-4 py-2 rounded-full hover:bg-yellow-500   transition duration-300">Contact</a>
-    </nav>
-    <div class="absolute right-6 top-1/2 my-1 -translate-y-1/2 ">
+<header class="bg-bg-[#080808] shadow-md py-4 fixed w-full py-5 z-50">
+   
+    <div class="absolute left-6 top-1/2 my-1 -translate-y-1/2 ">
         <MudButton Variant="Variant.Filled"
                    Color="Color.Warning"
                    Size="Size.Large"
@@ -18,30 +13,37 @@
                    Href="/login">
             Login
         </MudButton>
-        <button class="md:hidden text-white text-2xl focus:outline-none" @onclick="ToggleMenu">
+       
+        <button class="sm:hidden sm:show text-white text-2xl focus:outline-none  " @onclick="ToggleMenu">
             <MudIcon Icon="@Icons.Material.Filled.Menu" />
         </button>
     </div>
-    @if (isMenuOpen)
-    {
-        <nav class="md:hidden bg-[#080808] flex flex-col items-center gap-4 py-4">
-            <a href="#" class="text-white text-lg font-semibold hover:text-yellow-500 transition">Home</a>
-            <a href="#" class="text-white text-lg font-semibold hover:text-yellow-500 transition">About</a>
-            <a href="#" class="text-white text-lg font-semibold hover:text-yellow-500 transition">Services</a>
-            <a href="#" class="text-white text-lg font-semibold hover:text-yellow-500 transition">Contact</a>
-
-            <MudButton Variant="Variant.Filled"
-                       Color="Color.Warning"
-                       Size="Size.Medium"
-                       Href="/login">
-                Login
-            </MudButton>
-        </nav>
-    }
+    <nav class="hidden sm:flex justify-content-end px-5 gap-6">
+        <a href="#home" class="text-white text-lg font-semibold px-4 py-2 rounded-full hover:bg-yellow-500  transition duration-300">Home</a>
+        <a href="#services" class="text-white text-lg font-semibold px-4 py-2 rounded-full hover:bg-yellow-500  transition duration-300">Choose us</a>
+        <a href="#contact" class="text-white text-lg font-semibold px-4 py-2 rounded-full hover:bg-yellow-500   transition duration-300">Contact</a>
+    </nav>
+   
 </header>
+@if (isMenuOpen)
+{
+    <nav class="md:hidden bg-gray-800 flex flex-col items-center py-10 transition-all duration-300 w-full ">
+        <a href="#home" class="text-white text-lg font-semibold px-4 py-3 w-full border-b border-gray-700"> Home</a>
+        <a href="#services" class="text-white text-lg font-semibold px-4 py-3 w-full border-b border-gray-700"> Choose us</a>
+        <a href="#contact" class="text-white text-lg font-semibold px-4 py-3 w-full border-b border-gray-700"> Contact</a>
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Warning"
+                   Size="Size.Medium"
+                   Class="mt-4 w-11/12"
+                   Href="/login">
+            Login
+        </MudButton>
+    </nav>
+}
 
 
-<section class="w-full py-40 md:py-32 flex bg-gradient-to-r from-[#661F1F] via-[#2B1F1F] to-[#000000]">
+<section id="home" class="w-full py-40 md:py-32 flex bg-gradient-to-r from-[#661F1F] via-[#2B1F1F] to-[#000000]">
     <div class="flex flex-col md:flex-row items-center w-full h-full px-6">
         <div class="lg:w-1/2 lg:text-left md:w-full md:text-center">
             <h4 class="text-4xl md:text-6xl text-white font-extrabold mb-6 drop-shadow-lg">
@@ -84,7 +86,7 @@
 
 
 
-<section class="py-20 bg-gray-50">
+<section id="services" class="py-20 bg-gray-50">
     <div class="container mx-auto px-6">
         <h3 class="text-4xl font-bold text-center mb-16 text-gray-800">Why Choose Us?</h3>
         <div class="grid md:grid-cols-3 gap-10">
@@ -106,10 +108,11 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-gray-900 text-gray-300 py-8 mt-10">
+
+<footer id="contact" class="bg-gray-900 text-gray-300 py-8 mt-10">
     <div class="container mx-auto text-center space-y-2">
-        <p class="font-semibold">&copy; 2025 Pioneer.  All rights reserved.</p>
+        <p class="font-semibold">Contact Us: deanronquillo66@gmail.com .</p>
+        <p class="font-semibold">&copy; 2025 Power Gym.  All rights reserved.</p>
 
     </div>
 </footer>

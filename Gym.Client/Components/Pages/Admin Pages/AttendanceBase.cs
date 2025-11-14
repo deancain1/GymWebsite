@@ -1,6 +1,7 @@
 ﻿using Gym.Client.DTOs;
 using Gym.Client.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Gym.Client.Components.Pages.Admin_Pages
 {
@@ -8,6 +9,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
     {
         [Inject] IAttendanceService _attendanceService { get; set; } = default!;
         public List<AttendanceLogDTO> Attendances { get; set; } = new();
+        [Inject] IJSRuntime JS { get; set; } = default!;
         public string searchText { get; set; } = "";
         public DateTime? selectedDate { get; set; } = null;
         public TimeSpan? selectedTime { get; set; } = null;
@@ -38,6 +40,9 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             )
         )
         .ToList();
-
+        public async Task PrintPDF()
+        {
+            await JS.InvokeVoidAsync("printAttendance");
+        }
     }
 }

@@ -29,20 +29,31 @@
                            AmPm="true"
                            Class="w-100" />
         </MudItem>
+          <MudItem xs="12" sm="6" md="2" lg="3">
+            <MudButton  Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Print"
+                       OnClick="PrintPDF">
+                Print Attendance
+            </MudButton>
+              </MudItem>
     </MudPaper>
-        <MudDataGrid T="AttendanceLogDTO"
-                     Items="@filteredAttendances"
-                     Class="mt-4">
+        <div id="print-area">
+            <MudDataGrid T="AttendanceLogDTO"
+                         Items="@filteredAttendances"
+                         Class="mt-4">
 
-            <Columns>
-                <PropertyColumn Property="a => a.UserID" Title="User ID" />
-                <PropertyColumn Property="a => a.FullName" Title="Full Name" />
-                <PropertyColumn Property="a => a.ScanTime" Title="DateTime Scan" />
-            </Columns>
+                <Columns>
+                    <PropertyColumn Property="a => a.FullName" Title="Full Name" />
+                    <PropertyColumn Property="a => a.ScanTime" Title="DateTime Scan" />
+                </Columns>
 
-            <PagerContent>
-                <MudDataGridPager T="AttendanceLogDTO" />
-            </PagerContent>
-        </MudDataGrid>
+                <PagerContent>
+                    <MudDataGridPager T="AttendanceLogDTO" />
+                </PagerContent>
+
+            </MudDataGrid>
+        </div>
+
     </MudPaper>
 </div>
