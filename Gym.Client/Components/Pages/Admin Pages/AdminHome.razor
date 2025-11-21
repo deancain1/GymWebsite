@@ -5,7 +5,8 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4 mx-3">
 
     <MudPaper Elevation="3"
-              Style="background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Style="border-radius: 8px; border-left: 4px solid green;
+              background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
               Class="flex items-center justify-center py-4 rounded-2xl">
         <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
                     border-4 border-[#66BB6A] shadow-[0_8px_20px_rgba(102,187,106,0.6)]">
@@ -16,7 +17,8 @@
     </MudPaper>
 
     <MudPaper Elevation="3"
-              Style="background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Style="border-radius: 8px; border-left: 4px solid #FFC107;
+              background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
               Class="flex items-center justify-center py-4 rounded-2xl">
         <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
                     border-4 border-[#FFC107] shadow-[0_8px_20px_rgba(255,193,7,0.6)]">
@@ -28,7 +30,8 @@
 
 
     <MudPaper Elevation="3"
-              Style="background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Style="border-radius: 8px; border-left: 4px solid slateblue;
+              background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
               Class="flex items-center justify-center py-4 rounded-2xl">
         <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
                     border-4 border-[#7986CB] shadow-[0_8px_20px_rgba(92,107,192,0.6)]">
@@ -40,7 +43,8 @@
 
   
     <MudPaper Elevation="3"
-              Style="background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+              Style="border-radius: 8px; border-left: 4px solid darkred;
+              background-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
               Class="flex items-center justify-center py-4 rounded-2xl">
         <div class="flex flex-col items-center justify-center w-44 h-44 rounded-full
                     border-4 border-[darkred] shadow-[0_8px_20px_rgba(139,0,0,0.55)]">
@@ -51,7 +55,7 @@
     </MudPaper>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mx-5">
+<div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-2 mx-3">
     <MudPaper Style="background-color:white" Class="mt-6 p-4" Elevation="2">
         <MudText Typo="Typo.h6" Class="flex justify-content-center gap-2 text-gray-800">
             <MudIcon Class="mt-1" Icon="@Icons.Material.Filled.BarChart" Color="Color.Primary" />
@@ -92,7 +96,7 @@
     </MudPaper>
 
 
-    <MudPaper Class="mt-6 flex flex-col items-center py-5 gap-2 " Style="background-color:white">
+    <MudPaper Class="mt-6 flex flex-col items-center py-5 gap-2 w-full " Style="background-color:white">
 
         <MudText Typo="Typo.h6" Class="mt-2 text-dark">
             <MudIcon Class="mb-1"  Icon="@Icons.Material.Filled.PieChart" Color="Color.Primary" />
@@ -122,7 +126,7 @@
                 @foreach (var date in CalendarDates)
                 {
                     <MudItem xs="1">
-                        <MudPaper Class="p-2 text-center cursor-pointer"
+                        <MudPaper Class=" text-center cursor-pointer"
                                   Style="@GetDateStyle(date)"
                                   Elevation="1">
                             @date.Day

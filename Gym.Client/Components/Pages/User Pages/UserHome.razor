@@ -49,10 +49,14 @@
         <MudPaper Class="flex flex-col gap-4 w-full p-4 rounded-md shadow-sm bg-gray-50" Elevation="0">
 
             <MudTextField Label="Full Name" @bind-Value="user.FullName" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+
             <MudTextField Label="Phone Number" @bind-Value="user.PhoneNumber" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Phone" />
+
             <MudDatePicker Label="Date of Birth" @bind-Date="user.DateOfBirth" ReadOnly="true" DateFormat="MM/dd/yyyy" MaxDate="@DateTime.Today"
                            Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.CalendarToday" />
+
             <MudTextField Label="Gender" @bind-Value="user.Gender" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Wc" />
+
             <MudTextField Label="Address" @bind-Value="user.Address" ReadOnly="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Home" />
         </MudPaper>
     </MudPaper>

@@ -10,6 +10,7 @@ namespace Gym.Client.Components.Dialog.AdminDialog
     {
         [Inject] IUserService _userService { get; set; } = default!;
         [CascadingParameter] protected IMudDialogInstance MudDialog { get; set; } = default!;
+        [Inject] protected ISnackbar Snackbar { get; set; } = default!;
         [Parameter] public string? UserID { get; set; }
         public UserDTO user = new();
 
@@ -23,7 +24,7 @@ namespace Gym.Client.Components.Dialog.AdminDialog
             if (result != null)
             {
                 user = result;
-
+                
                 if (user.ProfilePicture != null)
                 {
                     var base64 = Convert.ToBase64String(user.ProfilePicture);
@@ -37,6 +38,7 @@ namespace Gym.Client.Components.Dialog.AdminDialog
             if (result)
             {
                 MudDialog.Close(DialogResult.Ok(user));
+                Snackbar.Add("Update User successfully.", Severity.Success);
             }
             else
             {

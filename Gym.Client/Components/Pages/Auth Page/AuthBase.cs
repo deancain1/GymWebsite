@@ -4,6 +4,7 @@ using Gym.Client.Interfaces;
 using Gym.Client.Security;
 using Gym.Client.Services;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using static System.Net.WebRequestMethods;
 
 namespace Gym.Client.Components.Pages.Auth_Page
@@ -13,6 +14,7 @@ namespace Gym.Client.Components.Pages.Auth_Page
 
         [Inject] HttpClient _http { get; set; } = default!;
         [Inject] IUserService _userService { get; set; } = default!;
+        [Inject] protected ISnackbar Snackbar { get; set; } = default!;
         [Inject] CustomAuthStateProvider AuthStateProvider { get; set; } = default!;
         [Inject] ILocalStorageService _localStorageService { get; set; } = default!;
         [Inject] NavigationManager Navigation { get; set; } = default!;
@@ -30,6 +32,34 @@ namespace Gym.Client.Components.Pages.Auth_Page
 
         public async Task HandleRegister()
         {
+            if (string.IsNullOrWhiteSpace(user.FullName) ||
+                string.IsNullOrWhiteSpace(user.Email) ||
+                string.IsNullOrWhiteSpace(user.PhoneNumber) ||
+                string.IsNullOrWhiteSpace(user.Gender) ||
+                string.IsNullOrWhiteSpace(user.Address) ||
+                user.DateOfBirth == null ||
+                string.IsNullOrWhiteSpace(user.Password))
+
+            {
+                Snackbar.Add("Please fill in all required fields.", Severity.Warning);
+                return;
+            }
+            if (!user.Email.EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
+            {
+                Snackbar.Add("Email must be a valid @gmail.com address.", Severity.Warning);
+                return;
+            }
+            if (user.PhoneNumber.Length != 11 || !user.PhoneNumber.All(char.IsDigit))
+            {
+                Snackbar.Add("Phone number must be exactly 11 digits.", Severity.Warning);
+                return;
+            }
+            if (user.Password.Length < 8)
+            {
+                Snackbar.Add("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.", Severity.Warning);
+                return;
+            }
+
             var registerAccount = await _userService.CreateAccountAsync(user);
 
             if (registerAccount)
@@ -38,17 +68,27 @@ namespace Gym.Client.Components.Pages.Auth_Page
             }
             else
             {
-                Console.WriteLine("Registration failed");
+                Snackbar.Add("Registration failed. Please try again.", Severity.Error);
             }
         }
+      
 
         public async Task HandleLogin()
         {
+            if (
+                string.IsNullOrWhiteSpace(loginModel.Email) ||
+                string.IsNullOrWhiteSpace(loginModel.Password))
+
+            {
+                Snackbar.Add("Please fill in all required fields.", Severity.Warning);
+                return;
+            }
+
             var response = await _userService.LoginAsync(loginModel);
 
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine("Login failed");
+                Snackbar.Add("Incorrect email or password.", Severity.Error);
                 return;
             }
 

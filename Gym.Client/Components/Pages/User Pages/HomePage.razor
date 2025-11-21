@@ -3,18 +3,18 @@
 @inject ILocalStorageService LocalStorage
 @layout HomePageLayout
 
-<header class="bg-bg-[#080808] shadow-md py-4 fixed w-full py-5 z-50">
+<header class=" bg-gradient-to-r from-[#661F1F] via-[#2B1F1F] to-[#000000] shadow-md  fixed w-full py-5 z-50">
    
     <div class="absolute left-6 top-1/2 my-1 -translate-y-1/2 ">
         <MudButton Variant="Variant.Filled"
                    Color="Color.Warning"
                    Size="Size.Large"
-                   Class="hidden md:inline-block mb-2 bg-yellow-50"
+                   Class="hidden sm:inline-block mb-2 bg-yellow-50"
                    Href="/login">
             Login
         </MudButton>
        
-        <button class="sm:hidden sm:show text-white text-2xl focus:outline-none  " @onclick="ToggleMenu">
+        <button class="sm:hidden text-white text-2xl focus:outline-none  " @onclick="ToggleMenu">
             <MudIcon Icon="@Icons.Material.Filled.Menu" />
         </button>
     </div>

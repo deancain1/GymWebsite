@@ -51,10 +51,9 @@ namespace Gym.Client.Components.Dialog.UserDialog
 
             if (isAdded)
             {
-                Snackbar.Add($"Applying Membership success. Duration: {member.DurationMonths} month(s).", Severity.Success);
-                member = new MembershipDTO();
-                StateHasChanged();
+                Snackbar.Add("Admin added successfully!", Severity.Success);
                 MudDialog.Close(DialogResult.Ok(true));
+               
             }
             else
             {

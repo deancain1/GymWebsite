@@ -83,3 +83,286 @@ h1:focus {
         box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
     }
 }
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full screen */
+    background-color: whitesmoke; /* light background */
+    position: relative;
+}
+
+
+/* Loader Base */
+.loader {
+    width: 160px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -40px -80px;
+    z-index: 1000;
+}
+
+/* Lightsabers */
+.lightsaber {
+    position: absolute;
+    width: 8px;
+    height: 24px;
+    background-color: #666;
+    border-radius: 2px;
+    bottom: 0;
+}
+
+    .lightsaber.ls-left {
+        left: 0;
+        animation: fightleft 2s ease-in-out infinite 1s;
+    }
+
+    .lightsaber.ls-right {
+        right: 0;
+        animation: fightright 2s ease-in-out infinite 1s;
+    }
+
+    .lightsaber.ls-green:before {
+        animation: showlightgreen 2s ease-in-out infinite 1s;
+    }
+
+    .lightsaber.ls-red:before {
+        animation: showlightred 2s ease-in-out infinite 1s;
+    }
+
+    /* Saber Blade */
+    .lightsaber:before {
+        position: absolute;
+        content: ' ';
+        display: block;
+        width: 4px;
+        height: 50px;
+        left: 2px;
+        top: 2px;
+        background-color: #fff;
+        border-radius: 2px;
+        transform: rotateZ(180deg);
+        transform-origin: center top;
+    }
+
+    /* Saber Hilt Glow */
+    .lightsaber:after {
+        position: absolute;
+        content: ' ';
+        display: block;
+        width: 4px;
+        height: 4px;
+        left: 2px;
+        top: 8px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+/* Particles */
+.ls-particles {
+    position: absolute;
+    left: 84px;
+    top: 20px;
+    width: 2px;
+    height: 10px;
+    background-color: rgba(51, 51, 51, 0);
+}
+
+/* Saber Animations */
+@keyframes showlightgreen {
+    0% {
+        max-height: 0;
+        box-shadow: 0 0 0 0 #87c054;
+    }
+
+    5% {
+        box-shadow: 0 0 4px 2px #87c054;
+    }
+
+    10%, 80% {
+        max-height: 50px;
+    }
+
+    85% {
+        box-shadow: 0 0 4px 2px #87c054;
+    }
+
+    100% {
+        max-height: 0;
+        box-shadow: 0 0 0 0 #87c054;
+    }
+}
+
+@keyframes showlightred {
+    0% {
+        max-height: 0;
+        box-shadow: 0 0 0 0 #f06363;
+    }
+
+    20% {
+        box-shadow: 0 0 4px 2px #f06363;
+    }
+
+    25%, 80% {
+        max-height: 50px;
+    }
+
+    85% {
+        box-shadow: 0 0 4px 2px #f06363;
+    }
+
+    100% {
+        max-height: 0;
+        box-shadow: 0 0 0 0 #f06363;
+    }
+}
+
+@keyframes fightleft {
+    0%, 30% {
+        transform: rotateZ(0deg);
+        left: 0;
+        bottom: 0;
+    }
+
+    40% {
+        transform: rotateZ(45deg);
+        bottom: 4px;
+    }
+
+    45% {
+        transform: rotateZ(65deg);
+        left: 0;
+    }
+
+    65% {
+        transform: rotateZ(410deg);
+        left: 60px;
+        bottom: 20px;
+    }
+
+    95%, 100% {
+        transform: rotateZ(360deg);
+        left: 0;
+        bottom: 0;
+    }
+}
+
+@keyframes fightright {
+    0%, 30% {
+        transform: rotateZ(0deg);
+        right: 0;
+        bottom: 0;
+    }
+
+    45% {
+        transform: rotateZ(-45deg);
+        bottom: 4px;
+    }
+
+    50% {
+        transform: rotateZ(-65deg);
+        right: 0;
+    }
+
+    68% {
+        transform: rotateZ(-410deg);
+        right: 54px;
+        bottom: 26px;
+    }
+
+    95%, 100% {
+        transform: rotateZ(-360deg);
+        right: 0;
+        bottom: 0;
+    }
+}
+
+/* Particle Animations */
+@keyframes particles1 {
+    0%, 63% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(35deg) translateY(0px);
+    }
+
+    64% {
+        background-color: rgba(51, 51, 51,1);
+        transform: rotateZ(35deg) translateY(0px);
+    }
+
+    100% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(35deg) translateY(-60px);
+    }
+}
+
+@keyframes particles2 {
+    0%, 63% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(-65deg) translateY(0px);
+    }
+
+    64% {
+        background-color: rgba(51, 51, 51,1);
+        transform: rotateZ(-65deg) translateY(0px);
+    }
+
+    100% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(-65deg) translateY(-80px);
+    }
+}
+
+@keyframes particles3 {
+    0%, 63% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(-75deg) translateY(0px);
+    }
+
+    64% {
+        background-color: rgba(51, 51, 51,1);
+        transform: rotateZ(-75deg) translateY(0px);
+    }
+
+    100% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(-75deg) translateY(-70px);
+    }
+}
+
+@keyframes particles4 {
+    0%, 63% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(-25deg) translateY(0px);
+    }
+
+    64% {
+        background-color: rgba(51, 51, 51,1);
+        transform: rotateZ(-25deg) translateY(0px);
+    }
+
+    100% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(-25deg) translateY(-60px);
+    }
+}
+
+@keyframes particles5 {
+    0%, 63% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(65deg) translateY(0px);
+    }
+
+    64% {
+        background-color: rgba(51, 51, 51,1);
+        transform: rotateZ(65deg) translateY(0px);
+    }
+
+    100% {
+        background-color: rgba(51, 51, 51,0);
+        transform: rotateZ(65deg) translateY(-70px);
+    }
+}
+

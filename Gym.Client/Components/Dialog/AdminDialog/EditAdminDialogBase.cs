@@ -10,6 +10,7 @@ namespace Gym.Client.Components.Dialog.AdminDialog
     {
         [Inject] IUserService _userService { get; set; } = default!;
         [CascadingParameter] protected IMudDialogInstance MudDialog { get; set; } = default!;
+        [Inject] ISnackbar Snackbar { get; set; } = default!;
         [Parameter] public string? UserID { get; set; }
         public UserDTO admin = new();
 
@@ -38,6 +39,7 @@ namespace Gym.Client.Components.Dialog.AdminDialog
             if (result)
             {
                 MudDialog.Close(DialogResult.Ok(admin));
+                Snackbar.Add("Update Admin successfully.", Severity.Success);
             }
             else
             {

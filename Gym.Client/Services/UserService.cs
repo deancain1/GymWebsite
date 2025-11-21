@@ -42,9 +42,18 @@ namespace Gym.Client.Services
         }
         public async Task<bool> UpdateUserAsync(UserDTO user)
         {
+            Console.WriteLine("=== Sending Update Request ===");
+            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(user));
+
             var response = await _http.PutAsJsonAsync($"api/User/{user.UserId}", user);
+
+            var resp = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("=== Response ===");
+            Console.WriteLine(resp);
+
             return response.IsSuccessStatusCode;
         }
+
         public async Task<bool> DeleteUserAsync(string UserId)
         {
             var response = await _http.DeleteAsync($"api/User/{UserId}");

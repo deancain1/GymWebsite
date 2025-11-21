@@ -1,5 +1,7 @@
 ﻿using Gym.Application.Interfaces;
+using Gym.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +13,15 @@ namespace Gym.Application.Commands.Users
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
     {
         private readonly IUserRepository _userRepository;
-        public UpdateUserCommandHandler(IUserRepository userRepository)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UpdateUserCommandHandler(IUserRepository userRepository, UserManager<ApplicationUser> userManager)
         {
             _userRepository = userRepository;
+            _userManager = userManager;
         }
         public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByIdAsync(request.UserId);
+            var user = await _userManager.FindByIdAsync(request.UserId);
             if (user == null)
                 throw new KeyNotFoundException($"User with {request.UserId}  not found.");
 
@@ -28,7 +32,30 @@ namespace Gym.Application.Commands.Users
             user.Gender = request.Gender;
             user.Address = request.Address;
             user.ProfilePicture = request.ProfilePicture;
+
+            if (!string.IsNullOrEmpty(request.Email) && request.Email != user.Email)
+            {
+                var emailResult = await _userManager.SetEmailAsync(user, request.Email);
+                if (!emailResult.Succeeded)
+                    throw new Exception(string.Join("; ", emailResult.Errors.Select(e => e.Description)));
+
+              
+                user.UserName = request.Email;
+               
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(request.NewPassword))
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var passResult = await _userManager.ResetPasswordAsync(user, token, request.NewPassword!);
+
+                if (!passResult.Succeeded)
+                    throw new Exception(string.Join("; ", passResult.Errors.Select(e => e.Description)));
+            }
+
             await _userRepository.UpdateUserAsync(user);
+
 
         }
     }

@@ -1,3 +1,4 @@
+using FluentValidation;
 using Gym.Application;
 using Gym.Application.Commands.Auth;
 using Gym.Application.Interfaces;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +40,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(RegisterCommand).Assembly);
+});
+builder.Host.UseSerilog((context, configuration) =>
+               configuration.ReadFrom.Configuration(context.Configuration));
+
 
 
 builder.Services.AddAuthentication(options =>
@@ -92,12 +102,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssembly(typeof(RegisterCommand).Assembly);
-});
-builder.Host.UseSerilog((context, configuration) =>
-               configuration.ReadFrom.Configuration(context.Configuration));
 
 
 var apiKey = builder.Configuration["Brevo:ApiKey"];

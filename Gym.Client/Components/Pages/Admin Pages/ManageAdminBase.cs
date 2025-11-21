@@ -15,14 +15,14 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         [CascadingParameter] protected IMudDialogInstance MudDialog { get; set; } = default!;
         protected SortMode _sortMode = SortMode.Multiple;
 
-        protected UserDTO user = new UserDTO();
+        protected UserDTO admin = new UserDTO();
         protected List<UserDTO> admins = new();
         protected HashSet<UserDTO> _selectedAdmin = new();
         protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
         protected override async Task OnInitializedAsync()
         {
-            user.Role = "Admin";
+            admin.Role = "Admin";
             await LoadAdmins();
         }
 
@@ -34,19 +34,33 @@ namespace Gym.Client.Components.Pages.Admin_Pages
        
         protected async Task AddAdmin()
         {
-            if (string.IsNullOrWhiteSpace(user.FullName) ||
-                 string.IsNullOrWhiteSpace(user.PhoneNumber) ||
-                 string.IsNullOrWhiteSpace(user.Email) ||
-                 string.IsNullOrWhiteSpace(user.Gender) ||
-                 string.IsNullOrWhiteSpace(user.Address) ||
-                 string.IsNullOrWhiteSpace(user.Password) ||
-                 string.IsNullOrWhiteSpace(user.Role))
+            if (string.IsNullOrWhiteSpace(admin.FullName) ||
+                 string.IsNullOrWhiteSpace(admin.PhoneNumber) ||
+                 string.IsNullOrWhiteSpace(admin.Email) ||
+                 string.IsNullOrWhiteSpace(admin.Gender) ||
+                 string.IsNullOrWhiteSpace(admin.Address) ||
+                 string.IsNullOrWhiteSpace(admin.Password) ||
+                 string.IsNullOrWhiteSpace(admin.Role))
             {
-                Console.WriteLine("Please fill in all required fields.");
+                Snackbar.Add("Please fill in all required fields.", Severity.Warning);
                 return;
             }
-
-            var isSuccess = await _userService.CreateAccountAsync(user);
+            if (!admin.Email.EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
+            {
+                Snackbar.Add("Email must be a valid @gmail.com address.", Severity.Warning);
+                return;
+            }
+            if (admin.PhoneNumber.Length != 11 || !admin.PhoneNumber.All(char.IsDigit))
+            {
+                Snackbar.Add("Phone number must be exactly 11 digits.", Severity.Warning);
+                return;
+            }
+            if (admin.Password.Length < 8)
+            {
+                Snackbar.Add("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.", Severity.Warning);
+                return;
+            }
+            var isSuccess = await _userService.CreateAccountAsync(admin);
 
             if (isSuccess)
             {
@@ -57,9 +71,10 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             }
             else
             {
-                Console.WriteLine("Failed to add user.");
+                Snackbar.Add("Failed to add Admin!", Severity.Error);
             }
         }
+        
 
         protected async Task HandleProfilePicUpload(InputFileChangeEventArgs e)
         {
@@ -74,7 +89,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 profileImagePreview = $"data:{file.ContentType};base64,{Convert.ToBase64String(buffer)}";
 
 
-                user.ProfilePicture = profileImageBytes;
+                admin.ProfilePicture = profileImageBytes;
             }
         }
         public async Task OpenDialogAsync()

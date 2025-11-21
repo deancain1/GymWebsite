@@ -10,8 +10,14 @@
         public string Gender { get; set; }
         public string Address { get; set; }
         public string Password { get; set; }
+        public string NewPassword { get; set; }
         public byte[] ProfilePicture { get; set; } = null!;
-        public string? ProfileImageBase64 { get; set; }
+   public string? ProfilePictureBase64 =>
+    ProfilePicture != null
+    ? $"data:image/jpeg;base64,{Convert.ToBase64String(ProfilePicture)}"
+    : null;
+
+
         public string Role { get; set; } = string.Empty;
     }
 }

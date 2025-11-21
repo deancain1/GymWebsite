@@ -41,10 +41,24 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                  string.IsNullOrWhiteSpace(user.Password) ||
                  string.IsNullOrWhiteSpace(user.Role))
             {
-                Console.WriteLine("Please fill in all required fields.");
+                Snackbar.Add("Please fill in all required fields.", Severity.Warning);
                 return;
             }
-
+            if (!user.Email.EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
+            {
+                Snackbar.Add("Email must be a valid @gmail.com address.", Severity.Warning);
+                return;
+            }
+            if (user.PhoneNumber.Length != 11 || !user.PhoneNumber.All(char.IsDigit))
+            {
+                Snackbar.Add("Phone number must be exactly 11 digits.", Severity.Warning);
+                return;
+            }
+            if (user.Password.Length < 8)
+            {
+                Snackbar.Add("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.", Severity.Warning);
+                return;
+            }
             var isSuccess = await _userService.CreateAccountAsync(user);
 
             if (isSuccess)
@@ -56,7 +70,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             }
             else
             {
-                Console.WriteLine("Failed to add user.");
+                 Snackbar.Add("Failed to add User!", Severity.Error);
             }
         }
 
@@ -143,5 +157,15 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 Snackbar.Add("Selected user deleted successfully.", Severity.Success);
             }
         }
+        protected string? GetProfileImage(UserDTO user)
+        {
+            if (user?.ProfilePicture != null && user.ProfilePicture.Length > 0)
+            {
+                
+                return $"data:image/png;base64,{Convert.ToBase64String(user.ProfilePicture)}";
+            }
+            return null;
+        }
+
     }
 }

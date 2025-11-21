@@ -14,17 +14,17 @@
             <MudItem xs="12" sm="6">
                 <MudPaper Class="p-4 rounded-lg" Elevation="0">
                     <MudTextField Label="Full Name"
-                                  @bind-Value="user.FullName"
-                                  For="@(() => user.FullName)"
+                                  @bind-Value="admin.FullName"
+                                  For="@(() => admin.FullName)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Person" />
                     <MudTextField Label="Phone Number"
-                                  @bind-Value="user.PhoneNumber"
-                                  For="@(() => user.PhoneNumber)"
+                                  @bind-Value="admin.PhoneNumber"
+                                  For="@(() => admin.PhoneNumber)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Phone" />
                     <MudDatePicker Label="Date of Birth"
-                                   @bind-Date="user.DateOfBirth"
+                                   @bind-Date="admin.DateOfBirth"
                                    DateFormat="MM/dd/yyyy"
                                    MaxDate="@DateTime.Today"
                                    Required="true"
@@ -32,11 +32,11 @@
                                    Adornment="Adornment.Start"
                                    AdornmentIcon="@Icons.Material.Filled.CalendarToday" />
                     <MudTextField Label="Address"
-                                  @bind-Value="user.Address"
-                                  For="@(() => user.Address)"
+                                  @bind-Value="admin.Address"
+                                  For="@(() => admin.Address)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Home" />
-                    <MudRadioGroup T="string" @bind-Value="user.Gender" Row="true">
+                    <MudRadioGroup T="string" @bind-Value="admin.Gender" Row="true">
                         <MudRadio Value=@("Male") Color="Color.Tertiary" Size="Size.Medium">
                             <MudIcon Icon="@Icons.Material.Filled.Male" Class="mr-1" /> Male
                         </MudRadio>
@@ -79,17 +79,17 @@
                         </MudFileUpload>
                     </MudPaper>
                     <MudTextField Label="Email"
-                                  @bind-Value="user.Email"
-                                  For="@(() => user.Email)"
+                                  @bind-Value="admin.Email"
+                                  For="@(() => admin.Email)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Email" />
                     <MudTextField Label="Password"
-                                  @bind-Value="user.Password"
-                                  For="@(() => user.Password)"
+                                  @bind-Value="admin.Password"
+                                  For="@(() => admin.Password)"
                                   InputType="InputType.Password"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Lock" />
-                    <MudTextField T="string" @bind-Value="user.Role" Style="display:none;" />
+                    <MudTextField T="string" @bind-Value="admin.Role" Style="display:none;" />
                 </MudPaper>
             </MudItem>
         </MudGrid>
