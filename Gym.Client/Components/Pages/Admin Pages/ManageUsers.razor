@@ -2,9 +2,9 @@
 @layout AdminLayout
 @inherits ManageUsersBase
 
-<div class="grid grid-cols-1 lg:grid-cols-10 gap-4 mx-5 mt-5">
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-4 mx-5 mt-4">
     <div class=" col-span-7 lg:col-span-3">
-        <MudPaper Class="p-6 shadow-lg w-full md:min-h-[300px] lg:min-h-[820px] flex flex-col items-center rounded-[20px]">
+        <MudPaper Class="p-6 shadow-lg w-full min-h-[450px]  flex flex-col items-center rounded-[20px]">
 
 
             @if (_selectedUser != null && _selectedUser.Any())
@@ -14,7 +14,7 @@
 
                 <MudStack Spacing="3" Class="w-full">
 
-                    <div class="flex justify-center mt-5">
+                    <div class="flex justify-center ">
                         <MudAvatar Size="Size.Large"
                                    Style="width: 150px; height: 150px;">
                             @if (!string.IsNullOrWhiteSpace(user.ProfilePictureBase64))
@@ -38,44 +38,44 @@
                     <MudDivider Class="w-full my-2" />
 
 
-                    <MudGrid Class="w-full mt-4 gap-3">
+                    <MudGrid Class="w-full gap-3">
 
-                        <MudItem xs="12">
+                        <MudItem>
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Person" Class="me-2" />
+                                <MudIcon Icon="@Icons.Material.Filled.Person"  />
                                 <b>Full Name:</b> @(!string.IsNullOrWhiteSpace(user.FullName) ? user.FullName : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem xs="12">
+                        <MudItem>
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Phone" Class="me-2" />
+                                <MudIcon Icon="@Icons.Material.Filled.Phone"  />
                                 <b>Phone:</b> @(!string.IsNullOrWhiteSpace(user.PhoneNumber) ? user.PhoneNumber : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem xs="12">
+                        <MudItem>
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Email" Class="me-2" />
+                                <MudIcon Icon="@Icons.Material.Filled.Email" />
                                 <b>Email:</b> @(!string.IsNullOrWhiteSpace(user.Email) ? user.Email : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem xs="12">
+                        <MudItem >
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Wc" Class="me-2" />
+                                <MudIcon Icon="@Icons.Material.Filled.Wc"/>
                                 <b>Gender:</b> @(!string.IsNullOrWhiteSpace(user.Gender) ? user.Gender : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem xs="12">
+                        <MudItem>
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Home" Class="me-2" />
+                                <MudIcon Icon="@Icons.Material.Filled.Home"  />
                                 <b>Address:</b> @(!string.IsNullOrWhiteSpace(user.Address) ? user.Address : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem xs="12">
+                        <MudItem>
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" Class="me-2" />
                                 <b>Role:</b> @(!string.IsNullOrWhiteSpace(user.Role) ? user.Role : "N/A")
@@ -96,8 +96,8 @@
         </MudPaper>
     </div>
   
-    <div class="col-span-7 " >
-        <MudPaper Class="d-flex flex-wrap flex-row justify-content-between flex-grow-1 gap-4 mb-1 py-2  mud-theme-lighter shadow-lg" Elevation="4">
+    <div class="col-span-7" >
+        <MudPaper Class="d-flex flex-wrap flex-row justify-content-between flex-grow-1 gap-4 mb-1 py-1  mud-theme-lighter shadow-lg" Elevation="4">
             <MudItem xs="12" sm="6" md="5" Class="mx-2 ">
                 <MudTextField T="string"
                               Label="Search"
@@ -125,7 +125,7 @@
             </MudItem>
         </MudPaper>
 
-        <MudPaper Elevation="4" Height="auto" Class="mud-theme-lighter pa-2 pa-lg-2 w-full shadow-lg py-lg-8 mt-2">
+        <MudPaper Elevation="4" Height="auto" Class="mud-theme-lighter pa-2  w-full shadow-lg  mt-2 py-4">
 
             <MudDataGrid T="UserDTO"
                          Items="@users"
@@ -134,6 +134,7 @@
                          MultiSelection="true"
                          Dense="true"
                          Striped="true"
+                         RowsPerPage="5"
                          Class="mt-4">
 
                 <Columns>
@@ -141,7 +142,6 @@
                     <PropertyColumn Property="a => a.FullName" Title="Full Name" />
                     <PropertyColumn Property="a => a.PhoneNumber" Title="Phone Number" />
                     <PropertyColumn Property="a => a.Email" Title="Email" />
-                    <PropertyColumn Property="a => a.Gender" Title="Gender" />
                     <PropertyColumn Property="a => a.Address" Title="Address" />
 
 
