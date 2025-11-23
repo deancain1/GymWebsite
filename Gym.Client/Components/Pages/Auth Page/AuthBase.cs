@@ -24,7 +24,7 @@ namespace Gym.Client.Components.Pages.Auth_Page
         [Parameter]
         [SupplyParameterFromQuery]
         public string? returnUrl { get; set; }
-    
+        public bool _showPassword = false;
         protected override void OnInitialized()
         {
             user.Role = "User";
@@ -127,6 +127,10 @@ namespace Gym.Client.Components.Pages.Auth_Page
                 Navigation.NavigateTo("/");
             }
 
+        }
+        public void TogglePassword()
+        {
+            _showPassword = !_showPassword;
         }
     }
 }

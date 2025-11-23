@@ -51,7 +51,7 @@ namespace Gym.Client.Components.Dialog.UserDialog
 
             if (isAdded)
             {
-                Snackbar.Add("Admin added successfully!", Severity.Success);
+                Snackbar.Add("Membership application submitted successfully”!", Severity.Success);
                 MudDialog.Close(DialogResult.Ok(true));
                
             }

@@ -41,45 +41,43 @@
 
         <MudPaper Class="w-full ">
             <MudDataGrid T="MembershipDTO" Items="@members" SortMode="@_sortMode" MultiSelection="true" Dense="true"
-                         Striped="true"
-                         Hover="true"
-                         @bind-SelectedItems="selectedMembers">
+                          @bind-SelectedItems="selectedMembers">
 
                 <Columns>
                     <SelectColumn T="MembershipDTO" />
 
-                    <PropertyColumn Property="m => m.FullName" Title="Full Name" Sortable="false">
+                    <PropertyColumn Property="m => m.FullName" Title="Full Name">
                         <CellTemplate>
                             <MudIcon Icon="@Icons.Material.Filled.AccountCircle" Style="color: gray;" Size="Size.Small" />
-                            <MudChip Variant="Variant.Text" Color="Color.Dark" Size="Size.Small">@context.Item.FullName</MudChip>
+                            <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.FullName</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 
-                    <PropertyColumn Property="m => m.Email" Title="Email" Sortable="false">
+                    <PropertyColumn Property="m => m.Email" Title="Email" >
                         <CellTemplate>
                             <MudIcon Icon="@Icons.Material.Filled.Email" Style="color: maroon;" Size="Size.Small" />
-                            <MudChip Variant="Variant.Text" Color="Color.Dark" Size="Size.Small">@context.Item.Email</MudChip>
+                            <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.Email</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 
-                    <PropertyColumn Property="m => m.PhoneNumber" Title="Phone Number" Sortable="false">
+                    <PropertyColumn Property="m => m.PhoneNumber" Title="Phone Number" >
                         <CellTemplate>
                             <MudIcon Icon="@Icons.Material.Filled.Phone" Style="color: #0f9d58;" Size="Size.Small" />
-                            <MudChip Variant="Variant.Text" Color="Color.Dark" Size="Size.Small">@context.Item.PhoneNumber</MudChip>
+                            <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.PhoneNumber</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 
-                    <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date" CellClass="text-nowrap" Format="dd/MM/yyyy" Sortable="false">
+                    <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date" CellClass="text-nowrap" Format="dd/MM/yyyy" >
                         <CellTemplate>
                             <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="color: darkslateblue;" Size="Size.Small" />
-                            <MudChip Variant="Variant.Text" Color="Color.Dark" Size="Size.Small">@context.Item.AppliedDate.ToString("dd/MM/yyyy")</MudChip>
+                            <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.AppliedDate.ToString("dd/MM/yyyy")</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 
-                    <PropertyColumn Property="a => a.Status" Title="Status" Sortable="false">
+                    <PropertyColumn Property="a => a.Status" Title="Status" >
                         <CellTemplate>
                             <MudIcon Icon="@Icons.Material.Filled.Info" Style="color: skyblue" Size="Size.Small" />
-                            <MudChip Variant="Variant.Text" Color="Color.Primary" Size="Size.Small">@context.Item.Status</MudChip>
+                            <MudChip Variant="Variant.Text" Size="Size.Small">@context.Item.Status</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 

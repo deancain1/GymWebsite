@@ -83,10 +83,12 @@
                                   AdornmentIcon="@Icons.Material.Filled.Email" />
                     <MudTextField Label="Password"
                                   @bind-Value="admin.Password"
-                                  For="@(() => admin.Password)"
-                                  InputType="InputType.Password"
-                                  Adornment="Adornment.Start"
-                                  AdornmentIcon="@Icons.Material.Filled.Lock" />
+                                  InputType="@(_showPassword? InputType.Text: InputType.Password)"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@(_showPassword? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
+                                  OnAdornmentClick="TogglePassword"
+                                  FullWidth="true" />
                     <MudTextField T="string" @bind-Value="admin.Role" Style="display:none;" />
                 </MudPaper>
             </MudItem>

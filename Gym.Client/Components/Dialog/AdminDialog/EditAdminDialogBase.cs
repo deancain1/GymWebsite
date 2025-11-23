@@ -16,6 +16,13 @@ namespace Gym.Client.Components.Dialog.AdminDialog
 
         public string? profileImagePreview;
         protected byte[]? profileImageBytes;
+        public bool _showPassword = false;
+
+        public void TogglePassword()
+        {
+            _showPassword = !_showPassword;
+        }
+
         protected override async Task OnInitializedAsync()
         {
             admin.Role = "Admin";

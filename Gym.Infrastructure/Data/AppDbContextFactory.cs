@@ -14,8 +14,7 @@ namespace Gym.Infrastructure.Data
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-           
-
+         
             return new AppDbContext(optionsBuilder.Options);
         }
     }

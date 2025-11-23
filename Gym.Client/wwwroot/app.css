@@ -83,286 +83,62 @@ h1:focus {
         box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
     }
 }
-
 .loader-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* full screen */
-    background-color: whitesmoke; /* light background */
+    height: 100vh;
+    background: white; /* maroon-red gradient */
     position: relative;
 }
 
+/* From Uiverse.io by Nawsome */
+/* Normal Usage */
+.spinner:before {
+    transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg);
+    animation: 750ms rotateBefore infinite linear reverse;
+}
 
-/* Loader Base */
-.loader {
-    width: 160px;
-    height: 80px;
+.spinner:after {
+    transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg);
+    animation: 750ms rotateAfter infinite linear;
+}
+
+.spinner:before,
+.spinner:after {
+    box-sizing: border-box;
+    content: '';
+    display: block;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -40px -80px;
-    z-index: 1000;
+    margin-top: -5em;
+    margin-left: -5em;
+    width: 10em;
+    height: 10em;
+    transform-style: preserve-3d;
+    transform-origin: 50%;
+    transform: rotateY(50%);
+    perspective-origin: 50% 50%;
+    perspective: 340px;
+    background-size: 10em 10em;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjI2NnB4IiBoZWlnaHQ9IjI5N3B4IiB2aWV3Qm94PSIwIDAgMjY2IDI5NyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+CiAgICA8dGl0bGU+c3Bpbm5lcjwvdGl0bGU+CiAgICA8ZGVzY3JpcHRpb24+Q3JlYXRlZCB3aXRoIFNrZXRjaCAoaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoKTwvZGVzY3JpcHRpb24+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBza2V0Y2g6dHlwZT0iTVNQYWdlIj4KICAgICAgICA8cGF0aCBkPSJNMTcxLjUwNzgxMywzLjI1MDAwMDM4IEMyMjYuMjA4MTgzLDEyLjg1NzcxMTEgMjk3LjExMjcyMiw3MS40OTEyODIzIDI1MC44OTU1OTksMTA4LjQxMDE1NSBDMjE2LjU4MjAyNCwxMzUuODIwMzEgMTg2LjUyODQwNSw5Ny4wNjI0OTY0IDE1Ni44MDA3NzQsODUuNzczNDM0NiBDMTI3LjA3MzE0Myw3NC40ODQzNzIxIDc2Ljg4ODQ2MzIsODQuMjE2MTQ2MiA2MC4xMjg5MDY1LDEwOC40MTAxNTMgQy0xNS45ODA0Njg1LDIxOC4yODEyNDcgMTQ1LjI3NzM0NCwyOTYuNjY3OTY4IDE0NS4yNzczNDQsMjk2LjY2Nzk2OCBDMTQ1LjI3NzM0NCwyOTYuNjY3OTY4IC0yNS40NDkyMTg3LDI1Ny4yNDIxOTggMy4zOTg0Mzc1LDEwOC40MTAxNTUgQzE2LjMwNzA2NjEsNDEuODExNDE3NCA4NC43Mjc1ODI5LC0xMS45OTIyOTg1IDE3MS41MDc4MTMsMy4yNTAwMDAzOCBaIiBpZD0iUGF0aC0xIiBmaWxsPSIjMDAwMDAwIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICA8L2c+Cjwvc3ZnPg==);
 }
-
-/* Lightsabers */
-.lightsaber {
-    position: absolute;
-    width: 8px;
-    height: 24px;
-    background-color: #666;
-    border-radius: 2px;
-    bottom: 0;
-}
-
-    .lightsaber.ls-left {
-        left: 0;
-        animation: fightleft 2s ease-in-out infinite 1s;
+/* sitNSpin.less */
+@keyframes rotateBefore {
+    from {
+        transform: rotateX(60deg) rotateY(45deg) rotateZ(0deg);
     }
 
-    .lightsaber.ls-right {
-        right: 0;
-        animation: fightright 2s ease-in-out infinite 1s;
-    }
-
-    .lightsaber.ls-green:before {
-        animation: showlightgreen 2s ease-in-out infinite 1s;
-    }
-
-    .lightsaber.ls-red:before {
-        animation: showlightred 2s ease-in-out infinite 1s;
-    }
-
-    /* Saber Blade */
-    .lightsaber:before {
-        position: absolute;
-        content: ' ';
-        display: block;
-        width: 4px;
-        height: 50px;
-        left: 2px;
-        top: 2px;
-        background-color: #fff;
-        border-radius: 2px;
-        transform: rotateZ(180deg);
-        transform-origin: center top;
-    }
-
-    /* Saber Hilt Glow */
-    .lightsaber:after {
-        position: absolute;
-        content: ' ';
-        display: block;
-        width: 4px;
-        height: 4px;
-        left: 2px;
-        top: 8px;
-        background-color: #fff;
-        border-radius: 50%;
-    }
-
-/* Particles */
-.ls-particles {
-    position: absolute;
-    left: 84px;
-    top: 20px;
-    width: 2px;
-    height: 10px;
-    background-color: rgba(51, 51, 51, 0);
-}
-
-/* Saber Animations */
-@keyframes showlightgreen {
-    0% {
-        max-height: 0;
-        box-shadow: 0 0 0 0 #87c054;
-    }
-
-    5% {
-        box-shadow: 0 0 4px 2px #87c054;
-    }
-
-    10%, 80% {
-        max-height: 50px;
-    }
-
-    85% {
-        box-shadow: 0 0 4px 2px #87c054;
-    }
-
-    100% {
-        max-height: 0;
-        box-shadow: 0 0 0 0 #87c054;
+    to {
+        transform: rotateX(60deg) rotateY(45deg) rotateZ(-360deg);
     }
 }
 
-@keyframes showlightred {
-    0% {
-        max-height: 0;
-        box-shadow: 0 0 0 0 #f06363;
+@keyframes rotateAfter {
+    from {
+        transform: rotateX(240deg) rotateY(45deg) rotateZ(0deg);
     }
 
-    20% {
-        box-shadow: 0 0 4px 2px #f06363;
-    }
-
-    25%, 80% {
-        max-height: 50px;
-    }
-
-    85% {
-        box-shadow: 0 0 4px 2px #f06363;
-    }
-
-    100% {
-        max-height: 0;
-        box-shadow: 0 0 0 0 #f06363;
+    to {
+        transform: rotateX(240deg) rotateY(45deg) rotateZ(360deg);
     }
 }
-
-@keyframes fightleft {
-    0%, 30% {
-        transform: rotateZ(0deg);
-        left: 0;
-        bottom: 0;
-    }
-
-    40% {
-        transform: rotateZ(45deg);
-        bottom: 4px;
-    }
-
-    45% {
-        transform: rotateZ(65deg);
-        left: 0;
-    }
-
-    65% {
-        transform: rotateZ(410deg);
-        left: 60px;
-        bottom: 20px;
-    }
-
-    95%, 100% {
-        transform: rotateZ(360deg);
-        left: 0;
-        bottom: 0;
-    }
-}
-
-@keyframes fightright {
-    0%, 30% {
-        transform: rotateZ(0deg);
-        right: 0;
-        bottom: 0;
-    }
-
-    45% {
-        transform: rotateZ(-45deg);
-        bottom: 4px;
-    }
-
-    50% {
-        transform: rotateZ(-65deg);
-        right: 0;
-    }
-
-    68% {
-        transform: rotateZ(-410deg);
-        right: 54px;
-        bottom: 26px;
-    }
-
-    95%, 100% {
-        transform: rotateZ(-360deg);
-        right: 0;
-        bottom: 0;
-    }
-}
-
-/* Particle Animations */
-@keyframes particles1 {
-    0%, 63% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(35deg) translateY(0px);
-    }
-
-    64% {
-        background-color: rgba(51, 51, 51,1);
-        transform: rotateZ(35deg) translateY(0px);
-    }
-
-    100% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(35deg) translateY(-60px);
-    }
-}
-
-@keyframes particles2 {
-    0%, 63% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(-65deg) translateY(0px);
-    }
-
-    64% {
-        background-color: rgba(51, 51, 51,1);
-        transform: rotateZ(-65deg) translateY(0px);
-    }
-
-    100% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(-65deg) translateY(-80px);
-    }
-}
-
-@keyframes particles3 {
-    0%, 63% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(-75deg) translateY(0px);
-    }
-
-    64% {
-        background-color: rgba(51, 51, 51,1);
-        transform: rotateZ(-75deg) translateY(0px);
-    }
-
-    100% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(-75deg) translateY(-70px);
-    }
-}
-
-@keyframes particles4 {
-    0%, 63% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(-25deg) translateY(0px);
-    }
-
-    64% {
-        background-color: rgba(51, 51, 51,1);
-        transform: rotateZ(-25deg) translateY(0px);
-    }
-
-    100% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(-25deg) translateY(-60px);
-    }
-}
-
-@keyframes particles5 {
-    0%, 63% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(65deg) translateY(0px);
-    }
-
-    64% {
-        background-color: rgba(51, 51, 51,1);
-        transform: rotateZ(65deg) translateY(0px);
-    }
-
-    100% {
-        background-color: rgba(51, 51, 51,0);
-        transform: rotateZ(65deg) translateY(-70px);
-    }
-}
-

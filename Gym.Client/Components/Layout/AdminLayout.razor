@@ -6,35 +6,30 @@
 @if (!_initialized)
 {
     <div class="loader-container">
-        <div class="loader">
-            <div class="lightsaber ls-left ls-red"></div>
-            <div class="lightsaber ls-right ls-green"></div>
-            <div class="ls-particles ls-part-1"></div>
-            <div class="ls-particles ls-part-2"></div>
-            <div class="ls-particles ls-part-3"></div>
-            <div class="ls-particles ls-part-4"></div>
-            <div class="ls-particles ls-part-5"></div>
-        </div>
+        <div class="spinner"></div>
     </div>
 
 }
 else{
 @if (isAdmin)
 {
-    <MudThemeProvider />
+    <MudThemeProvider Theme="@(_isDark? _darkTheme : _lightTheme)" IsDarkMode="_isDark" />
     <MudPopoverProvider />
     <MudDialogProvider />
     <MudSnackbarProvider />
     <MudLayout>
 
-            <MudAppBar Elevation="4" Class="bg-[#FCFCFC] text-black ">
+            <MudAppBar Elevation="4" Style="background-color: #7C1219">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" />
-            <MudText Typo="Typo.subtitle2" Style="color: black; font-weight: bold;">
+            <MudText Typo="Typo.subtitle2" Style="font-weight: bold;">
                 Power Gym
             </MudText>
+                <MudIconButton Icon="@(_isDark? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)"
+                               Color="Color.Default"
+                               OnClick="ToggleTheme" />
             <MudSpacer />
             <div class=" d-flex gap-3">
-                <MudButton Variant="Variant.Outlined" Color="Color.Dark" Size="Size.Small" OnClick="@OpenScannerDialog">
+                <MudButton Variant="Variant.Outlined"  Size="Size.Small" OnClick="@OpenScannerDialog">
                     Scan QR
                 </MudButton>
                 <MudButton Variant="Variant.Outlined" Color="Color.Error" Size="Size.Small" OnClick="@Logout">
@@ -43,54 +38,52 @@ else{
             </div>
         </MudAppBar>
 
-            <MudDrawer @bind-Open="_drawerOpen" Elevation="2" Class="bg-white text-black">
+            <MudDrawer @bind-Open="_drawerOpen" Elevation="2" >
                 <div class="p-4 border-b border-black/20">
                     <div class="flex items-center gap-2 mb-1">
-                        <MudIcon Icon="@Icons.Material.Filled.FitnessCenter" Class="text-black" />
-                        <MudText Typo="Typo.h6" Class="font-bold text-black">
+                        <MudIcon Icon="@Icons.Material.Filled.FitnessCenter" />
+                        <MudText Typo="Typo.h6" Class="font-bold">
                             Welcome
                         </MudText>
                     </div>
-                    <MudText Typo="Typo.subtitle2" Class="text-black">
+                    <MudText Typo="Typo.subtitle2">
                         @fullName
                     </MudText>
                 </div>
                 <MudNavMenu>
                     <MudNavLink Href="/adminhome"
                                 Match="NavLinkMatch.All"
-                                Class="flex flex-col gap-1 px-4 py-2 rounded-lg text-black"
-                                ActiveClass="!text-black">
+                                Class="flex flex-col gap-1 px-4 py-2 rounded-lg">
                         <div class="flex items-center gap-3">
-                            <MudIcon Icon="@Icons.Material.Filled.Dashboard" Class="text-black" />
+                            <MudIcon Icon="@Icons.Material.Filled.Dashboard"  />
                             <span class="font-medium">Dashboard</span>
                         </div>
-                        <MudText Typo="Typo.caption" Class="text-gray-600">
+                        <MudText Typo="Typo.caption">
                             Overview of gym statistics
                         </MudText>
                     </MudNavLink>
 
                     <MudNavLink Href="/memberships"
                                 Match="NavLinkMatch.Prefix"
-                                Class="flex flex-col gap-1 px-4 py-2 rounded-lg text-black"
-                                ActiveClass="!text-black">
+                                Class="flex flex-col gap-1 px-4 py-2 rounded-lg">
                         <div class="flex items-center gap-3">
-                            <MudIcon Icon="@Icons.Material.Filled.FitnessCenter" Class="text-black" />
+                            <MudIcon Icon="@Icons.Material.Filled.FitnessCenter"  />
                             <span class="font-medium">Track Membership</span>
                         </div>
-                        <MudText Typo="Typo.caption" Class="text-gray-600">
+                        <MudText Typo="Typo.caption">
                             Tracks membership details
                         </MudText>
                     </MudNavLink>
 
                     <MudNavLink Href="/attendanceAdmin"
                                 Match="NavLinkMatch.Prefix"
-                                Class="flex flex-col gap-1 px-4 py-2 rounded-lg text-black"
+                                Class="flex flex-col gap-1 px-4 py-2 rounded-lg "
                                 ActiveClass="!text-black">
                         <div class="flex items-center gap-3">
-                            <MudIcon Icon="@Icons.Material.Filled.Schedule" Class="text-black" />
+                            <MudIcon Icon="@Icons.Material.Filled.Schedule"  />
                             <span class="font-medium">Attendance History</span>
                         </div>
-                        <MudText Typo="Typo.caption" Class="text-gray-600">
+                        <MudText Typo="Typo.caption">
                             View all attendance records
                         </MudText>
                     </MudNavLink>
@@ -98,30 +91,28 @@ else{
                     <MudNavGroup Title="Manage Users"
                                  Expanded="true"
                                  Icon="@Icons.Material.Filled.People"
-                                 Class="text-black font-semibold px-2 py-1 mt-4">
+                                 Class="font-semibold px-2 py-1 mt-4">
 
                         <MudNavLink Href="/manageusers"
                                     Match="NavLinkMatch.Prefix"
-                                    Class="flex flex-col gap-1 px-4 py-2 rounded-lg text-black"
-                                    ActiveClass="!text-black">
+                                    Class="flex flex-col gap-1 px-4 py-2 rounded-lg">
                             <div class="flex items-center gap-3">
-                                <MudIcon Icon="@Icons.Material.Filled.Person" Class="text-black" />
+                                <MudIcon Icon="@Icons.Material.Filled.Person" />
                                 <span class="font-medium">Users</span>
                             </div>
-                            <MudText Typo="Typo.caption" Class="text-gray-600">
+                            <MudText Typo="Typo.caption">
                                 Manage users accounts
                             </MudText>
                         </MudNavLink>
 
                         <MudNavLink Href="/manageadmins"
                                     Match="NavLinkMatch.Prefix"
-                                    Class="flex flex-col gap-1 px-4 py-2 rounded-lg text-black"
-                         ActiveClass="!text-black">
+                                    Class="flex flex-col gap-1 px-4 py-2 rounded-lg">
                             <div class="flex items-center gap-3">
-                                <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" Class="text-black" />
+                                <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" />
                                 <span class="font-medium">Admins</span>
                             </div>
-                            <MudText Typo="Typo.caption" Class="text-gray-600">
+                            <MudText Typo="Typo.caption">
                                 Manage admins accounts
                             </MudText>
                         </MudNavLink>
@@ -145,7 +136,7 @@ else{
 
 
 @code {
-    [Inject] IDialogService DialogService { get; set; }
+    [Inject] IDialogService DialogService { get; set; } = default!;
 
 
     bool _drawerOpen = true;
@@ -173,5 +164,38 @@ else{
         var options = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
         await DialogService.ShowAsync<ScannerDialog>("QR Scanner", options);
     }
-    
+    private bool _isDark = true;
+
+ 
+    private MudTheme _lightTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = "#000000",
+            Background = "#FFFFFF",
+            Surface = "#F5F5F5",
+            TextPrimary = "#000000",
+            DrawerBackground = "#FFFFFF"
+        }
+    };
+
+  
+    private MudTheme _darkTheme = new MudTheme()
+    {
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#FFFFFF",
+            Background = "#121212",
+            Surface = "#1E1E1E",
+            TextPrimary = "#FFFFFF",
+            DrawerBackground = "#1E1E1E",
+            DrawerText = "#FFFFFF"
+        }
+    };
+
+   
+    void ToggleTheme()
+    {
+        _isDark = !_isDark;
+    }
 }

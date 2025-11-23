@@ -20,6 +20,14 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         protected HashSet<UserDTO> _selectedUser = new();
         protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
+
+        public bool _showPassword = false;
+
+        public void TogglePassword()
+        {
+            _showPassword = !_showPassword;
+        }
+
         private async Task LoadUsers()
         {
             users = await _userService.GetAccountsByRoleAsync("User");

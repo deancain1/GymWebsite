@@ -20,10 +20,11 @@
 
             <MudTextField Label="Password"
                           @bind-Value="loginModel.Password"
-                          InputType="InputType.Password"
+                          InputType="@(_showPassword? InputType.Text: InputType.Password)"
                           Variant="Variant.Outlined"
-                          Adornment="Adornment.Start"
-                          AdornmentIcon="@Icons.Material.Filled.Lock"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@(_showPassword? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
+                          OnAdornmentClick="TogglePassword"
                           FullWidth="true" />
 
             <div class="flex justify-start mb-9">
