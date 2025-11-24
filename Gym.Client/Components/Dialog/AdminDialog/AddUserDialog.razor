@@ -1,7 +1,7 @@
 ﻿@using Gym.Client.Components.Pages.Admin_Pages
 @inherits ManageUsersBase
 
-<MudDialog Class="mud-elevation-4 bg-gray-50">
+<MudDialog Class="mud-elevation-4">
     <TitleContent>
         <MudStack Row="true" Spacing="2">
             <MudIcon Class="mt-1" Icon="@Icons.Material.Filled.PersonAdd" Color="Color.Primary" />
@@ -10,9 +10,9 @@
     </TitleContent>
     <DialogContent>
 
-        <MudGrid Gutter="GutterSize.Small">
+        <MudGrid>
             <MudItem xs="12" sm="6">
-                <MudPaper Class="p-4 rounded-lg" Elevation="0">
+                <MudPaper  Class="p-4 rounded-lg" Elevation="0">
                     <MudTextField Label="Full Name"
                                   @bind-Value="user.FullName"
                                   For="@(() => user.FullName)"

@@ -1,5 +1,5 @@
 ﻿@inherits EditAdminDialogBase
-<MudDialog Class="mud-elevation-4 bg-gray-50">
+<MudDialog Class="mud-elevation-4">
     <TitleContent>
         <MudStack Row="true" Spacing="2">
             <MudIcon Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
@@ -82,7 +82,7 @@
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Email" />
                     <MudTextField Label="Password"
-                                  @bind-Value="admin.Password"
+                                  @bind-Value="admin.NewPassword"
                                   InputType="@(_showPassword? InputType.Text: InputType.Password)"
                                   Variant="Variant.Outlined"
                                   Adornment="Adornment.End"

@@ -29,9 +29,9 @@ else{
                                OnClick="ToggleTheme" />
             <MudSpacer />
             <div class=" d-flex gap-3">
-                <MudButton Variant="Variant.Outlined"  Size="Size.Small" OnClick="@OpenScannerDialog">
-                    Scan QR
-                </MudButton>
+                    <MudButton Class="border-white" Variant="Variant.Outlined"  Size="Size.Small" OnClick="@OpenScannerDialog" >
+                        <MudIcon Icon="@Icons.Material.Filled.QrCode" />
+                    </MudButton>
                 <MudButton Variant="Variant.Outlined" Color="Color.Error" Size="Size.Small" OnClick="@Logout">
                     Logout
                 </MudButton>
@@ -162,7 +162,7 @@ else{
     private async Task OpenScannerDialog()
     {
         var options = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
-        await DialogService.ShowAsync<ScannerDialog>("QR Scanner", options);
+        await DialogService.ShowAsync<ScannerDialog>("", options);
     }
     private bool _isDark = true;
 

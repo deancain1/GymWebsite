@@ -53,7 +53,7 @@ namespace Gym.Client.Components.Dialog.AdminDialog
                 MudDialog.Cancel();
             }
         }
-
+ 
         public void Cancel()
         {
             MudDialog.Cancel();
