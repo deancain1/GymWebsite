@@ -49,7 +49,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 var isUpdated = await _membershipService.UpdateMembershipStatusAsync(member.MemberID, status);
                 if (isUpdated)
                 {
-                    Snackbar.Add($"Member {member.FullName} updated to {status}", Severity.Success);
+                    Snackbar.Add($"{member.FullName} membership application {status}", Severity.Success);
                 }
                 else
                 {

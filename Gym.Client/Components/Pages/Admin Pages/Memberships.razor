@@ -26,11 +26,11 @@
         </MudItem>
 
        <MudItem  md="4" Class="flex flex-row gap-2 ">
-            <MudButton Color="Color.Dark" Size="Size.Small"  Variant="Variant.Filled" Disabled="@(!selectedMembers.Any() || string.IsNullOrEmpty(selectedStatus))"
+            <MudButton Color="Color.Info" Size="Size.Small"  Variant="Variant.Filled" Disabled="@(!selectedMembers.Any() || string.IsNullOrEmpty(selectedStatus))"
                        OnClick="() => UpdateSelectedStatusAsync(selectedStatus)"> Apply Status
         </MudButton>
 
-            <MudButton Color="Color.Primary" Size="Size.Small"  Variant="Variant.Filled" Disabled="@(!selectedMembers.Any())" OnClick="GenerateSelectedPdfsAsync">
+            <MudButton Color="Color.Default" Size="Size.Small"  Variant="Variant.Filled" Disabled="@(!selectedMembers.Any())" OnClick="GenerateSelectedPdfsAsync">
                 Generate Card
             </MudButton>
 
@@ -55,28 +55,28 @@
 
                     <PropertyColumn Property="m => m.Email" Title="Email" >
                         <CellTemplate>
-                            <MudIcon Icon="@Icons.Material.Filled.Email" Style="color: maroon;" Size="Size.Small" />
+                            <MudIcon Icon="@Icons.Material.Filled.Email" Style="color: gray;" Size="Size.Small" />
                             <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.Email</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 
                     <PropertyColumn Property="m => m.PhoneNumber" Title="Phone Number" >
                         <CellTemplate>
-                            <MudIcon Icon="@Icons.Material.Filled.Phone" Style="color: #0f9d58;" Size="Size.Small" />
+                            <MudIcon Icon="@Icons.Material.Filled.Phone" Style="color: gray;" Size="Size.Small" />
                             <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.PhoneNumber</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 
                     <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date" CellClass="text-nowrap" Format="dd/MM/yyyy" >
                         <CellTemplate>
-                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="color: darkslateblue;" Size="Size.Small" />
+                            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="color: gray;" Size="Size.Small" />
                             <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.AppliedDate.ToString("dd/MM/yyyy")</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 
                     <PropertyColumn Property="a => a.Status" Title="Status" >
                         <CellTemplate>
-                            <MudIcon Icon="@Icons.Material.Filled.Info" Style="color: skyblue" Size="Size.Small" />
+                            <MudIcon Icon="@Icons.Material.Filled.Info" Style="color: gray" Size="Size.Small" />
                             <MudChip Variant="Variant.Text" Size="Size.Small">@context.Item.Status</MudChip>
                         </CellTemplate>
                     </PropertyColumn>
