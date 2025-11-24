@@ -25,25 +25,20 @@ namespace Gym.Application.Commands.Users
             if (user == null)
                 throw new KeyNotFoundException($"User with {request.UserId}  not found.");
 
-            user.FullName = request.FullName;
-            user.PhoneNumber = request.PhoneNumber;
-            user.Email = request.Email;
-            user.DateOfBirth = request.DateOfBirth;
-            user.Gender = request.Gender;
-            user.Address = request.Address;
-            user.ProfilePicture = request.ProfilePicture;
+
 
             if (!string.IsNullOrEmpty(request.Email) && request.Email != user.Email)
             {
+                // Update Email
                 var emailResult = await _userManager.SetEmailAsync(user, request.Email);
                 if (!emailResult.Succeeded)
                     throw new Exception(string.Join("; ", emailResult.Errors.Select(e => e.Description)));
 
-              
-                user.UserName = request.Email;
-               
+                // Update UserName to match Email
+                var userNameResult = await _userManager.SetUserNameAsync(user, request.Email);
+                if (!userNameResult.Succeeded)
+                    throw new Exception(string.Join("; ", userNameResult.Errors.Select(e => e.Description)));
             }
-
 
             if (!string.IsNullOrWhiteSpace(request.NewPassword))
             {
@@ -54,6 +49,13 @@ namespace Gym.Application.Commands.Users
                     throw new Exception(string.Join("; ", passResult.Errors.Select(e => e.Description)));
             }
 
+            user.FullName = request.FullName;
+            user.PhoneNumber = request.PhoneNumber;
+            user.Email = request.Email;
+            user.DateOfBirth = request.DateOfBirth;
+            user.Gender = request.Gender;
+            user.Address = request.Address;
+            user.ProfilePicture = request.ProfilePicture;
             await _userRepository.UpdateUserAsync(user);
 
 
