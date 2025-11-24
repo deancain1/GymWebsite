@@ -26,12 +26,12 @@ namespace Gym.Application.Features.ForgotPassword
 
         public async Task<VerifyOTPResult> Handle(VerifyOTPCOmmand request, CancellationToken ct)
         {
-            // Find the user by email
+         
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
                 return new VerifyOTPResult { IsValid = false, Message = "User not found." };
 
-            // Get OTP record
+            
             var otp = await _passwordRepository.GetValidOTPAsync(user.Id, request.OtpCode);
             if (otp == null)
                 return new VerifyOTPResult { IsValid = false, Message = "Invalid or expired OTP." };
