@@ -1,6 +1,5 @@
 ﻿@page "/"
-@inject IDialogService DialogService
-@inject ILocalStorageService LocalStorage
+@inherits HomePageBase
 @layout HomePageLayout
 
 <header class=" bg-gradient-to-r from-[#661F1F] via-[#2B1F1F] to-[#000000] shadow-md  fixed w-full py-5 z-50">
@@ -116,33 +115,3 @@
 
     </div>
 </footer>
-
-@code {
-    private bool arrows = true;
-    private bool enableSwipeGesture = true;
-    private bool autocycle = true;
-    private Transition transition = Transition.Slide;
-    private bool isMenuOpen = false;
-
-    private void ToggleMenu()
-    {
-        isMenuOpen = !isMenuOpen;
-    }
-    private async Task OpenDialogAsync()
-    {
-        var token = await LocalStorage.GetItemAsStringAsync("authToken");
-        var user = await LocalStorage.GetItemAsStringAsync("userRole");
-        var options = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
-
-        if (!string.IsNullOrEmpty(user))
-        {
-
-            await DialogService.ShowAsync<ApplicationFormDialog>("", options);
-        }
-        else
-        {
-
-            await DialogService.ShowAsync<LoginOrRegisterDialog>("", options);
-        }
-    }
-}
