@@ -24,7 +24,21 @@ namespace Gym.Client.Components.Pages.Auth_Page
         [Parameter]
         [SupplyParameterFromQuery]
         public string? returnUrl { get; set; }
+
+        // For Password
         public bool _showPassword = false;
+        public int step = 1;
+
+        public string Email { get; set; }
+        public string OtpCode { get; set; }
+
+        public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+
+        public string verifiedOtp;
+       
+        public bool isResendDisabled = false;
+        public int countdown = 30;
         protected override void OnInitialized()
         {
             user.Role = "User";
@@ -132,5 +146,88 @@ namespace Gym.Client.Components.Pages.Auth_Page
         {
             _showPassword = !_showPassword;
         }
+
+        public async Task SendOtp()
+        {
+            var response = await _http.PostAsJsonAsync("api/auth/forgot-password", new
+            {
+                Email = this.Email
+            });
+
+            if (response.IsSuccessStatusCode)
+            {
+                step = 2;
+                await DisableResendButton();
+
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(error);
+            }
+        }
+
+       
+        public async Task VerifyOtp()
+        {
+            var response = await _http.PostAsJsonAsync("api/auth/verify-otp", new
+            {
+                Email = this.Email,
+                OtpCode = this.OtpCode
+            });
+
+            if (response.IsSuccessStatusCode)
+            {
+                verifiedOtp = OtpCode;
+                step = 3;
+            }
+            else
+            {
+              
+            }
+        }
+
+       
+        public async Task ResetPassword()
+        {
+            if (NewPassword != ConfirmPassword)
+            {
+                return;
+            }
+
+            var response = await _http.PostAsJsonAsync("api/auth/reset-password", new
+            {
+                Email = this.Email,
+                OtpCode = verifiedOtp,
+                NewPassword = this.NewPassword
+
+
+            });
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/login");
+            }
+            else
+            {
+               Snackbar.Add("Failed to reset password", Severity.Error);
+            }
+        }
+        public async Task DisableResendButton()
+        {
+            isResendDisabled = true;
+            countdown = 30;
+            while (countdown > 0)
+            {
+                await Task.Delay(1000);
+                countdown--;
+                await InvokeAsync(StateHasChanged);
+            }
+
+            isResendDisabled = false;
+           
+        }
+
     }
+
 }
