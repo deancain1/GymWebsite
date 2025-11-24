@@ -18,7 +18,7 @@ namespace Gym.Infrastructure
             services.AddHostedService<MembershipExpirationService>();
             services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-         
+            services.AddScoped<IPasswordRepostitory, PasswordRepository>();
 
             return services;
         }

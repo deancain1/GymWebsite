@@ -16,6 +16,7 @@ namespace Gym.Infrastructure.Data
 
         public DbSet<Memberships> Memberships => Set<Memberships>();
         public DbSet<AttendanceLog> Attendance => Set<AttendanceLog>();
+        public DbSet<PasswordResetOTP> PasswordResetOTP => Set<PasswordResetOTP>();
 
     }
 }
