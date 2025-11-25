@@ -1,5 +1,6 @@
 using Blazored.LocalStorage;
 using Gym.Client.Components;
+using Gym.Client.Extensions;
 using Gym.Client.Interfaces;
 using Gym.Client.Security;
 using Gym.Client.Services;
@@ -7,27 +8,17 @@ using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.WebHost.UseUrls("https://192.168.100.118:7120");
+
 builder.Services.AddMudServices();
 builder.Services.AddRazorPages();
 builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddScoped<CustomAuthStateProvider>();
-builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
-
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IMembershipService, MembershipService>();
-builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 builder.Services.AddAuthorizationCore();
 
 
+builder.Services.AddClientServices();
+builder.Services.AddMainApiClient(builder.Configuration);
 
-
-builder.Services.AddHttpClient("MainApi", client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7136");
-});
-builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("MainApi"));
 
 
 builder.Services.AddRazorComponents()
