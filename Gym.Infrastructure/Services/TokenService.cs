@@ -53,7 +53,7 @@ namespace Gym.Infrastructure.Services
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(1),
+                expires: DateTime.UtcNow.AddDays(5),
                 signingCredentials: creds);
 
 
@@ -89,7 +89,7 @@ namespace Gym.Infrastructure.Services
         {
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(5);
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
             await _context.SaveChangesAsync();
             return refreshToken;
         }
