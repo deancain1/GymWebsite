@@ -38,7 +38,7 @@ namespace Gym.Application.Commands.Auth
             var roles = await _userManager.GetRolesAsync(user);
 
             var token = _tokenService.GenerateAccessToken(user, roles);
-            var refreshToken = _tokenService.GenerateRefreshToken();
+            var refreshToken = await _tokenService.GenerateAndSaveRefreshTokenAsync(user);
 
             return new AuthResponseDTO
             {
@@ -47,6 +47,7 @@ namespace Gym.Application.Commands.Auth
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address,
                 Token = token,
+                RefreshToken = refreshToken,
                 UserId = user.Id.ToString(),
                 Role = roles.FirstOrDefault(),
 

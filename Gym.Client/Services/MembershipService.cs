@@ -17,12 +17,10 @@ namespace Gym.Client.Services
         }
         public async Task<bool> CreateMembershipAsync(MembershipDTO membershipDTO)
         {
-            var token = await _localstorage.GetItemAsync<string>("authToken");
-            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer" , token);
-
             var result = await _http.PostAsJsonAsync("api/Membership/create-membership", membershipDTO);
             return result.IsSuccessStatusCode;
         }
+
 
         public async Task<List<MembershipDTO>> GetAllMembershipsAsync()
         {

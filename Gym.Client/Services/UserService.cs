@@ -10,19 +10,7 @@ namespace Gym.Client.Services
         {
             _http = http;
         }
-        public async Task<bool> CreateAccountAsync(UserDTO userDTO)
-        {
-            var result = await _http.PostAsJsonAsync("api/Auth/register", userDTO);
-            if (result.IsSuccessStatusCode)
-            {
-                return true;
-            }
-            return false;
-        }
-        public async Task<HttpResponseMessage> LoginAsync(LoginRequestDTO loginModel)
-        {
-            return await _http.PostAsJsonAsync("api/auth/login", loginModel);
-        }
+   
         public async Task<List<UserDTO>> GetAccountsByRoleAsync(string roleName)
         {
             var result = await _http.GetFromJsonAsync<List<UserDTO>>($"api/User/by-role/{roleName}");
@@ -42,13 +30,12 @@ namespace Gym.Client.Services
         }
         public async Task<bool> UpdateUserAsync(UserDTO user)
         {
-            Console.WriteLine("=== Sending Update Request ===");
+
             Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(user));
 
             var response = await _http.PutAsJsonAsync($"api/User/{user.UserId}", user);
 
             var resp = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("=== Response ===");
             Console.WriteLine(resp);
 
             return response.IsSuccessStatusCode;

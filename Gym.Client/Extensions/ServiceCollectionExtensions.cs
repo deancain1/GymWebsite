@@ -9,11 +9,10 @@ namespace Gym.Client.Extensions
     {
         public static IServiceCollection AddClientServices(this IServiceCollection services)
         {
-          
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<CustomAuthStateProvider>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
-
-         
+            services.AddSingleton<AuthTokenProvider>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMembershipService, MembershipService>();
             services.AddScoped<IAttendanceService, AttendanceService>();
