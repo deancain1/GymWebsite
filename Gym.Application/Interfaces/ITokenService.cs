@@ -11,6 +11,9 @@ namespace Gym.Application.Interfaces
     {
         string GenerateAccessToken(ApplicationUser user,  IList<string> roles);
         string GenerateRefreshToken();
+        Task<string> GenerateAndSaveRefreshTokenAsync(ApplicationUser user);
+        Task<ApplicationUser?> GetUserByRefreshTokenAsync(string refreshToken);
+        Task<bool> ValidateRefreshTokenAsync(ApplicationUser user, string refreshToken);
 
     }
 }

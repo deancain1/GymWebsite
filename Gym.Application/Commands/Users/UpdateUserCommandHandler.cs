@@ -29,12 +29,12 @@ namespace Gym.Application.Commands.Users
 
             if (!string.IsNullOrEmpty(request.Email) && request.Email != user.Email)
             {
-                // Update Email
+                
                 var emailResult = await _userManager.SetEmailAsync(user, request.Email);
                 if (!emailResult.Succeeded)
                     throw new Exception(string.Join("; ", emailResult.Errors.Select(e => e.Description)));
 
-                // Update UserName to match Email
+                
                 var userNameResult = await _userManager.SetUserNameAsync(user, request.Email);
                 if (!userNameResult.Succeeded)
                     throw new Exception(string.Join("; ", userNameResult.Errors.Select(e => e.Description)));

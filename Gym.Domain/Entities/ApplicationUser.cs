@@ -16,5 +16,7 @@ namespace Gym.Domain.Entities
         public string Address { get; set; }
         public byte[]? ProfilePicture { get; set; } 
         public string Role { get; set; } 
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
     }
 }
