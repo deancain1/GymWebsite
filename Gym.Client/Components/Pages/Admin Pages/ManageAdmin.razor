@@ -23,7 +23,8 @@
                                           Width="200"
                                           Height="200"
                                           Elevation="5"
-                                          Class="rounded-xl" />
+                                          Class="rounded-xl" 
+                                          ObjectFit="ObjectFit.Cover" />
                             }
                             else
                             {
@@ -138,10 +139,10 @@
 
                 <Columns>
                     <SelectColumn T="UserDTO" />
-                    <PropertyColumn Property="a => a.FullName" Title="Full Name" />
-                    <PropertyColumn Property="a => a.PhoneNumber" Title="Phone Number" />
-                    <PropertyColumn Property="a => a.Email" Title="Email" />
-                    <PropertyColumn Property="a => a.Address" Title="Address" />
+                    <PropertyColumn Property="a => a.FullName" Title="Full Name" Sortable="true" />
+                    <PropertyColumn Property="a => a.PhoneNumber" Title="Phone Number" Sortable="true" />
+                    <PropertyColumn Property="a => a.Email" Title="Email" Sortable="true" />
+                    <PropertyColumn Property="a => a.Address" Title="Address" Sortable="true" />
 
 
                     <TemplateColumn Title="Actions">

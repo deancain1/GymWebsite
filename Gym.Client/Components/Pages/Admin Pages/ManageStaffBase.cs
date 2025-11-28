@@ -7,7 +7,7 @@ using MudBlazor;
 
 namespace Gym.Client.Components.Pages.Admin_Pages
 {
-    public class ManageAdminBase : ComponentBase
+    public class ManageStaffBase : ComponentBase
     {
         [Inject] protected IAuthService _authService { get; set; } = default!;
         [Inject] protected IUserService _userService { get; set; } = default!;
@@ -16,9 +16,9 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         [CascadingParameter] protected IMudDialogInstance MudDialog { get; set; } = default!;
         protected SortMode _sortMode = SortMode.Multiple;
 
-        protected UserDTO admin = new UserDTO();
-        protected List<UserDTO> admins = new();
-        protected HashSet<UserDTO> _selectedAdmin = new();
+        protected UserDTO staffMember = new UserDTO();
+        protected List<UserDTO> staff = new();
+        protected HashSet<UserDTO> _selectedStaff = new();
         protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
 
@@ -31,59 +31,59 @@ namespace Gym.Client.Components.Pages.Admin_Pages
 
         protected override async Task OnInitializedAsync()
         {
-            admin.Role = "Admin";
-            await LoadAdmins();
+            staffMember.Role = "Staff";
+            await LoadStaff();
         }
 
-        private async Task LoadAdmins()
+        private async Task LoadStaff()
         {
-            admins = await _userService.GetAccountsByRoleAsync("Admin");
+            staff = await _userService.GetAccountsByRoleAsync("Staff");
             StateHasChanged();
         }
-       
-        protected async Task AddAdmin()
+
+        protected async Task AddStaff()
         {
-            if (string.IsNullOrWhiteSpace(admin.FullName) ||
-                 string.IsNullOrWhiteSpace(admin.PhoneNumber) ||
-                 string.IsNullOrWhiteSpace(admin.Email) ||
-                 string.IsNullOrWhiteSpace(admin.Gender) ||
-                 string.IsNullOrWhiteSpace(admin.Address) ||
-                 string.IsNullOrWhiteSpace(admin.Password) ||
-                 string.IsNullOrWhiteSpace(admin.Role))
+            if (string.IsNullOrWhiteSpace(staffMember.FullName) ||
+                 string.IsNullOrWhiteSpace(staffMember.PhoneNumber) ||
+                 string.IsNullOrWhiteSpace(staffMember.Email) ||
+                 string.IsNullOrWhiteSpace(staffMember.Gender) ||
+                 string.IsNullOrWhiteSpace(staffMember.Address) ||
+                 string.IsNullOrWhiteSpace(staffMember.Password) ||
+                 string.IsNullOrWhiteSpace(staffMember.Role))
             {
                 Snackbar.Add("Please fill in all required fields.", Severity.Warning);
                 return;
             }
-            if (!admin.Email.EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
+            if (!staffMember.Email.EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
             {
                 Snackbar.Add("Email must be a valid @gmail.com address.", Severity.Warning);
                 return;
             }
-            if (admin.PhoneNumber.Length != 11 || !admin.PhoneNumber.All(char.IsDigit))
+            if (staffMember.PhoneNumber.Length != 11 || !staffMember.PhoneNumber.All(char.IsDigit))
             {
                 Snackbar.Add("Phone number must be exactly 11 digits.", Severity.Warning);
                 return;
             }
-            if (admin.Password.Length < 8)
+            if (staffMember.Password.Length < 8)
             {
                 Snackbar.Add("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.", Severity.Warning);
                 return;
             }
-            var isSuccess = await _authService.CreateAccountAsync(admin);
+            var isSuccess = await _authService.CreateAccountAsync(staffMember);
 
             if (isSuccess)
             {
-                await LoadAdmins();
-                Snackbar.Add("Admin added successfully!", Severity.Success);
+                await LoadStaff();
+                Snackbar.Add("Staff added successfully!", Severity.Success);
                 MudDialog?.Close(DialogResult.Ok(true));
                 StateHasChanged();
             }
             else
             {
-                Snackbar.Add("Failed to add Admin!", Severity.Error);
+                Snackbar.Add("Failed to add Staff!", Severity.Error);
             }
         }
-        
+
 
         protected async Task HandleProfilePicUpload(InputFileChangeEventArgs e)
         {
@@ -98,7 +98,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 profileImagePreview = $"data:{file.ContentType};base64,{Convert.ToBase64String(buffer)}";
 
 
-                admin.ProfilePicture = profileImageBytes;
+                staffMember.ProfilePicture = profileImageBytes;
             }
         }
         public async Task OpenDialogAsync()
@@ -110,14 +110,14 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 FullWidth = true
             };
 
-            var dialogRef = await DialogService.ShowAsync<AddAdminDIalog>("Add Admin", options);
+            var dialogRef = await DialogService.ShowAsync<AddStaffDialog>("Add Staff", options);
             var result = await dialogRef.Result;
 
-            
+
             if (!result.Canceled)
             {
-                await LoadAdmins();
-              
+                await LoadStaff();
+
             }
         }
 
@@ -132,40 +132,40 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 FullWidth = true
             };
 
-            var dialogReference = await DialogService.ShowAsync<EditAdminDialog>("Edit Admin", parameters, options);
+            var dialogReference = await DialogService.ShowAsync<EditStaffDialog>("Edit Staff", parameters, options);
             var result = await dialogReference.Result;
 
             if (!result.Canceled && result.Data is UserDTO updateAdmin)
             {
-                var index = admins.FindIndex(r => r.UserId == updateAdmin.UserId);
+                var index = staff.FindIndex(r => r.UserId == updateAdmin.UserId);
                 if (index != -1)
                 {
-                    admins[index] = updateAdmin;
+                    staff[index] = updateAdmin;
                     StateHasChanged();
                 }
             }
         }
-    
-        protected async Task DeleteSelectedAdminsAsync()
+
+        protected async Task DeleteSelectedStaffAsync()
         {
-            if (_selectedAdmin == null || !_selectedAdmin.Any())
+            if (_selectedStaff == null || !_selectedStaff.Any())
                 return;
 
             bool confirmed = (bool)await DialogService.ShowMessageBox(
                 "Confirm Delete",
-                $"Are you sure you want to delete {_selectedAdmin.Count} selected admin(s)?",
+                $"Are you sure you want to delete {_selectedStaff.Count} selected staff?",
                 yesText: "Yes", cancelText: "Cancel");
 
             if (confirmed)
             {
-                foreach (var student in _selectedAdmin)
+                foreach (var student in _selectedStaff)
                 {
                     await _userService.DeleteUserAsync(student.UserId);
                 }
 
-                _selectedAdmin.Clear();
-                await LoadAdmins();
-                Snackbar.Add("Selected admins deleted successfully.", Severity.Success);
+                _selectedStaff.Clear();
+                await LoadStaff();
+                Snackbar.Add("Selected staff deleted successfully.", Severity.Success);
             }
         }
     }

@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
     {
         var allowedOrigins = configuration["Cors:AllowedOrigins"]?
                                 .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                             ?? throw new InvalidOperationException("Cors:AllowedOrigins is missing");
+                             ?? throw new InvalidOperationException("Cors:AllowedOrigins is missing ");
 
         services.AddCors(options =>
         {
@@ -74,7 +74,9 @@ public static class ServiceCollectionExtensions
                 ValidIssuer = configuration["Jwt:Issuer"],
                 ValidAudience = configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+                ClockSkew = TimeSpan.Zero
+
             };
         });
 

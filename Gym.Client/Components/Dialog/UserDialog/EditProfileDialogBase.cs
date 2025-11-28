@@ -17,8 +17,8 @@ namespace Gym.Client.Components.Dialog.UserDialog
         [CascadingParameter] protected IMudDialogInstance MudDialog { get; set; } = default!;
 
         public UserDTO user = new();
-        public byte[]? ImageBytes;
-        public string? ProfilePreview;
+        public byte[]? profileImageBytes;
+        public string? profileImagePreview;
 
         protected override async Task OnInitializedAsync()
         {
@@ -36,22 +36,34 @@ namespace Gym.Client.Components.Dialog.UserDialog
             if (user.ProfilePicture != null)
             {
                 var base64 = Convert.ToBase64String(user.ProfilePicture);
-                ProfilePreview = $"data:image/jpeg;base64,{base64}";
+                profileImagePreview = $"data:image/jpeg;base64,{base64}";
             }
         }
 
-        public async Task HandleProfilePicUpload(InputFileChangeEventArgs e)
+     
+        protected async Task HandleProfilePicUpload(InputFileChangeEventArgs e)
         {
-            var file = e.File;
-            var buffer = new byte[file.Size];
-            await file.OpenReadStream(2 * 1024 * 1024).ReadExactlyAsync(buffer);
+            try
+            {
+                var file = e.File;
 
-            ImageBytes = buffer;
-            user.ProfilePicture = buffer;
+                if (file != null)
+                {
+                    var buffer = new byte[file.Size];
+                    await file.OpenReadStream(maxAllowedSize: 2 * 1024 * 1024).ReadExactlyAsync(buffer);
 
-            ProfilePreview = $"data:{file.ContentType};base64,{Convert.ToBase64String(buffer)}";
+                    profileImageBytes = buffer;
+                    profileImagePreview = $"data:{file.ContentType};base64,{Convert.ToBase64String(buffer)}";
+
+                    user.ProfilePicture = profileImageBytes;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error uploading profile picture: {ex.Message}");
+            }
         }
-
         public async Task Save()
         {
             var userInfo = await _userService.UpdateUserAsync(user);

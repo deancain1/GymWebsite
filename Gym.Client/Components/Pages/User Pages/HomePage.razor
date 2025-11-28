@@ -1,7 +1,8 @@
 ﻿@page "/"
+@using Gym.Client.Interfaces
 @inherits HomePageBase
 @layout HomePageLayout
-
+@inject IAuthService AuthService
 <header class=" bg-gradient-to-r from-[#661F1F] via-[#2B1F1F] to-[#000000] shadow-md  fixed w-full py-5 z-50">
    
     <div class="absolute left-6 top-1/2 my-1 -translate-y-1/2 ">

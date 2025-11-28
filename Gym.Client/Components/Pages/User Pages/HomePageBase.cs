@@ -1,13 +1,16 @@
 ﻿using Blazored.LocalStorage;
 using Gym.Client.Components.Dialog.UserDialog;
+using Gym.Client.Security;
+using Gym.Client.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Gym.Client.Components.Pages.User_Pages
 {
     public class HomePageBase : ComponentBase
     {
-
+        [Inject] AuthTokenProvider AuthTokenProvider { get; set; } = default!;
         [Inject] protected ILocalStorageService _localStorageService { get; set; } = default!;
         [Inject] protected IDialogService DialogService { get; set; } = default!;
         public bool arrows = true;
@@ -15,7 +18,7 @@ namespace Gym.Client.Components.Pages.User_Pages
         public bool autocycle = true;
         public Transition transition = Transition.Slide;
         public bool isMenuOpen = false;
-
+     
         public void ToggleMenu()
         {
             isMenuOpen = !isMenuOpen;

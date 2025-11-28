@@ -67,10 +67,16 @@
                         </CellTemplate>
                     </PropertyColumn>
 
-                    <PropertyColumn Property="m => m.AppliedDate" Title="Applied Date" CellClass="text-nowrap" Format="dd/MM/yyyy" >
+                    <PropertyColumn Property="m => m.AppliedDate"
+                                    Title="Applied Date"
+                                    Sortable="true"
+                                    CellClass="text-nowrap"
+                                    Format="dd/MM/yyyy">
                         <CellTemplate>
                             <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Style="color: gray;" Size="Size.Small" />
-                            <MudChip Variant="Variant.Text"  Size="Size.Small">@context.Item.AppliedDate.ToString("dd/MM/yyyy")</MudChip>
+                            <MudChip Variant="Variant.Text" Size="Size.Small">
+                                @context.Item.AppliedDate.ToString("dd/MM/yyyy")
+                            </MudChip>
                         </CellTemplate>
                     </PropertyColumn>
 

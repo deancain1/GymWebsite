@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+
 using Gym.Client.Components;
 using Gym.Client.Extensions;
 using Gym.Client.Interfaces;
@@ -14,6 +15,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddAuthorizationCore();
+
 
 
 builder.Services.AddClientServices();

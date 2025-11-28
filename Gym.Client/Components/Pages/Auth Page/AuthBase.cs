@@ -5,15 +5,16 @@ using Gym.Client.Security;
 using Gym.Client.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.IdentityModel.Tokens.Jwt;
 using static System.Net.WebRequestMethods;
 
 namespace Gym.Client.Components.Pages.Auth_Page
 {
     public class AuthBase : ComponentBase
     {
-
+        [Inject] AuthTokenProvider AuthTokenProvider { get; set; } = default!;
         [Inject] HttpClient _http { get; set; } = default!;
-        [Inject] IUserService _userService { get; set; } = default!;
+        [Inject] IAuthService _authService { get; set; } = default!;
         [Inject] protected ISnackbar Snackbar { get; set; } = default!;
         [Inject] CustomAuthStateProvider AuthStateProvider { get; set; } = default!;
         [Inject] ILocalStorageService _localStorageService { get; set; } = default!;
@@ -28,7 +29,6 @@ namespace Gym.Client.Components.Pages.Auth_Page
         // For Password
         public bool _showPassword = false;
         public int step = 1;
-
         public string Email { get; set; }
         public string OtpCode { get; set; }
 
@@ -74,31 +74,30 @@ namespace Gym.Client.Components.Pages.Auth_Page
                 return;
             }
 
-            var registerAccount = await _userService.CreateAccountAsync(user);
+            var registerAccount = await _authService.CreateAccountAsync(user);
 
             if (registerAccount)
             {
-                Navigation.NavigateTo("/");
+                Navigation.NavigateTo(returnUrl ?? "/", true);
             }
+
             else
             {
                 Snackbar.Add("Registration failed. Please try again.", Severity.Error);
             }
         }
-      
+
 
         public async Task HandleLogin()
         {
-            if (
-                string.IsNullOrWhiteSpace(loginModel.Email) ||
+            if (string.IsNullOrWhiteSpace(loginModel.Email) ||
                 string.IsNullOrWhiteSpace(loginModel.Password))
-
             {
                 Snackbar.Add("Please fill in all required fields.", Severity.Warning);
                 return;
             }
 
-            var response = await _userService.LoginAsync(loginModel);
+            var response = await _authService.LoginAsync(loginModel);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -114,21 +113,28 @@ namespace Gym.Client.Components.Pages.Auth_Page
             }
 
             var token = result.Token;
+            var refreshtoken = result.RefreshToken;
             var role = result.Role;
 
+    
+            var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var expiry = jwtToken.ValidTo; 
+
+
+            AuthTokenProvider.SetTokens(token, refreshtoken, expiry);
+         
             await _localStorageService.SetItemAsStringAsync("authToken", token);
+            await _localStorageService.SetItemAsStringAsync("refreshToken", refreshtoken);
             await _localStorageService.SetItemAsStringAsync("userRole", role);
 
             AuthStateProvider.NotifyUserAuthentication(token);
 
-
-
             if (!string.IsNullOrEmpty(returnUrl))
             {
-
-                Navigation.NavigateTo("/");
+                Navigation.NavigateTo(returnUrl, true);
             }
-            else if (role == "Admin")
+            else if (role == "Admin" || role == "Staff")
             {
                 Navigation.NavigateTo("/adminhome", true);
             }
@@ -140,8 +146,8 @@ namespace Gym.Client.Components.Pages.Auth_Page
             {
                 Navigation.NavigateTo("/");
             }
-
         }
+
         public void TogglePassword()
         {
             _showPassword = !_showPassword;

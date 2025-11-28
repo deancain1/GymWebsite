@@ -9,12 +9,13 @@ namespace Gym.Client.Components.Pages.Admin_Pages
 {
     public class ManageUsersBase : ComponentBase
     {
+        [Inject] protected IAuthService _authService { get; set; } = default!;
         [Inject] protected IUserService _userService { get; set; } = default!;
         [Inject] protected IDialogService DialogService { get; set; } = default!;
         [Inject] protected ISnackbar Snackbar { get; set; } = default!;
         [CascadingParameter] protected IMudDialogInstance MudDialog { get; set; } = default!;
-        protected SortMode _sortMode = SortMode.Multiple;
 
+        protected SortMode _sortMode = SortMode.Multiple;
         protected UserDTO user = new UserDTO();
         protected List<UserDTO> users = new();
         protected HashSet<UserDTO> _selectedUser = new();
@@ -67,7 +68,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 Snackbar.Add("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.", Severity.Warning);
                 return;
             }
-            var isSuccess = await _userService.CreateAccountAsync(user);
+            var isSuccess = await _authService.CreateAccountAsync(user);
 
             if (isSuccess)
             {

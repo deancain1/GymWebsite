@@ -9,7 +9,7 @@
 
 }
 else{
-@if (isAdmin)
+@if (isAdmin || isStaff)
 {
     <MudThemeProvider Theme="@(_isDark? _darkTheme : _lightTheme)" IsDarkMode="_isDark" />
     <MudPopoverProvider />
@@ -102,17 +102,33 @@ else{
                             </MudText>
                         </MudNavLink>
 
-                        <MudNavLink Href="/manageadmins"
-                                    Match="NavLinkMatch.Prefix"
-                                    Class="flex flex-col gap-1 px-4 py-2 rounded-lg">
-                            <div class="flex items-center gap-3">
-                                <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" />
-                                <span class="font-medium">Admins</span>
-                            </div>
-                            <MudText Typo="Typo.caption">
-                                Manage admins accounts
-                            </MudText>
-                        </MudNavLink>
+                        @if (isAdmin)
+                        {
+                            <MudNavLink Href="/managestaff"
+                                        Match="NavLinkMatch.Prefix"
+                                        Class="flex flex-col gap-1 px-4 py-2 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" />
+                                    <span class="font-medium">Staff</span>
+                                </div>
+                                <MudText Typo="Typo.caption">
+                                    Manage staff accounts
+                                </MudText>
+                            </MudNavLink>
+
+                            <MudNavLink Href="/manageadmins"
+                                        Match="NavLinkMatch.Prefix"
+                                        Class="flex flex-col gap-1 px-4 py-2 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" />
+                                    <span class="font-medium">Admins</span>
+                                </div>
+                                <MudText Typo="Typo.caption">
+                                    Manage admin accounts
+                                </MudText>
+                            </MudNavLink>
+                        }
+
 
                     </MudNavGroup>
                 </MudNavMenu>

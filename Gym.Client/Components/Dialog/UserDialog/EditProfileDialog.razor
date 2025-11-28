@@ -6,10 +6,13 @@
             <MudText Typo="Typo.h6" Class="font-bold text-center">Edit Profile</MudText>
 
             <div class="flex flex-col items-center">
-                @if (ProfilePreview != null)
+                @if (profileImagePreview != null)
                 {
-                    <MudAvatar Style="height:100px;width:100px;">
-                        <MudImage src="@ProfilePreview" Width="100" Height="100" Class="rounded-lg" />
+                    <MudAvatar Style="height: 100px; width: 100px;">
+                        <MudImage src="@profileImagePreview"
+                                  Class="rounded-lg w-full h-full object-cover"
+                                  Elevation="25"
+                                  ObjectFit="ObjectFit.Cover" />
                     </MudAvatar>
                 }
                 else
@@ -19,7 +22,7 @@
 
                 <MudFileUpload T="IBrowserFile" OnFilesChanged="HandleProfilePicUpload">
                     <ActivatorContent>
-                        <MudButton Color="Color.Primary" StartIcon="@Icons.Material.Filled.Edit">
+                        <MudButton  StartIcon="@Icons.Material.Filled.Edit">
                             Change Profile
                         </MudButton>
                     </ActivatorContent>
@@ -38,10 +41,11 @@
             <MudTextField Label="Address" @bind-Value="user.Address" />
 
         </MudPaper>
+
     </DialogContent>
 
     <DialogActions>
-        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+        <MudButton  OnClick="Save">Save</MudButton>
         <MudButton Color="Color.Error" OnClick="Cancel">Cancel</MudButton>
     </DialogActions>
 </MudDialog>

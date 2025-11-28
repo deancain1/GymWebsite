@@ -1,9 +1,9 @@
-﻿@inherits EditAdminDialogBase
+﻿@inherits EditStaffDialogBase
 <MudDialog Class="mud-elevation-4">
     <TitleContent>
         <MudStack Row="true" Spacing="2">
             <MudIcon Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
-            <MudText Typo="Typo.h6" Class="font-semibold">Edit Admin</MudText>
+            <MudText Typo="Typo.h6" Class="font-semibold">Edit Staff</MudText>
         </MudStack>
     </TitleContent>
     <DialogContent>
@@ -12,28 +12,28 @@
             <MudItem xs="12" sm="6">
                 <MudPaper Class="p-4 rounded-lg" Elevation="0">
                     <MudTextField Label="Full Name"
-                                  @bind-Value="admin.FullName"
-                                  For="@(() => admin.FullName)"
+                                  @bind-Value="staffMember.FullName"
+                                  For="@(() => staffMember.FullName)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Person" />
                     <MudTextField Label="Phone Number"
-                                  @bind-Value="admin.PhoneNumber"
-                                  For="@(() => admin.PhoneNumber)"
+                                  @bind-Value="staffMember.PhoneNumber"
+                                  For="@(() => staffMember.PhoneNumber)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Phone" />
                     <MudDatePicker Label="Date of Birth"
-                                   @bind-Date="admin.DateOfBirth"
+                                   @bind-Date="staffMember.DateOfBirth"
                                    DateFormat="MM/dd/yyyy"
                                    MaxDate="@DateTime.Today"
                                    HelperText="Select your birth date"
                                    Adornment="Adornment.Start"
                                    AdornmentIcon="@Icons.Material.Filled.CalendarToday" />
                     <MudTextField Label="Address"
-                                  @bind-Value="admin.Address"
-                                  For="@(() => admin.Address)"
+                                  @bind-Value="staffMember.Address"
+                                  For="@(() => staffMember.Address)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Home" />
-                    <MudRadioGroup T="string" @bind-Value="admin.Gender" Row="true">
+                    <MudRadioGroup T="string" @bind-Value="staffMember.Gender" Row="true">
                         <MudRadio Value=@("Male") Color="Color.Tertiary" Size="Size.Medium">
                             <MudIcon Icon="@Icons.Material.Filled.Male" Class="mr-1" /> Male
                         </MudRadio>
@@ -55,8 +55,8 @@
                                               Width="100"
                                               Height="100"
                                               Elevation="25"
-                                              Class="rounded-lg" 
-                                              ObjectFit="ObjectFit.Cover"/>
+                                              Class="rounded-lg"
+                                              ObjectFit="ObjectFit.Cover" />
                                 </MudAvatar>
                             }
                             else
@@ -77,19 +77,19 @@
                         </MudFileUpload>
                     </MudPaper>
                     <MudTextField Label="Email"
-                                  @bind-Value="admin.Email"
-                                  For="@(() => admin.Email)"
+                                  @bind-Value="staffMember.Email"
+                                  For="@(() => staffMember.Email)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Email" />
                     <MudTextField Label="Password"
-                                  @bind-Value="admin.NewPassword"
+                                  @bind-Value="staffMember.NewPassword"
                                   InputType="@(_showPassword? InputType.Text: InputType.Password)"
                                   Variant="Variant.Outlined"
                                   Adornment="Adornment.End"
                                   AdornmentIcon="@(_showPassword? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)"
                                   OnAdornmentClick="TogglePassword"
                                   FullWidth="true" />
-                    <MudTextField T="string" @bind-Value="admin.Role" Style="display:none;" />
+                    <MudTextField T="string" @bind-Value="staffMember.Role" Style="display:none;" />
                 </MudPaper>
             </MudItem>
         </MudGrid>

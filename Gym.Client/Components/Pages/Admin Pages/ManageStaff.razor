@@ -1,15 +1,15 @@
-﻿@page "/manageusers"
+﻿@page "/managestaff"
 @layout AdminLayout
-@inherits ManageUsersBase
+@inherits ManageStaffBase
 
 <div class="grid grid-cols-1 lg:grid-cols-10 gap-4 mx-5 mt-4">
     <div class=" col-span-7 lg:col-span-3">
         <MudPaper Class="p-6 shadow-lg w-full min-h-[450px]  flex flex-col items-center rounded-[20px]">
 
 
-            @if (_selectedUser != null && _selectedUser.Any())
+            @if (_selectedStaff != null && _selectedStaff.Any())
             {
-                var user = _selectedUser.First();
+                var admin = _selectedStaff.First();
 
 
                 <MudStack Spacing="3" Class="w-full">
@@ -17,9 +17,9 @@
                     <div class="flex justify-center ">
                         <MudAvatar Size="Size.Large"
                                    Style="width: 150px; height: 150px;">
-                            @if (!string.IsNullOrWhiteSpace(user.ProfilePictureBase64))
+                            @if (!string.IsNullOrWhiteSpace(admin.ProfilePictureBase64))
                             {
-                                <MudImage Src="@user.ProfilePictureBase64"
+                                <MudImage Src="@admin.ProfilePictureBase64"
                                           Width="200"
                                           Height="200"
                                           Elevation="5"
@@ -28,9 +28,9 @@
                             }
                             else
                             {
-                              
+
                                 <span class="text-6xl font-bold text-white">
-                                    @(!string.IsNullOrWhiteSpace(user.FullName) ? user.FullName.Substring(0, 1).ToUpper() : "?")
+                                    @(!string.IsNullOrWhiteSpace(admin.FullName) ? admin.FullName.Substring(0, 1).ToUpper() : "?")
                                 </span>
                             }
                         </MudAvatar>
@@ -41,45 +41,45 @@
 
                     <MudGrid Class="w-full gap-3">
 
-                        <MudItem>
+                        <MudItem xs="12">
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Person"  />
-                                <b>Full Name:</b> @(!string.IsNullOrWhiteSpace(user.FullName) ? user.FullName : "N/A")
+                                <MudIcon Icon="@Icons.Material.Filled.Person" />
+                                <b>Full Name:</b> @(!string.IsNullOrWhiteSpace(admin.FullName) ? admin.FullName : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem>
+                        <MudItem xs="12">
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Phone"  />
-                                <b>Phone:</b> @(!string.IsNullOrWhiteSpace(user.PhoneNumber) ? user.PhoneNumber : "N/A")
+                                <MudIcon Icon="@Icons.Material.Filled.Phone" />
+                                <b>Phone:</b> @(!string.IsNullOrWhiteSpace(admin.PhoneNumber) ? admin.PhoneNumber : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem>
+                        <MudItem xs="12">
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.Email" />
-                                <b>Email:</b> @(!string.IsNullOrWhiteSpace(user.Email) ? user.Email : "N/A")
+                                <b>Email:</b> @(!string.IsNullOrWhiteSpace(admin.Email) ? admin.Email : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem >
+                        <MudItem xs="12">
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Wc"/>
-                                <b>Gender:</b> @(!string.IsNullOrWhiteSpace(user.Gender) ? user.Gender : "N/A")
+                                <MudIcon Icon="@Icons.Material.Filled.Wc" />
+                                <b>Gender:</b> @(!string.IsNullOrWhiteSpace(admin.Gender) ? admin.Gender : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem>
+                        <MudItem xs="12">
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.Home"  />
-                                <b>Address:</b> @(!string.IsNullOrWhiteSpace(user.Address) ? user.Address : "N/A")
+                                <MudIcon Icon="@Icons.Material.Filled.Home" />
+                                <b>Address:</b> @(!string.IsNullOrWhiteSpace(admin.Address) ? admin.Address : "N/A")
                             </MudText>
                         </MudItem>
 
-                        <MudItem>
+                        <MudItem xs="12">
                             <MudText>
-                                <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" Class="me-2" />
-                                <b>Role:</b> @(!string.IsNullOrWhiteSpace(user.Role) ? user.Role : "N/A")
+                                <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" />
+                                <b>Role:</b> @(!string.IsNullOrWhiteSpace(admin.Role) ? admin.Role : "N/A")
                             </MudText>
                         </MudItem>
 
@@ -90,14 +90,14 @@
             else
             {
                 <MudText Typo="Typo.subtitle2" Class="text-center text-blue-500 font-bold mt-6">
-                    Select user to display information
+                    Select staff member to display information
                 </MudText>
             }
 
         </MudPaper>
     </div>
-  
-    <div class="col-span-7" >
+
+    <div class="col-span-7">
         <MudPaper Class="d-flex flex-wrap flex-row justify-content-between flex-grow-1 gap-4 mb-1 py-1  mud-theme-lighter shadow-lg" Elevation="4">
             <MudItem xs="12" sm="6" md="5" Class="mx-2 ">
                 <MudTextField T="string"
@@ -109,19 +109,19 @@
             <MudItem xs="12" sm="6" md="5" Class="d-flex justify-end gap-2 mx-4 mt-2">
                 <MudButton Class="mb-3"
                            @onclick="OpenDialogAsync"
-                           Variant="Variant.Filled" 
+                           Variant="Variant.Filled"
                            Color="Color.Dark"
                            StartIcon="@Icons.Material.Filled.PersonAdd">
-                    Add User
+                    Add Staff
                 </MudButton>
 
                 <MudButton Class="mb-3"
                            Variant="Variant.Filled"
                            Color="Color.Error"
-                           Disabled="@(!_selectedUser.Any())"
+                           Disabled="@(!_selectedStaff.Any())"
                            StartIcon="@Icons.Material.Filled.Delete"
-                           OnClick="DeleteSelectedUsersAsync">
-                    DELETE (@_selectedUser.Count)
+                           OnClick="DeleteSelectedStaffAsync">
+                    DELETE (@_selectedStaff.Count)
                 </MudButton>
             </MudItem>
         </MudPaper>
@@ -129,9 +129,9 @@
         <MudPaper Elevation="4" Height="auto" Class="mud-theme-lighter pa-2  w-full shadow-lg  mt-2 py-4">
 
             <MudDataGrid T="UserDTO"
-                         Items="@users"
+                         Items="@staff"
                          SortMode="@_sortMode"
-                         @bind-SelectedItems="_selectedUser"
+                         @bind-SelectedItems="_selectedStaff"
                          MultiSelection="true"
                          Dense="true"
                          RowsPerPage="5"
@@ -143,7 +143,6 @@
                     <PropertyColumn Property="a => a.PhoneNumber" Title="Phone Number" Sortable="true" />
                     <PropertyColumn Property="a => a.Email" Title="Email" Sortable="true" />
                     <PropertyColumn Property="a => a.Address" Title="Address" Sortable="true" />
-
 
 
                     <TemplateColumn Title="Actions">
