@@ -10,6 +10,7 @@ namespace Gym.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,13 +19,15 @@ namespace Gym.WebApi.Controllers
         {
             _mediator = mediator;
         }
+
+        [Authorize(Roles = "Admin, Staff")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
             var result = await _mediator.Send(new GetUserByIDQuery { UserId = id });
             return result == null ? NotFound() : Ok(result);
         }
-
+        [Authorize(Roles = "Admin, Staff, User")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] UpdateUserCommand command)
         {
@@ -34,7 +37,7 @@ namespace Gym.WebApi.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
-
+        [Authorize(Roles = "Admin, Staff")]
         [HttpGet("by-role/{roleName}")]
         public async Task<IActionResult> GetUserByRole(string roleName)
         {
@@ -42,7 +45,7 @@ namespace Gym.WebApi.Controllers
             var user = await _mediator.Send(query);
             return Ok(user);
         }
-
+        [Authorize(Roles = "Admin, Staff")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -56,18 +59,21 @@ namespace Gym.WebApi.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+        [Authorize(Roles = "Admin, Staff")]
         [HttpGet("total-user")]
         public async Task<IActionResult> GetTotalUser()
         {
             var result = await _mediator.Send(new GetTotalUserQuery());
             return Ok(result);
         }
+        [Authorize(Roles = "Admin, Staff")]
         [HttpGet("total-admins")]
         public async Task<IActionResult> GetTotalAdmins()
         {
             var result = await _mediator.Send(new GetTotalAdminQuery());
             return Ok(result);
         }
+
         [Authorize(Roles = "User")]
         [HttpGet("user-info")]
         public async Task<IActionResult> GetCurrentUser()

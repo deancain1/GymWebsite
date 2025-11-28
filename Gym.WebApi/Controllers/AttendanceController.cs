@@ -19,6 +19,7 @@ namespace Gym.WebApi.Controllers
             _mediator = mediator;
         }
 
+        [Authorize(Roles = "Admin, Staff")]
         [HttpPost("scan")]
         public async Task<IActionResult> Scan([FromBody] ScanMembershipCommand request)
         {
@@ -36,18 +37,22 @@ namespace Gym.WebApi.Controllers
 
             return Ok(result);
         }
+        [Authorize(Roles = "Admin, Staff")]
         [HttpGet("get-all-attendance")]
         public async Task<ActionResult<List<AttendanceLogDTO>>> GetAllAttendance()
         {
             var result = await _mediator.Send(new GetAllAttendanceQuery());
             return Ok(result);
         }
+
+        [Authorize(Roles = "Admin, Staff")]
         [HttpGet("today")]
         public async Task<IActionResult> GetTodayAttendance()
         {
             var result = await _mediator.Send(new GetCurrentAttendanceQuery());
             return Ok(result);
         }
+
         [Authorize(Roles = "User")]
         [HttpGet("my-attendance")]
         public async Task<IActionResult> GetMyAttendance()

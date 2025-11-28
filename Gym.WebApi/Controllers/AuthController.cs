@@ -19,6 +19,7 @@ namespace Gym.WebApi.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
@@ -30,14 +31,26 @@ namespace Gym.WebApi.Controllers
             return Ok(result);
         }
 
-        [AllowAnonymous]
+      
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponseDTO>> Login(LoginCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
-
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenCommand command)
+        {
+            try
+            {
+                var tokens = await _mediator.Send(command);
+                return Ok(tokens);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized(new { message = "Invalid or expired refresh token" });
+            }
+        }
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordCommand command)
         {
