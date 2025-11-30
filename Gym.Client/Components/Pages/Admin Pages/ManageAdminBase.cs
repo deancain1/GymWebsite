@@ -22,9 +22,9 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
         protected string searchText = "";
-        public bool _showPassword = false;
+        protected bool _showPassword = false;
 
-        public void TogglePassword()
+        protected void TogglePassword()
         {
             _showPassword = !_showPassword;
         }
@@ -106,7 +106,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 admin.ProfilePicture = profileImageBytes;
             }
         }
-        public async Task OpenDialogAsync()
+        protected async Task OpenDialogAsync()
         {
             var options = new DialogOptions
             {
@@ -127,7 +127,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         }
 
         protected void Cancel() => MudDialog?.Cancel();
-        public async Task OpenEditDialog(string UserID)
+        protected async Task OpenEditDialog(string UserID)
         {
             var parameters = new DialogParameters { { "UserID", UserID } };
             var options = new DialogOptions

@@ -8,17 +8,17 @@ namespace Gym.Client.Components.Dialog.AdminDialog
 {
     public class EditAdminDialogBase : ComponentBase
     {
-        [Inject] IUserService _userService { get; set; } = default!;
+        [Inject] protected IUserService _userService { get; set; } = default!;
         [CascadingParameter] protected IMudDialogInstance MudDialog { get; set; } = default!;
-        [Inject] ISnackbar Snackbar { get; set; } = default!;
+        [Inject] protected ISnackbar Snackbar { get; set; } = default!;
         [Parameter] public string? UserID { get; set; }
-        public UserDTO admin = new();
+        protected UserDTO admin = new();
 
-        public string? profileImagePreview;
+        protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
-        public bool _showPassword = false;
+        protected bool _showPassword = false;
 
-        public void TogglePassword()
+        protected void TogglePassword()
         {
             _showPassword = !_showPassword;
         }
@@ -40,7 +40,7 @@ namespace Gym.Client.Components.Dialog.AdminDialog
                 }
             }
         }
-        public async Task Update()
+        protected async Task Update()
         {
             var result = await _userService.UpdateUserAsync(admin);
             if (result)
@@ -53,8 +53,8 @@ namespace Gym.Client.Components.Dialog.AdminDialog
                 MudDialog.Cancel();
             }
         }
- 
-        public void Cancel()
+
+        protected void Cancel()
         {
             MudDialog.Cancel();
         }

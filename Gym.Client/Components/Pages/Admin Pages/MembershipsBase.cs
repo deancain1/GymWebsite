@@ -94,7 +94,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 Snackbar.Add("Selected user deleted successfully.", Severity.Success);
             }
         }
-        public Color GetStatusColor(string status)
+        protected Color GetStatusColor(string status)
         {
             return status switch
             {

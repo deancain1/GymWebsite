@@ -8,17 +8,18 @@ namespace Gym.Client.Components.Pages.Admin_Pages
     public class AttendanceBase : ComponentBase
     {
         [Inject] IAttendanceService _attendanceService { get; set; } = default!;
-        public List<AttendanceLogDTO> Attendances { get; set; } = new();
         [Inject] IJSRuntime JS { get; set; } = default!;
-        public string searchText = "";
-        public DateTime? selectedDate { get; set; } = null;
-        public TimeSpan? selectedTime { get; set; } = null;
+        protected List<AttendanceLogDTO> Attendances { get; set; } = new();
+     
+        protected string searchText = "";
+        protected DateTime? selectedDate { get; set; } = null;
+        protected TimeSpan? selectedTime { get; set; } = null;
 
         protected override async Task OnInitializedAsync()
         {
             await LoadAttendance();
         }
-        private async Task LoadAttendance()
+        protected async Task LoadAttendance()
         {
             Attendances = await _attendanceService.GetAllAttendanceAsync();
         }
@@ -40,7 +41,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             )
         )
         .ToList();
-        public async Task PrintPDF()
+        protected async Task PrintPDF()
         {
             await JS.InvokeVoidAsync("printAttendance");
         }

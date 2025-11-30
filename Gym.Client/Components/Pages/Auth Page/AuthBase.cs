@@ -12,16 +12,16 @@ namespace Gym.Client.Components.Pages.Auth_Page
 {
     public class AuthBase : ComponentBase
     {
-        [Inject] AuthTokenProvider AuthTokenProvider { get; set; } = default!;
-        [Inject] HttpClient _http { get; set; } = default!;
-        [Inject] IAuthService _authService { get; set; } = default!;
+        [Inject] protected AuthTokenProvider AuthTokenProvider { get; set; } = default!;
+        [Inject] protected HttpClient _http { get; set; } = default!;
+        [Inject] protected IAuthService _authService { get; set; } = default!;
         [Inject] protected ISnackbar Snackbar { get; set; } = default!;
-        [Inject] CustomAuthStateProvider AuthStateProvider { get; set; } = default!;
-        [Inject] ILocalStorageService _localStorageService { get; set; } = default!;
-        [Inject] NavigationManager Navigation { get; set; } = default!;
+        [Inject] protected CustomAuthStateProvider AuthStateProvider { get; set; } = default!;
+        [Inject] protected ILocalStorageService _localStorageService { get; set; } = default!;
+        [Inject] protected NavigationManager Navigation { get; set; } = default!;
 
-        public UserDTO user = new UserDTO();
-        public LoginRequestDTO loginModel = new();
+        protected UserDTO user = new UserDTO();
+        protected LoginRequestDTO loginModel = new();
         [Parameter]
         [SupplyParameterFromQuery]
         public string? returnUrl { get; set; }
@@ -29,22 +29,22 @@ namespace Gym.Client.Components.Pages.Auth_Page
         // For Password
         public bool _showPassword = false;
         public int step = 1;
-        public string Email { get; set; }
-        public string OtpCode { get; set; }
+        protected string Email { get; set; } = string.Empty;
+        protected string OtpCode { get; set; } = string.Empty;
 
-        public string NewPassword { get; set; }
-        public string ConfirmPassword { get; set; }
+        protected string NewPassword { get; set; } = string.Empty;
+        protected string ConfirmPassword { get; set; } = string.Empty;
 
-        public string verifiedOtp;
-       
-        public bool isResendDisabled = false;
-        public int countdown = 30;
+        protected string?verifiedOtp;
+
+        protected bool isResendDisabled = false;
+        protected int countdown = 30;
         protected override void OnInitialized()
         {
             user.Role = "User";
         }
 
-        public async Task HandleRegister()
+        protected async Task HandleRegister()
         {
             if (string.IsNullOrWhiteSpace(user.FullName) ||
                 string.IsNullOrWhiteSpace(user.Email) ||
@@ -88,7 +88,7 @@ namespace Gym.Client.Components.Pages.Auth_Page
         }
 
 
-        public async Task HandleLogin()
+        protected async Task HandleLogin()
         {
             if (string.IsNullOrWhiteSpace(loginModel.Email) ||
                 string.IsNullOrWhiteSpace(loginModel.Password))
@@ -148,12 +148,12 @@ namespace Gym.Client.Components.Pages.Auth_Page
             }
         }
 
-        public void TogglePassword()
+        protected void TogglePassword()
         {
             _showPassword = !_showPassword;
         }
 
-        public async Task SendOtp()
+        protected async Task SendOtp()
         {
             var response = await _http.PostAsJsonAsync("api/auth/forgot-password", new
             {
@@ -173,8 +173,8 @@ namespace Gym.Client.Components.Pages.Auth_Page
             }
         }
 
-       
-        public async Task VerifyOtp()
+
+        protected async Task VerifyOtp()
         {
             var response = await _http.PostAsJsonAsync("api/auth/verify-otp", new
             {
@@ -193,8 +193,8 @@ namespace Gym.Client.Components.Pages.Auth_Page
             }
         }
 
-       
-        public async Task ResetPassword()
+
+        protected async Task ResetPassword()
         {
             if (NewPassword != ConfirmPassword)
             {
@@ -219,7 +219,7 @@ namespace Gym.Client.Components.Pages.Auth_Page
                Snackbar.Add("Failed to reset password", Severity.Error);
             }
         }
-        public async Task DisableResendButton()
+        protected async Task DisableResendButton()
         {
             isResendDisabled = true;
             countdown = 30;

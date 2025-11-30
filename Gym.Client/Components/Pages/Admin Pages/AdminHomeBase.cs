@@ -11,32 +11,32 @@ namespace Gym.Client.Components.Pages.Admin_Pages
 {
     public class AdminHomeBase : ComponentBase
     {
-        [Inject] IMembershipService _membershipService { get; set; } = default!;
-        [Inject] IUserService _userService { get; set; } = default!;
-        [Inject] IAttendanceService _attendanceService { get; set; } = default!;
-        [Inject] HttpClient _http { get; set; } = default!;
+        [Inject] protected IMembershipService _membershipService { get; set; } = default!;
+        [Inject] protected IUserService _userService { get; set; } = default!;
+        [Inject] protected IAttendanceService _attendanceService { get; set; } = default!;
+        [Inject] protected  HttpClient _http { get; set; } = default!;
 
-        public int TotalUsers;
-        public int TotalMemberships;
-        public int TotalAdmins;
-        public int Attendees;
+        protected int TotalUsers;
+        protected int TotalMemberships;
+        protected int TotalAdmins;
+        protected int Attendees;
 
-        public int _index = -1;
-        public AxisChartOptions _axisChartOptions = new AxisChartOptions();
-        public List<ChartSeries>? _barSeries;
-        public string[] _xAxisLabels = Array.Empty<string>();
+        protected int _index = -1;
+        protected AxisChartOptions _axisChartOptions = new AxisChartOptions();
+        protected List<ChartSeries>? _barSeries;
+        protected string[] _xAxisLabels = Array.Empty<string>();
 
-        public string[] labels = Array.Empty<string>();
-        public double[] data = Array.Empty<double>();
+        protected string[] labels = Array.Empty<string>();
+        protected double[] data = Array.Empty<double>();
 
 
         protected SortMode _sortMode = SortMode.Multiple;
         protected List<AttendanceLogDTO> attendees = new();
 
-        public DateTime CurrentMonth = DateTime.Today;
-        public DateTime SelectedDate = DateTime.Today;
-        public string[] DayNames = new[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
-        public List<DateTime> CalendarDates = new();
+        protected DateTime CurrentMonth = DateTime.Today;
+        protected DateTime SelectedDate = DateTime.Today;
+        protected string[] DayNames = new[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+        protected List<DateTime> CalendarDates = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -99,7 +99,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 CalendarDates.Add(start.AddDays(i));
             }
         }
-        public string GetDateStyle(DateTime date)
+        protected string GetDateStyle(DateTime date)
         {
             if (date.Month != CurrentMonth.Month)
                 return "color:gray";
@@ -110,11 +110,6 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             return "";
         }
 
-        public void OnDateSelected(DateTime date)
-        {
-            SelectedDate = date;
-
-        }
 
     }
 }

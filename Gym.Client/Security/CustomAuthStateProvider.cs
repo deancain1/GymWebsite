@@ -20,7 +20,7 @@ namespace Gym.Client.Security
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var token = await _localStorage.GetItemAsStringAsync("authToken");
-            Console.WriteLine($"Token from localStorage: '{token}'");
+          
 
             if (string.IsNullOrWhiteSpace(token))
             {
