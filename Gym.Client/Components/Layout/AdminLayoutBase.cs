@@ -62,7 +62,8 @@ namespace Gym.Client.Components.Layout
                 Surface = "#1E1E1E",
                 TextPrimary = "#FFFFFF",
                 DrawerBackground = "#1E1E1E",
-                DrawerText = "#FFFFFF"
+                DrawerText = "#FFFFFF",
+              
             }
         };
 

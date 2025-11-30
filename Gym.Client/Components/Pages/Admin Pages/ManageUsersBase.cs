@@ -21,7 +21,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         protected HashSet<UserDTO> _selectedUser = new();
         protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
-
+        protected string searchText = "";
         public bool _showPassword = false;
 
         public void TogglePassword()
@@ -39,7 +39,12 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             user.Role = "User";
             await LoadUsers();
         }
-
+        protected List<UserDTO> filteredUsers =>
+         string.IsNullOrWhiteSpace(searchText)
+             ? users
+             : users.Where(m =>
+                     (m.FullName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .ToList();
         protected async Task AddUser()
         {
             if (string.IsNullOrWhiteSpace(user.FullName) ||
@@ -125,12 +130,12 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             var parameters = new DialogParameters { { "UserID", UserID } };
             var options = new DialogOptions
             {
-                CloseButton = true,
+                CloseOnEscapeKey = true,
                 MaxWidth = MaxWidth.Medium,
                 FullWidth = true
             };
 
-            var dialogReference = await DialogService.ShowAsync<EditUsersDialog>("Edit User", parameters, options);
+            var dialogReference = await DialogService.ShowAsync<EditUserDialog>("Edit User", parameters, options);
             var result = await dialogReference.Result;
 
             if (!result.Canceled && result.Data is UserDTO updateUser)

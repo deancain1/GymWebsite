@@ -105,7 +105,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 return "color:gray";
 
             if (date.Date == SelectedDate.Date)
-                return "background-color:#2196f3; color:white; border-radius:50%;";
+                return "background-color:#B0332E; color:white; border-radius:50%;";
 
             return "";
         }

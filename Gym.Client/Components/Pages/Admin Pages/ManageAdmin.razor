@@ -9,8 +9,8 @@
 
             @if (_selectedAdmin != null && _selectedAdmin.Any())
             {
-                var admin = _selectedAdmin.First();
 
+                var admin = _selectedAdmin.First();
 
                 <MudStack Spacing="3" Class="w-full">
 
@@ -102,6 +102,8 @@
             <MudItem xs="12" sm="6" md="5" Class="mx-2 ">
                 <MudTextField T="string"
                               Label="Search"
+                              @bind-Value="searchText"
+                              Immediate="true"
                               Variant="Variant.Outlined"
                               AdornmentIcon="@Icons.Material.Filled.Search" />
             </MudItem>
@@ -110,7 +112,7 @@
                 <MudButton Class="mb-3"
                            @onclick="OpenDialogAsync"
                            Variant="Variant.Filled"
-                           Color="Color.Dark"
+                           Color="Color.Warning"
                            StartIcon="@Icons.Material.Filled.PersonAdd">
                     Add Admin
                 </MudButton>
@@ -129,7 +131,7 @@
         <MudPaper Elevation="4" Height="auto" Class="mud-theme-lighter pa-2  w-full shadow-lg  mt-2 py-4">
 
             <MudDataGrid T="UserDTO"
-                         Items="@admins"
+                         Items="@filteredAdmins"
                          SortMode="@_sortMode"
                          @bind-SelectedItems="_selectedAdmin"
                          MultiSelection="true"

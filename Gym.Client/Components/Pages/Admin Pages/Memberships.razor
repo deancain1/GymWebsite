@@ -9,6 +9,8 @@
         <MudItem xs="12" sm="6" md="1" lg="3">
             <MudTextField T="string"
                           Label="Search"
+                          @bind-Value="searchText"
+                          Immediate="true"
                           Variant="Variant.Outlined"
                           Adornment="Adornment.End"
                           AdornmentIcon="@Icons.Material.Filled.Search"
@@ -40,7 +42,7 @@
         </MudItem>
 
         <MudPaper Class="w-full ">
-            <MudDataGrid T="MembershipDTO" Items="@members" SortMode="@_sortMode" MultiSelection="true" Dense="true"
+            <MudDataGrid T="MembershipDTO" Items="@filteredMembers" SortMode="@_sortMode" MultiSelection="true" Dense="true"
                           @bind-SelectedItems="selectedMembers">
 
                 <Columns>
@@ -80,12 +82,16 @@
                         </CellTemplate>
                     </PropertyColumn>
 
-                    <PropertyColumn Property="a => a.Status" Title="Status" >
-                        <CellTemplate>
-                            <MudIcon Icon="@Icons.Material.Filled.Info" Style="color: gray" Size="Size.Small" />
-                            <MudChip Variant="Variant.Text" Size="Size.Small">@context.Item.Status</MudChip>
+                    <PropertyColumn Property="a => a.Status" Title="Status">
+                        <CellTemplate Context="context">
+                            <MudChip Variant="Variant.Filled"
+                                     Size="Size.Small"
+                                     Color="@GetStatusColor(context.Item.Status)">
+                                @context.Item.Status
+                            </MudChip>
                         </CellTemplate>
                     </PropertyColumn>
+
 
                     <TemplateColumn Title="QR Code">
                         <CellTemplate Context="context">

@@ -21,7 +21,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         protected HashSet<UserDTO> _selectedAdmin = new();
         protected string? profileImagePreview;
         protected byte[]? profileImageBytes;
-
+        protected string searchText = "";
         public bool _showPassword = false;
 
         public void TogglePassword()
@@ -40,7 +40,12 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             admins = await _userService.GetAccountsByRoleAsync("Admin");
             StateHasChanged();
         }
-       
+        protected List<UserDTO> filteredAdmins =>
+            string.IsNullOrWhiteSpace(searchText)
+                ? admins
+                : admins.Where(m =>
+                        (m.FullName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false))
+                       .ToList();
         protected async Task AddAdmin()
         {
             if (string.IsNullOrWhiteSpace(admin.FullName) ||
@@ -127,7 +132,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
             var parameters = new DialogParameters { { "UserID", UserID } };
             var options = new DialogOptions
             {
-                CloseButton = true,
+                CloseOnEscapeKey = true,
                 MaxWidth = MaxWidth.Medium,
                 FullWidth = true
             };

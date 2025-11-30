@@ -9,7 +9,7 @@
 
             @if (_selectedStaff != null && _selectedStaff.Any())
             {
-                var admin = _selectedStaff.First();
+                var staff = _selectedStaff.First();
 
 
                 <MudStack Spacing="3" Class="w-full">
@@ -17,9 +17,9 @@
                     <div class="flex justify-center ">
                         <MudAvatar Size="Size.Large"
                                    Style="width: 150px; height: 150px;">
-                            @if (!string.IsNullOrWhiteSpace(admin.ProfilePictureBase64))
+                            @if (!string.IsNullOrWhiteSpace(staff.ProfilePictureBase64))
                             {
-                                <MudImage Src="@admin.ProfilePictureBase64"
+                                <MudImage Src="@staff.ProfilePictureBase64"
                                           Width="200"
                                           Height="200"
                                           Elevation="5"
@@ -30,7 +30,7 @@
                             {
 
                                 <span class="text-6xl font-bold text-white">
-                                    @(!string.IsNullOrWhiteSpace(admin.FullName) ? admin.FullName.Substring(0, 1).ToUpper() : "?")
+                                    @(!string.IsNullOrWhiteSpace(staff.FullName) ? staff.FullName.Substring(0, 1).ToUpper() : "?")
                                 </span>
                             }
                         </MudAvatar>
@@ -44,42 +44,42 @@
                         <MudItem xs="12">
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.Person" />
-                                <b>Full Name:</b> @(!string.IsNullOrWhiteSpace(admin.FullName) ? admin.FullName : "N/A")
+                                <b>Full Name:</b> @(!string.IsNullOrWhiteSpace(staff.FullName) ? staff.FullName : "N/A")
                             </MudText>
                         </MudItem>
 
                         <MudItem xs="12">
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.Phone" />
-                                <b>Phone:</b> @(!string.IsNullOrWhiteSpace(admin.PhoneNumber) ? admin.PhoneNumber : "N/A")
+                                <b>Phone:</b> @(!string.IsNullOrWhiteSpace(staff.PhoneNumber) ? staff.PhoneNumber : "N/A")
                             </MudText>
                         </MudItem>
 
                         <MudItem xs="12">
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.Email" />
-                                <b>Email:</b> @(!string.IsNullOrWhiteSpace(admin.Email) ? admin.Email : "N/A")
+                                <b>Email:</b> @(!string.IsNullOrWhiteSpace(staff.Email) ? staff.Email : "N/A")
                             </MudText>
                         </MudItem>
 
                         <MudItem xs="12">
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.Wc" />
-                                <b>Gender:</b> @(!string.IsNullOrWhiteSpace(admin.Gender) ? admin.Gender : "N/A")
+                                <b>Gender:</b> @(!string.IsNullOrWhiteSpace(staff.Gender) ? staff.Gender : "N/A")
                             </MudText>
                         </MudItem>
 
                         <MudItem xs="12">
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.Home" />
-                                <b>Address:</b> @(!string.IsNullOrWhiteSpace(admin.Address) ? admin.Address : "N/A")
+                                <b>Address:</b> @(!string.IsNullOrWhiteSpace(staff.Address) ? staff.Address : "N/A")
                             </MudText>
                         </MudItem>
 
                         <MudItem xs="12">
                             <MudText>
                                 <MudIcon Icon="@Icons.Material.Filled.AdminPanelSettings" />
-                                <b>Role:</b> @(!string.IsNullOrWhiteSpace(admin.Role) ? admin.Role : "N/A")
+                                <b>Role:</b> @(!string.IsNullOrWhiteSpace(staff.Role) ? staff.Role : "N/A")
                             </MudText>
                         </MudItem>
 
@@ -101,6 +101,8 @@
         <MudPaper Class="d-flex flex-wrap flex-row justify-content-between flex-grow-1 gap-4 mb-1 py-1  mud-theme-lighter shadow-lg" Elevation="4">
             <MudItem xs="12" sm="6" md="5" Class="mx-2 ">
                 <MudTextField T="string"
+                              @bind-Value="searchText"
+                              Immediate="true"
                               Label="Search"
                               Variant="Variant.Outlined"
                               AdornmentIcon="@Icons.Material.Filled.Search" />
@@ -110,7 +112,7 @@
                 <MudButton Class="mb-3"
                            @onclick="OpenDialogAsync"
                            Variant="Variant.Filled"
-                           Color="Color.Dark"
+                           Color="Color.Warning"
                            StartIcon="@Icons.Material.Filled.PersonAdd">
                     Add Staff
                 </MudButton>
@@ -129,7 +131,7 @@
         <MudPaper Elevation="4" Height="auto" Class="mud-theme-lighter pa-2  w-full shadow-lg  mt-2 py-4">
 
             <MudDataGrid T="UserDTO"
-                         Items="@staff"
+                         Items="@filteredStaff"
                          SortMode="@_sortMode"
                          @bind-SelectedItems="_selectedStaff"
                          MultiSelection="true"

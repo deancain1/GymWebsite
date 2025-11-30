@@ -10,7 +10,7 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         [Inject] IAttendanceService _attendanceService { get; set; } = default!;
         public List<AttendanceLogDTO> Attendances { get; set; } = new();
         [Inject] IJSRuntime JS { get; set; } = default!;
-        public string searchText { get; set; } = "";
+        public string searchText = "";
         public DateTime? selectedDate { get; set; } = null;
         public TimeSpan? selectedTime { get; set; } = null;
 

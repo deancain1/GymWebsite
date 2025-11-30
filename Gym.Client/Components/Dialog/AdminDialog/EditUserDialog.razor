@@ -2,7 +2,7 @@
 <MudDialog Class="mud-elevation-4">
     <TitleContent>
         <MudStack Row="true" Spacing="2">
-            <MudIcon Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
+            <MudIcon Icon="@Icons.Material.Filled.Edit" />
             <MudText Typo="Typo.h6" Class="font-semibold">Edit User</MudText>
         </MudStack>
     </TitleContent>
@@ -11,11 +11,51 @@
         <MudGrid>
             <MudItem xs="12" sm="6">
                 <MudPaper Class="p-4 rounded-lg" Elevation="0">
+                    <MudPaper Class=" d-flex flex-column justify-center align-center" Elevation="0">
+                        <div style=" height: 120px; width: 120px; display: flex; align-items: center; justify-content: center;">
+                            @if (!string.IsNullOrEmpty(profileImagePreview))
+                            {
+                                <MudAvatar Style="height: 100px; width: 100px;">
+                                    <MudImage src="@profileImagePreview"
+                                              Width="100"
+                                              Height="100"
+                                              Elevation="25"
+                                              Class="rounded-lg"
+                                              ObjectFit="ObjectFit.Cover" />
+                                </MudAvatar>
+                            }
+                            else
+                            {
+                                <MudIcon Icon="@Icons.Material.Filled.AccountCircle"
+                                         Style="font-size: 100px; color: #9ca3af;" />
+                            }
+                        </div>
+
+                        <MudFileUpload T="IBrowserFile" OnFilesChanged="HandleProfilePicUpload" Class="mt-2">
+                            <ActivatorContent>
+                                <MudButton Variant="Variant.Filled"
+                                           Color="Color.Dark"
+                                           StartIcon="@Icons.Material.Filled.CloudUpload">
+                                    Browse
+                                </MudButton>
+                            </ActivatorContent>
+                        </MudFileUpload>
+                    </MudPaper>
                     <MudTextField Label="Full Name"
                                   @bind-Value="user.FullName"
                                   For="@(() => user.FullName)"
                                   Adornment="Adornment.Start"
                                   AdornmentIcon="@Icons.Material.Filled.Person" />
+                    <MudTextField Label="Email"
+                                  @bind-Value="user.Email"
+                                  For="@(() => user.Email)"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Email" />
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="p-4 rounded-lg" Elevation="0">
                     <MudTextField Label="Phone Number"
                                   @bind-Value="user.PhoneNumber"
                                   For="@(() => user.PhoneNumber)"
@@ -41,46 +81,7 @@
                             <MudIcon Icon="@Icons.Material.Filled.Female" Class="mr-1" /> Female
                         </MudRadio>
                     </MudRadioGroup>
-                </MudPaper>
-            </MudItem>
 
-            <MudItem xs="12" sm="6">
-                <MudPaper Class="p-4 rounded-lg" Elevation="0">
-                    <MudPaper Class=" d-flex flex-column justify-center align-center" Elevation="0">
-                        <div style=" height: 120px; width: 120px; display: flex; align-items: center; justify-content: center;">
-                            @if (!string.IsNullOrEmpty(profileImagePreview))
-                            {
-                                <MudAvatar Style="height: 100px; width: 100px;">
-                                    <MudImage src="@profileImagePreview"
-                                              Width="100"
-                                              Height="100"
-                                              Elevation="25"
-                                              Class="rounded-lg"  
-                                              ObjectFit="ObjectFit.Cover"/>
-                                </MudAvatar>
-                            }
-                            else
-                            {
-                                <MudIcon Icon="@Icons.Material.Filled.AccountCircle"
-                                         Style="font-size: 100px; color: #9ca3af;" />
-                            }
-                        </div>
-
-                        <MudFileUpload T="IBrowserFile" OnFilesChanged="HandleProfilePicUpload" Class="mt-2">
-                            <ActivatorContent>
-                                <MudButton Variant="Variant.Filled"
-                                           Color="Color.Dark"
-                                           StartIcon="@Icons.Material.Filled.CloudUpload">
-                                    Browse
-                                </MudButton>
-                            </ActivatorContent>
-                        </MudFileUpload>
-                    </MudPaper>
-                    <MudTextField Label="Email"
-                                  @bind-Value="user.Email"
-                                  For="@(() => user.Email)"
-                                  Adornment="Adornment.Start"
-                                  AdornmentIcon="@Icons.Material.Filled.Email" />
                     <MudTextField Label="Password"
                                   @bind-Value="user.NewPassword"
                                   InputType="@(_showPassword? InputType.Text: InputType.Password)"

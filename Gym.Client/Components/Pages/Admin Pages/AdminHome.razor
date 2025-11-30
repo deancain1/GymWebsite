@@ -58,7 +58,7 @@
 <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-2 mx-3">
     <MudPaper  Class="mt-6 p-4" Elevation="2">
         <MudText Typo="Typo.h6" Class="flex justify-content-center gap-2">
-            <MudIcon Class="mt-1" Icon="@Icons.Material.Filled.BarChart" />
+            <MudIcon Style="color: red" Class="mt-1" Icon="@Icons.Material.Filled.BarChart" />
             Membership Chart
         </MudText>
         @if (_barSeries != null && _xAxisLabels.Length > 0)
@@ -81,7 +81,7 @@
       <MudPaper>
             <MudText Typo="Typo.h6" Class="flex justify-content-center mt-2" >
                 Attendance Today
-                <MudIcon Class="mt-1" Icon="@Icons.Material.Filled.EventAvailable"/>
+                <MudIcon Style="color: #27F5BE " Class="mt-1 ml-1" Icon="@Icons.Material.Filled.EventAvailable" />
             </MudText>
         <MudDataGrid T="AttendanceLogDTO" Items="@attendees" SortMode="@_sortMode">
             <Columns>
@@ -99,7 +99,7 @@
     <MudPaper Class="mt-6 flex flex-col items-center py-5 gap-2 w-full ">
 
         <MudText Typo="Typo.h6" Class="mt-2">
-            <MudIcon Class="mb-1"  Icon="@Icons.Material.Filled.PieChart" />
+            <MudIcon Class="mb-1" Style="color: slateblue" Icon="@Icons.Material.Filled.PieChart" />
             Memberships Plan Distribution</MudText>
         <MudChart ChartType="ChartType.Pie"
                   InputData="@data"

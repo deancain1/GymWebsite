@@ -20,17 +20,15 @@ namespace Gym.Client.Components.Pages.Admin_Pages
         protected SortMode _sortMode = SortMode.Multiple;
         protected HashSet<MembershipDTO> selectedMembers = new();
 
-        protected string searchText = string.Empty;
+        protected string searchText = "";
         protected string selectedStatus = string.Empty;
-
+        
         protected List<MembershipDTO> filteredMembers =>
             string.IsNullOrWhiteSpace(searchText)
                 ? members
                 : members.Where(m =>
-                        (m.FullName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                        (m.Email?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                        (m.PhoneNumber?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false))
-                      .ToList();
+                        (m.FullName?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false))
+                       .ToList();
 
         protected override async Task OnInitializedAsync()
         {
@@ -96,5 +94,16 @@ namespace Gym.Client.Components.Pages.Admin_Pages
                 Snackbar.Add("Selected user deleted successfully.", Severity.Success);
             }
         }
+        public Color GetStatusColor(string status)
+        {
+            return status switch
+            {
+                "Accepted" => Color.Success,
+                "Pending" => Color.Warning,
+                "Rejected" => Color.Error,
+                _ => Color.Default
+            };
+        }
+
     }
 }
